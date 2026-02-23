@@ -1,0 +1,130 @@
+name: spex
+description: "A new Flutter project."
+# The following line prevents the package from being accidentally published to
+# pub.dev using `flutter pub publish`. This is preferred for private packages.
+publish_to: 'none' # Remove this line if you wish to publish to pub.dev
+
+version: 1.0.0+1
+
+environment:
+  sdk: ^3.10.1
+
+dependencies:
+  flutter:
+    sdk: flutter
+  flutter_screenutil:
+  flutter_bloc:
+  flutter_native_splash:
+  flutter_launcher_icons:
+  dartz:
+  json_annotation:
+  go_router:
+  easy_localization:
+  carousel_slider:
+  hive:
+  hive_flutter:
+  get_it:
+  flutter_svg: ^2.2.3
+  device_preview:
+#  flutter_credit_card:
+  permission_handler:
+  dio:
+  shimmer:
+  equatable:
+  bloc:
+  intl:
+#  local_auth:
+#  geocoding:
+#  geolocator:
+#  flutter_secure_storage: ^9.2.4
+#  signalr_core:
+  intl_phone_field:
+#  awesome_notifications:
+#  awesome_notifications_core:
+#  workmanager:
+#  flutter_background_service: ^5.1.0
+#  flutter_html: ^3.0.0
+#  google_maps_flutter: ^2.13.1
+#  share_plus:
+#  image_picker:
+  flutter_native_contact_picker:
+  cached_network_image: ^3.4.1
+#  firebase_core:
+#  firebase_messaging:
+#  flutter_map:
+#  latlong2:
+
+
+cupertino_icons: ^1.0.8
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  hive_generator:
+  json_serializable:
+  build_runner:
+  flutter_lints:
+
+
+
+#flutter_launcher_icons:
+#  android: true
+#  ios: true
+#  image_path:  "assets/images/app-icon.png"
+#  android_adaptive_icon_background: null
+#  min_sdk_android: 21
+
+
+flutter:
+
+  # The following line ensures that the Material Icons font is
+  # included with your application, so that you can use the icons in
+  # the material Icons class.
+  uses-material-design: true
+
+  # To add assets to your application, add an assets section, like this:
+  assets:
+    - assets/images/
+    - assets/fonts/
+    - assets/translations/
+    - assets/notification/
+  # An image asset can refer to one or more resolution-specific "variants", see
+  # https://flutter.dev/to/resolution-aware-images
+
+  # For details regarding adding assets from package dependencies, see
+  # https://flutter.dev/to/asset-from-package
+
+  # To add custom fonts to your application, add a fonts section here,
+  # in this "flutter" section. Each entry in this list should have a
+  # "family" key with the font family name, and a "fonts" key with a
+  # list giving the asset and other descriptors for the font. For
+  # example:
+  fonts:
+    - family: LexendDeca
+      fonts:
+        - asset: assets/fonts/LexendDeca-Thin.ttf
+          weight: 100
+        - asset: assets/fonts/LexendDeca-ExtraLight.ttf
+          weight: 200
+        - asset: assets/fonts/LexendDeca-Light.ttf
+          weight: 300
+        - asset: assets/fonts/LexendDeca-Regular.ttf
+          weight: 400
+        - asset: assets/fonts/LexendDeca-Medium.ttf
+          weight: 500
+        - asset: assets/fonts/LexendDeca-SemiBold.ttf
+          weight: 600
+        - asset: assets/fonts/LexendDeca-Bold.ttf
+          weight: 700
+        - asset: assets/fonts/LexendDeca-ExtraBold.ttf
+          weight: 800
+        - asset: assets/fonts/LexendDeca-Black.ttf
+          weight: 900
+  #   - family: Trajan Pro
+  #     fonts:
+  #       - asset: assets/fonts/LamaSans-SemiBold.ttf
+  #       - asset: fonts/TrajanPro_Bold.ttf
+  #         weight: 700
+  #
+  # For details regarding fonts from package dependencies,
+  # see https://flutter.dev/to/font-from-package

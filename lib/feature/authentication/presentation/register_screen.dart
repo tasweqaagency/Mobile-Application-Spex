@@ -7,46 +7,53 @@ import 'package:spex/core/widgets/app_button.dart';
 import 'package:spex/core/widgets/app_text_form_field.dart';
 import 'package:spex/core/widgets/snakbar.dart';
 import 'package:spex/core/widgets/text_in_app_widget.dart';
-import 'package:spex/feature/authentication/view_model/login_cubit/login_cubit.dart';
-import 'package:spex/feature/authentication/view_model/login_cubit/login_state.dart';
+import 'package:spex/feature/authentication/view_model/register_cubit/register_cubit.dart';
+import 'package:spex/feature/authentication/view_model/register_cubit/register_state.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:spex/generated/locale_keys.g.dart';
 
-class LoginScreen extends StatefulWidget {
-  const LoginScreen({super.key});
+class RegisterScreen extends StatefulWidget {
+  const RegisterScreen({super.key});
 
   @override
-  State<LoginScreen> createState() => _LoginScreenState();
+  State<RegisterScreen> createState() => _RegisterScreenState();
 }
 
-class _LoginScreenState extends State<LoginScreen> {
+class _RegisterScreenState extends State<RegisterScreen> {
   late GlobalKey<FormState> _formKey;
+  late TextEditingController _nameController;
   late TextEditingController _phoneController;
   late TextEditingController _passwordController;
+  late TextEditingController _confirmPasswordController;
 
   @override
   void initState() {
     super.initState();
     _formKey = GlobalKey<FormState>();
+    _nameController = TextEditingController();
     _phoneController = TextEditingController();
     _passwordController = TextEditingController();
+    _confirmPasswordController = TextEditingController();
   }
 
   @override
   void dispose() {
+    _nameController.dispose();
     _phoneController.dispose();
     _passwordController.dispose();
+    _confirmPasswordController.dispose();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    return BlocListener<LoginCubit, LoginState>(
+    return BlocListener<RegisterCubit, RegisterState>(
       listener: (context, state) {
-        if (state is LoginErrorState) {
+        if (state is RegisterErrorState) {
           AppSnackBar.showError(state.errorMessage);
-          AppSnackBar.showSuccess(LocaleKeys.auth_login_success.tr());
-          context.pushReplacementNamed(Routes.layoutScreen);
+        } else if (state is RegisterSuccessState) {
+          AppSnackBar.showSuccess(LocaleKeys.auth_register_success.tr());
+          context.pushReplacementNamed(Routes.loginScreen);
         }
       },
       child: Scaffold(
@@ -61,17 +68,26 @@ class _LoginScreenState extends State<LoginScreen> {
                   children: [
                     SizedBox(height: 40.h),
                     TextInAppWidget(
-                      text: LocaleKeys.auth_login_title.tr(),
+                      text: LocaleKeys.auth_register_title.tr(),
                       textSize: 24.sp,
                       fontWeightIndex: 700,
                     ),
                     SizedBox(height: 8.h),
                     TextInAppWidget(
-                      text: LocaleKeys.auth_login_subtitle.tr(),
+                      text: LocaleKeys.auth_register_subtitle.tr(),
                       textSize: 14.sp,
                       textColor: Colors.grey,
                     ),
                     SizedBox(height: 32.h),
+                    AppTextFormField(
+                      textFormController: _nameController,
+                      aboveText: LocaleKeys.auth_full_name.tr(),
+                      keyboardType: TextInputType.name,
+                      validator: (val) => val == null || val.isEmpty
+                          ? LocaleKeys.auth_name_required.tr()
+                          : null,
+                    ),
+                    SizedBox(height: 16.h),
                     AppTextFormField(
                       textFormController: _phoneController,
                       aboveText: LocaleKeys.auth_phone_number.tr(),
@@ -91,29 +107,31 @@ class _LoginScreenState extends State<LoginScreen> {
                           : null,
                     ),
                     SizedBox(height: 16.h),
-                    Align(
-                      alignment: Alignment.centerRight,
-                      child: TextButton(
-                        onPressed: () =>
-                            context.pushNamed(Routes.forgetPasswordScreen),
-                        child: TextInAppWidget(
-                          text: LocaleKeys.auth_forgot_password.tr(),
-                          textSize: 14.sp,
-                          textColor: Theme.of(context).primaryColor,
-                          fontWeightIndex: 600,
-                        ),
-                      ),
+                    AppTextFormField(
+                      textFormController: _confirmPasswordController,
+                      aboveText: LocaleKeys.auth_confirm_password.tr(),
+                      isPassword: true,
+                      keyboardType: TextInputType.visiblePassword,
+                      validator: (val) {
+                        if (val == null || val.isEmpty) {
+                          return LocaleKeys.auth_confirm_password_required.tr();
+                        }
+                        if (val != _passwordController.text) {
+                          return LocaleKeys.auth_passwords_do_not_match.tr();
+                        }
+                        return null;
+                      },
                     ),
                     SizedBox(height: 32.h),
-                    BlocBuilder<LoginCubit, LoginState>(
+                    BlocBuilder<RegisterCubit, RegisterState>(
                       builder: (context, state) {
-                        if (state is LoginLoadingState) {
+                        if (state is RegisterLoadingState) {
                           return const Center(
                             child: CircularProgressIndicator(),
                           );
                         }
                         return AppTextButton(
-                          buttonText: LocaleKeys.auth_login.tr(),
+                          buttonText: LocaleKeys.auth_register.tr(),
                           textStyle: TextStyle(
                             fontSize: 16.sp,
                             color: Colors.white,
@@ -121,7 +139,8 @@ class _LoginScreenState extends State<LoginScreen> {
                           ),
                           onPressed: () {
                             if (_formKey.currentState!.validate()) {
-                              context.read<LoginCubit>().login(
+                              context.read<RegisterCubit>().register(
+                                _nameController.text,
                                 _phoneController.text,
                                 _passwordController.text,
                               );
@@ -135,15 +154,14 @@ class _LoginScreenState extends State<LoginScreen> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         TextInAppWidget(
-                          text: LocaleKeys.auth_dont_have_account.tr(),
+                          text: LocaleKeys.auth_already_have_account.tr(),
                           textSize: 14.sp,
                         ),
                         TextButton(
-                          onPressed: () => context.pushReplacementNamed(
-                            Routes.registerScreen,
-                          ),
+                          onPressed: () =>
+                              context.pushReplacementNamed(Routes.loginScreen),
                           child: TextInAppWidget(
-                            text: LocaleKeys.auth_register.tr(),
+                            text: LocaleKeys.auth_login.tr(),
                             textSize: 14.sp,
                             textColor: Theme.of(context).primaryColor,
                             fontWeightIndex: 600,

@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:spex/core/helpers/colors/dark_colors.dart';
 import 'package:spex/core/helpers/colors/light_colors.dart';
 import 'package:spex/core/helpers/constants/constants.dart';
-import 'package:spex/core/helpers/fontSelection/font_selection.dart';
 import 'package:spex/core/widgets/network_image_widget.dart';
 import 'package:spex/core/widgets/text_in_app_widget.dart';
 import 'package:spex/feature/home/model/product_model.dart';

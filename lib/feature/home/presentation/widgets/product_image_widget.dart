@@ -1,6 +1,5 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:spex/core/widgets/network_image_widget.dart';
 
 class ProductImageWidget extends StatefulWidget {

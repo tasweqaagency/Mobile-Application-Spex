@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import '../../../../core/helpers/colors/dark_colors.dart';
 import '../../../../core/helpers/colors/light_colors.dart';
 import '../../../../main.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class QuantityActionButtonWidget extends StatelessWidget {
   final IconData icon;

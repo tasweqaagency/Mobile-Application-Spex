@@ -1,15 +1,16 @@
 import 'dart:math';
 
+import 'package:dartz/dartz.dart';
+import 'package:dio/dio.dart';
 import 'package:easy_localization/easy_localization.dart';
+import 'package:spex/core/di/sl.dart';
+import 'package:spex/core/helpers/constants/constants.dart';
+import 'package:spex/feature/home/model/category_model.dart';
 import '../../generated/locale_keys.g.dart';
-import 'local_cervices.dart';
 import 'network.dart';
 
 class RemoteServices {
-  final Network network;
-  final LocalServices localServices;
-
-  RemoteServices(this.network, this.localServices);
+  RemoteServices();
 
   // Future<Either<String, String>> sendOTPCodeToUser({
   //   bool isRegister = true,
@@ -108,6 +109,27 @@ class RemoteServices {
   //   //   return left(e.toString());
   //   // }
   // }
+
+  Future<Either<String,List<CategoryModel>>> getCategories() async {
+    try {
+      final response = await getIt<Network>().getData(ServicesConstants.getCategoriesEndPoint);
+      if (response.statusCode == 200) {
+        final resp = response.data;
+        List<CategoryModel> categories = (resp as List)
+            .map((x) => CategoryModel.fromJson(x))
+            .toList();
+        return right(categories);
+      }
+      return left(await responseOfStatusCode(response.statusCode));
+    
+     } on DioException catch (e) {
+       return left(await responseOfStatusCode( e.response?.statusCode) );
+    } catch (e) {
+      return left(e.toString());
+    }
+  }
+
+
 }
 
 Future<String> responseOfStatusCode(int? statusCode) async {

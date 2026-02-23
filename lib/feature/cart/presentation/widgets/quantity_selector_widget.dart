@@ -4,7 +4,6 @@ import '../../../../core/helpers/colors/light_colors.dart';
 import '../../../../core/helpers/constants/constants.dart';
 import '../../../../core/widgets/text_in_app_widget.dart';
 import '../../../../main.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'quantity_action_button_widget.dart';
 
 class QuantitySelectorWidget extends StatelessWidget {

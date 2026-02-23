@@ -5,10 +5,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hive_flutter/adapters.dart';
-import 'package:intl/date_symbol_data_local.dart';
 import 'package:spex/core/helpers/themes/dark_theme_data.dart';
 import 'package:spex/core/helpers/themes/light_theme_data.dart';
 import 'package:spex/core/helpers/themes/theme_cubit.dart';
+import 'package:spex/feature/home/view_model/category_cubit/category_cubit.dart';
 import 'package:spex/feature/layout/view_model/layout_cubit/layout_cubit.dart';
 import 'bloc_observer.dart';
 import 'core/di/sl.dart';
@@ -87,6 +87,10 @@ class Spex extends StatelessWidget {
           create: (context) => getIt<ThemeCubit>(
             param1: isDarkTheme ? ThemeMode.dark : ThemeMode.light,
           )..getSavedTheme(),
+        ),
+        BlocProvider<CategoryCubit>(
+          lazy: false,
+          create: (context) => getIt<CategoryCubit>()..getCategories(),
         ),
       ],
       child: ScreenUtilInit(

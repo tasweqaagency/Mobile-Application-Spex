@@ -13,11 +13,18 @@ class FontSelectionData {
 }
 
 class ServicesConstants {
-  static const String baseURL = "http://192.168.1.7:805/";
+  static const String baseURL = "https://spexeg.com/wp-json/";
+  static const String apiVersion = "wc/v3/";
+  static const String apiMobileVersion = "mobile/v1/";
+
   // static const String baseURL = "https://api.smat.sa/";
 
-  static String getDeliverySettingEndPoint =
-      "DeliverySetting/GetDeliverySetting";
+  static String consumerKey = "ck_41f208124a533bae17da18ad55dd080a2387918e";
+  static String consumerSecret = "cs_88435eac44ab81115d95850db10598a5028f2720";
+
+  static String getProductsEndPoint = "${apiVersion}products";
+  // static String getProductDetailsEndPoint ="${apiVersion}products";
+  static String getCategoriesEndPoint = "${apiVersion}products/categories";
 
   static const String USER_TEXT = "user";
   static const String PASSWORD_TEXT = "password";

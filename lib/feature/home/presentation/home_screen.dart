@@ -2,6 +2,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:spex/core/helpers/colors/light_colors.dart';
 import 'package:spex/core/helpers/constants/constants.dart';
 import 'package:spex/core/helpers/extentions/extentions.dart';
 import 'package:spex/core/routing/routing.dart';
@@ -11,6 +12,8 @@ import 'package:spex/feature/home/presentation/widgets/my_appbar.dart';
 import 'package:spex/feature/home/presentation/widgets/product_card.dart';
 import 'package:spex/feature/home/presentation/widgets/promo_banner.dart';
 import 'package:spex/feature/home/presentation/widgets/section_header.dart';
+import 'package:spex/feature/home/view_model/category_cubit/category_cubit.dart';
+import 'package:spex/feature/home/view_model/category_cubit/category_state.dart';
 import 'package:spex/feature/layout/view_model/layout_cubit/layout_cubit.dart';
 import 'package:spex/generated/locale_keys.g.dart';
 
@@ -57,14 +60,28 @@ class HomeScreen extends StatelessWidget {
                   SizedBox(height: 12),
                   SizedBox(
                     height: isMobile ? 140 : 190,
-                    child: ListView.separated(
-                      scrollDirection: Axis.horizontal,
-                      itemCount: HomeMockData.categories.length,
-                      separatorBuilder: (context, index) => SizedBox(width: 16),
-                      itemBuilder: (context, index) {
-                        return CategoryCard(
-                          category: HomeMockData.categories[index],
-                        );
+                    child: BlocBuilder<CategoryCubit, CategoryState>(
+                      builder: (context, state) {
+                        if (state is CategoryLoadingState) {
+                          return const Center(
+                            child: CircularProgressIndicator(color: AppColorsLight.mainColor,),
+                          );
+                        } else if (state is CategoryLoadedState) {
+                          return ListView.separated(
+                            scrollDirection: Axis.horizontal,
+                            itemCount: state.categories.length,
+                            separatorBuilder: (context, index) =>
+                                SizedBox(width: 16),
+                            itemBuilder: (context, index) {
+                              return CategoryCard(
+                                category: state.categories[index],
+                              );
+                            },
+                          );
+                        } else if (state is CategoryErrorState) {
+                          return Center(child: Text(state.errorMessage.tr()));
+                        }
+                        return const SizedBox.shrink();
                       },
                     ),
                   ),

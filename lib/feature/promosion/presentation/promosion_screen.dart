@@ -1,11 +1,9 @@
-import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:spex/core/helpers/extentions/extentions.dart';
 import 'package:spex/core/routing/routing.dart';
 import 'package:spex/feature/home/model/home_mock_data.dart';
 import 'package:spex/feature/home/presentation/widgets/my_appbar.dart';
 import 'package:spex/feature/home/presentation/widgets/product_card.dart';
-import 'package:spex/generated/locale_keys.g.dart';
 
 class PromosionScreen extends StatelessWidget {
   const PromosionScreen({super.key});

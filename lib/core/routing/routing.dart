@@ -1,4 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:spex/core/di/sl.dart';
+import 'package:spex/feature/authentication/presentation/change_password_screen.dart';
+import 'package:spex/feature/authentication/presentation/forget_password_screen.dart';
+import 'package:spex/feature/authentication/presentation/login_screen.dart';
+import 'package:spex/feature/authentication/presentation/otp_screen.dart';
+import 'package:spex/feature/authentication/presentation/register_screen.dart';
+import 'package:spex/feature/authentication/view_model/change_password_cubit/change_password_cubit.dart';
+import 'package:spex/feature/authentication/view_model/forget_password_cubit/forget_password_cubit.dart';
+import 'package:spex/feature/authentication/view_model/login_cubit/login_cubit.dart';
+import 'package:spex/feature/authentication/view_model/otp_cubit/otp_cubit.dart';
+import 'package:spex/feature/authentication/view_model/register_cubit/register_cubit.dart';
 import 'package:spex/feature/favorite/presentation/favorite_screen.dart';
 import 'package:spex/feature/notification/presentation/notification_screen.dart';
 import 'package:spex/core/widgets/navigate_to_page_widget.dart';
@@ -14,6 +26,10 @@ import 'package:spex/feature/search/presentation/search_screen.dart';
 
 class Routes {
   static const loginScreen = '/login';
+  static const registerScreen = '/register';
+  static const forgetPasswordScreen = '/forgetPassword';
+  static const otpScreen = '/otp';
+  static const changePasswordScreen = '/changePassword';
   static const layoutScreen = '/layout';
   static const categoryScreen = '/category';
   static const productDetailsScreen = '/productDetails';
@@ -31,8 +47,41 @@ class AppRouter {
     final arguments = settings.arguments;
 
     switch (settings.name) {
-      // case Routes.loginScreen:
-      //   return NavigateToPageWidget(const LoginPage());
+      case Routes.loginScreen:
+        return NavigateToPageWidget(
+          BlocProvider(
+            create: (_) => getIt<LoginCubit>(),
+            child: const LoginScreen(),
+          ),
+        );
+      case Routes.registerScreen:
+        return NavigateToPageWidget(
+          BlocProvider(
+            create: (_) => getIt<RegisterCubit>(),
+            child: const RegisterScreen(),
+          ),
+        );
+      case Routes.forgetPasswordScreen:
+        return NavigateToPageWidget(
+          BlocProvider(
+            create: (_) => getIt<ForgetPasswordCubit>(),
+            child: const ForgetPasswordScreen(),
+          ),
+        );
+      case Routes.otpScreen:
+        return NavigateToPageWidget(
+          BlocProvider(
+            create: (_) => getIt<OtpCubit>()..startTimer(),
+            child: const OtpScreen(),
+          ),
+        );
+      case Routes.changePasswordScreen:
+        return NavigateToPageWidget(
+          BlocProvider(
+            create: (_) => getIt<ChangePasswordCubit>(),
+            child: const ChangePasswordScreen(),
+          ),
+        );
 
       // case Routes.productsScreen:
       //   if (getIt.isRegistered<CreateOrderCubit>()) {

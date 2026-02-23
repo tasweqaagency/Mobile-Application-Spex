@@ -23,13 +23,15 @@ class UserAdapter extends TypeAdapter<User> {
       fields[4] as String,
       fields[5] as String,
       fields[6] as String,
+      fields[7] as String?,
+      fields[8] as String?,
     );
   }
 
   @override
   void write(BinaryWriter writer, User obj) {
     writer
-      ..writeByte(6)
+      ..writeByte(8)
       ..writeByte(1)
       ..write(obj.id)
       ..writeByte(2)
@@ -41,7 +43,11 @@ class UserAdapter extends TypeAdapter<User> {
       ..writeByte(5)
       ..write(obj.role)
       ..writeByte(6)
-      ..write(obj.password);
+      ..write(obj.password)
+      ..writeByte(7)
+      ..write(obj.consumerKey)
+      ..writeByte(8)
+      ..write(obj.consumerSecret);
   }
 
   @override
@@ -55,7 +61,6 @@ class UserAdapter extends TypeAdapter<User> {
           typeId == other.typeId;
 }
 
-
 // **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
@@ -67,6 +72,8 @@ User _$UserFromJson(Map<String, dynamic> json) => User(
       json['fcmToken'] as String,
       json['role'] as String,
       json['password'] as String,
+      json['consumerKey'] as String?,
+      json['consumerSecret'] as String?,
     );
 
 Map<String, dynamic> _$UserToJson(User instance) => <String, dynamic>{
@@ -76,4 +83,6 @@ Map<String, dynamic> _$UserToJson(User instance) => <String, dynamic>{
       'fcmToken': instance.fcmToken,
       'role': instance.role,
       'password': instance.password,
+      'consumerKey': instance.consumerKey,
+      'consumerSecret': instance.consumerSecret,
     };

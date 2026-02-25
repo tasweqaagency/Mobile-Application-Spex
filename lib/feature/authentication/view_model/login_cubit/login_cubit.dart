@@ -7,7 +7,7 @@ class LoginCubit extends Cubit<LoginState> {
   final AuthCubit authCubit;
   LoginCubit(this.authCubit) : super(LoginInitialState());
 
-  Future<void> login(String phone, String password) async {
+  Future<void> login(String email, String password) async {
     emit(LoginLoadingState());
 
     // Simulate API call
@@ -17,12 +17,10 @@ class LoginCubit extends Cubit<LoginState> {
       final user = User(
         "1",
         "Test User",
-        phone,
+        email,
         "token123",
         "customer",
         password,
-        "ck_41f208124a533bae17da18ad55dd080a2387918e",
-        "cs_88435eac44ab81115d95850db10598a5028f2720",
       );
 
       authCubit.authenticateUser(user);

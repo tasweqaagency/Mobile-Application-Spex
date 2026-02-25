@@ -4,7 +4,7 @@ import 'forget_password_state.dart';
 class ForgetPasswordCubit extends Cubit<ForgetPasswordState> {
   ForgetPasswordCubit() : super(ForgetPasswordInitialState());
 
-  Future<void> forgetPassword(String phone) async {
+  Future<void> forgetPassword(String email) async {
     emit(ForgetPasswordLoadingState());
 
     // Simulate API call

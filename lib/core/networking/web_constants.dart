@@ -1,4 +1,4 @@
-class ServicesConstants{
+class ServicesConstants {
   static const USERS_TEXT = "users";
   static const USER_TEXT = "user";
 
@@ -11,13 +11,11 @@ class ServicesConstants{
   static const ORDERS_TEXT = "orders";
   static const DEALER_ID_TEXT = "dealerID";
 
-
-
   static const VISIBILITY_TEXT = "visibility";
 
   static const PHONE_FIELD_TEXT = "phone";
   static const PASSWORD_FIELD_TEXT = "password";
 
-  static const cartItemBox="cartItemBox";
-  static const userBox="user";
+  static const cartItemBox = "cartItemBox";
+  static const userBox = "user";
 }

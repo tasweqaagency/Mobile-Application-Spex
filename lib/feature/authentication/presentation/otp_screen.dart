@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:spex/core/helpers/colors/dark_colors.dart';
+import 'package:spex/core/helpers/colors/light_colors.dart';
+import 'package:spex/core/helpers/constants/constants.dart';
 import 'package:spex/core/helpers/extentions/extentions.dart';
 import 'package:spex/core/routing/routing.dart';
 import 'package:spex/core/widgets/app_button.dart';
@@ -11,6 +14,10 @@ import 'package:spex/feature/authentication/view_model/otp_cubit/otp_cubit.dart'
 import 'package:spex/feature/authentication/view_model/otp_cubit/otp_state.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:spex/generated/locale_keys.g.dart';
+import 'package:spex/core/helpers/colors/light_colors.dart';
+import 'package:flutter/services.dart';
+import 'package:spex/feature/authentication/presentation/widgets/email_text_field.dart';
+import 'package:spex/main.dart';
 
 class OtpScreen extends StatefulWidget {
   const OtpScreen({super.key});
@@ -57,8 +64,8 @@ class _OtpScreenState extends State<OtpScreen> {
           elevation: 0,
           leading: IconButton(
             icon: Icon(
-              Icons.arrow_back,
-              color: Theme.of(context).iconTheme.color,
+              Icons.arrow_back_ios_new_outlined,
+              color: isDark ? AppColorsDark.appTextColor : AppColorsLight.appTextColor,
             ),
             onPressed: () => context.pop(),
           ),
@@ -76,7 +83,8 @@ class _OtpScreenState extends State<OtpScreen> {
                     TextInAppWidget(
                       text: LocaleKeys.auth_verification.tr(),
                       textSize: 24.sp,
-                      fontWeightIndex: 700,
+                      fontWeightIndex: FontSelectionData.boldFontFamily,
+                      textColor: isDark ? AppColorsDark.appTextColor : AppColorsLight.appTextColor,
                     ),
                     SizedBox(height: 8.h),
                     TextInAppWidget(
@@ -85,11 +93,11 @@ class _OtpScreenState extends State<OtpScreen> {
                       textColor: Colors.grey,
                     ),
                     SizedBox(height: 32.h),
-                    AppTextFormField(
-                      textFormController: _otpController,
+                    GeneralTextField(
+                      controller: _otpController,
                       aboveText: LocaleKeys.auth_otp_code.tr(),
-                      isDigitOnly: true,
                       keyboardType: TextInputType.number,
+                      inputFormatters: [FilteringTextInputFormatter.digitsOnly],
                       validator: (val) => val == null || val.isEmpty
                           ? LocaleKeys.auth_otp_required.tr()
                           : null,
@@ -99,7 +107,9 @@ class _OtpScreenState extends State<OtpScreen> {
                       builder: (context, state) {
                         if (state is OtpLoadingState) {
                           return const Center(
-                            child: CircularProgressIndicator(),
+                            child: CircularProgressIndicator(
+                              color: AppColorsLight.mainColor,
+                            ),
                           );
                         }
                         return AppTextButton(
@@ -137,7 +147,11 @@ class _OtpScreenState extends State<OtpScreen> {
                                 ),
                               )
                             else if (state is OtpResendLoadingState)
-                              const Center(child: CircularProgressIndicator())
+                              const Center(
+                                child: CircularProgressIndicator(
+                                  color: AppColorsLight.mainColor,
+                                ),
+                              )
                             else
                               Center(
                                 child: TextButton(
@@ -150,7 +164,8 @@ class _OtpScreenState extends State<OtpScreen> {
                                     text: LocaleKeys.auth_resend_code.tr(),
                                     textSize: 14.sp,
                                     textColor: Theme.of(context).primaryColor,
-                                    fontWeightIndex: 600,
+                                    fontWeightIndex:
+                                        FontSelectionData.semiBoldFontFamily,
                                   ),
                                 ),
                               ),

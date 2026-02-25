@@ -78,7 +78,9 @@ class _AppTextFormFieldState extends State<AppTextFormField> {
                   textDirection: ui.TextDirection.ltr,
                   child: TextFormField(
                     style: TextStyles.font14blackRreg.copyWith(
-                      color: isDark ? AppColorsDark.appTextColor : AppColorsLight.appTextColor,
+                      color: isDark
+                          ? AppColorsDark.appTextColor
+                          : AppColorsLight.appTextColor,
                     ),
                     readOnly: widget.isReadOnly,
                     controller: widget.textFormController,
@@ -107,7 +109,7 @@ class _AppTextFormFieldState extends State<AppTextFormField> {
                           widget.filledColor ?? AppColorsLight.whiteColor,
                       errorText: widget.errorText,
                       filled: true,
-                      
+
                       enabledBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(16),
                         borderSide: BorderSide(
@@ -175,12 +177,12 @@ class _AppTextFormFieldState extends State<AppTextFormField> {
                           ? AppColorsDark.appSecondBgColor
                           : AppColorsLight.lightGrayColor),
                   borderRadius: BorderRadius.circular(16),
-                //   border: Border.all(
-                //     color: isDark
-                //         ? AppColorsDark.appSecondBgColor
-                //         : AppColorsLight.appGrayColor,
-                //     width: 2,
-                //   ),
+                  //   border: Border.all(
+                  //     color: isDark
+                  //         ? AppColorsDark.appSecondBgColor
+                  //         : AppColorsLight.appGrayColor,
+                  //     width: 2,
+                  //   ),
                 ),
                 child: TextFormField(
                   style: TextStyles.font14blackRreg.copyWith(

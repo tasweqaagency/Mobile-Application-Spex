@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:spex/core/helpers/colors/light_colors.dart';
 import 'package:spex/core/helpers/extentions/extentions.dart';
+import 'package:easy_localization/easy_localization.dart';
+import 'package:spex/generated/locale_keys.g.dart';
 
 class LogoutButton extends StatelessWidget {
   final VoidCallback onTap;
@@ -27,7 +29,7 @@ class LogoutButton extends StatelessWidget {
               Icon(Icons.logout, color: AppColorsLight.appRedColor, size: 20),
               horizontalSpace(8),
               Text(
-                "Log Out",
+                LocaleKeys.home_logout.tr(),
                 style: TextStyle(
                   fontSize: 16,
                   fontWeight: FontWeight.bold,

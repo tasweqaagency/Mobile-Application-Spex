@@ -4,8 +4,8 @@ class Network {
   final Dio _dio;
   Network(this._dio);
 
-  Future<Response> getData(String url) async {
-    return await _dio.get(url);
+  Future<Response> getData(String url, {Map<String, dynamic>? queryParameters}) async {
+    return await _dio.get(url, queryParameters: queryParameters);
   }
 
   Future<Response> putDataWithBodyAndQuery(

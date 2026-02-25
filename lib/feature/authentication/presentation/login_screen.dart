@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:spex/core/helpers/constants/constants.dart';
 import 'package:spex/core/helpers/extentions/extentions.dart';
 import 'package:spex/core/routing/routing.dart';
 import 'package:spex/core/widgets/app_button.dart';
@@ -11,6 +12,11 @@ import 'package:spex/feature/authentication/view_model/login_cubit/login_cubit.d
 import 'package:spex/feature/authentication/view_model/login_cubit/login_state.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:spex/generated/locale_keys.g.dart';
+import 'package:spex/core/helpers/colors/light_colors.dart';
+import 'package:spex/core/helpers/colors/dark_colors.dart';
+import 'package:spex/feature/authentication/presentation/widgets/email_text_field.dart';
+import 'package:spex/feature/authentication/presentation/widgets/password_text_field.dart';
+import 'package:spex/main.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -21,20 +27,20 @@ class LoginScreen extends StatefulWidget {
 
 class _LoginScreenState extends State<LoginScreen> {
   late GlobalKey<FormState> _formKey;
-  late TextEditingController _phoneController;
+  late TextEditingController _emailController;
   late TextEditingController _passwordController;
 
   @override
   void initState() {
     super.initState();
     _formKey = GlobalKey<FormState>();
-    _phoneController = TextEditingController();
+    _emailController = TextEditingController();
     _passwordController = TextEditingController();
   }
 
   @override
   void dispose() {
-    _phoneController.dispose();
+    _emailController.dispose();
     _passwordController.dispose();
     super.dispose();
   }
@@ -43,86 +49,77 @@ class _LoginScreenState extends State<LoginScreen> {
   Widget build(BuildContext context) {
     return BlocListener<LoginCubit, LoginState>(
       listener: (context, state) {
-        if (state is LoginErrorState) {
-          AppSnackBar.showError(state.errorMessage);
+        if (state is LoginSuccessState) {
           AppSnackBar.showSuccess(LocaleKeys.auth_login_success.tr());
           context.pushReplacementNamed(Routes.layoutScreen);
+        } else if (state is LoginErrorState) {
+          AppSnackBar.showError(state.errorMessage);
         }
       },
       child: Scaffold(
         body: SafeArea(
           child: Padding(
-            padding: EdgeInsets.all(24.w),
+            padding: EdgeInsets.symmetric(horizontal: 24, vertical: 35),
             child: SingleChildScrollView(
               child: Form(
                 key: _formKey,
                 child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    SizedBox(height: 40.h),
+                    // SizedBox(height: 40.h),
+                    // Center(
+                    //   child:
+                    Image.asset(
+                      AppImages.appLogoImagePath,
+                      width: 100,
+                      height: 100,
+                      color: isDark ? AppColorsLight.mainColor : null,
+                      fit: BoxFit.contain,
+                    ),
+                    // ),
+                    // SizedBox(height: 24.h),
                     TextInAppWidget(
                       text: LocaleKeys.auth_login_title.tr(),
-                      textSize: 24.sp,
-                      fontWeightIndex: 700,
+                      textSize: 24,
+                      fontWeightIndex: FontSelectionData.boldFontFamily,
+                      textColor: isDark ? AppColorsDark.appTextColor : AppColorsLight.appTextColor,
                     ),
-                    SizedBox(height: 8.h),
+                    SizedBox(height: 8),
                     TextInAppWidget(
                       text: LocaleKeys.auth_login_subtitle.tr(),
-                      textSize: 14.sp,
+                      textSize: 14,
                       textColor: Colors.grey,
                     ),
-                    SizedBox(height: 32.h),
-                    AppTextFormField(
-                      textFormController: _phoneController,
-                      aboveText: LocaleKeys.auth_phone_number.tr(),
-                      keyboardType: TextInputType.phone,
-                      validator: (val) => val == null || val.isEmpty
-                          ? LocaleKeys.auth_phone_required.tr()
-                          : null,
+                    SizedBox(height: 32),
+                    EmailTextField(controller: _emailController),
+                    SizedBox(height: 16),
+                    PasswordTextField(
+                      controller: _passwordController,
+                      isForgetPassword: true,
+                      forgetPasswordOnTap: () =>
+                          context.pushNamed(Routes.forgetPasswordScreen),
                     ),
-                    SizedBox(height: 16.h),
-                    AppTextFormField(
-                      textFormController: _passwordController,
-                      aboveText: LocaleKeys.auth_password.tr(),
-                      isPassword: true,
-                      keyboardType: TextInputType.visiblePassword,
-                      validator: (val) => val == null || val.isEmpty
-                          ? LocaleKeys.auth_password_required.tr()
-                          : null,
-                    ),
-                    SizedBox(height: 16.h),
-                    Align(
-                      alignment: Alignment.centerRight,
-                      child: TextButton(
-                        onPressed: () =>
-                            context.pushNamed(Routes.forgetPasswordScreen),
-                        child: TextInAppWidget(
-                          text: LocaleKeys.auth_forgot_password.tr(),
-                          textSize: 14.sp,
-                          textColor: Theme.of(context).primaryColor,
-                          fontWeightIndex: 600,
-                        ),
-                      ),
-                    ),
-                    SizedBox(height: 32.h),
+                    SizedBox(height: 32),
                     BlocBuilder<LoginCubit, LoginState>(
                       builder: (context, state) {
                         if (state is LoginLoadingState) {
                           return const Center(
-                            child: CircularProgressIndicator(),
+                            child: CircularProgressIndicator(
+                              color: AppColorsLight.mainColor,
+                            ),
                           );
                         }
                         return AppTextButton(
                           buttonText: LocaleKeys.auth_login.tr(),
                           textStyle: TextStyle(
-                            fontSize: 16.sp,
+                            fontSize: 16,
                             color: Colors.white,
                             fontWeight: FontWeight.bold,
                           ),
                           onPressed: () {
                             if (_formKey.currentState!.validate()) {
                               context.read<LoginCubit>().login(
-                                _phoneController.text,
+                                _emailController.text,
                                 _passwordController.text,
                               );
                             }
@@ -130,26 +127,39 @@ class _LoginScreenState extends State<LoginScreen> {
                         );
                       },
                     ),
-                    SizedBox(height: 24.h),
+                    SizedBox(height: 24),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         TextInAppWidget(
                           text: LocaleKeys.auth_dont_have_account.tr(),
-                          textSize: 14.sp,
+                          textSize: 14,
+                          textColor: isDark ? AppColorsDark.appTextColor : AppColorsLight.appTextColor,
                         ),
                         TextButton(
-                          onPressed: () => context.pushReplacementNamed(
+                          onPressed: () => context.pushNamed(
                             Routes.registerScreen,
                           ),
                           child: TextInAppWidget(
                             text: LocaleKeys.auth_register.tr(),
-                            textSize: 14.sp,
+                            textSize: 14,
                             textColor: Theme.of(context).primaryColor,
-                            fontWeightIndex: 600,
-                          ),
+                            // fontWeightIndex:
                         ),
+                        )
                       ],
+                    ),
+                    SizedBox(height: 16),
+                    TextButton(
+                      onPressed: () => context.pushReplacementNamed(
+                        Routes.layoutScreen,
+                      ),
+                      child: TextInAppWidget(
+                        text: LocaleKeys.auth_continue_as_guest.tr(),
+                        textSize: 16,
+                        textColor:AppColorsLight.mainColor,
+                        fontWeightIndex: FontSelectionData.boldFontFamily,
+                      ),
                     ),
                   ],
                 ),

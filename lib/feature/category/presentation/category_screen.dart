@@ -1,12 +1,15 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:spex/core/helpers/colors/dark_colors.dart';
 import 'package:spex/core/helpers/colors/light_colors.dart';
 import 'package:spex/core/helpers/constants/constants.dart';
+import 'package:spex/core/widgets/text_in_app_widget.dart';
 import 'package:spex/feature/home/presentation/widgets/category_card.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:spex/feature/home/presentation/widgets/my_appbar.dart';
 import 'package:spex/feature/home/view_model/category_cubit/category_cubit.dart';
 import 'package:spex/feature/home/view_model/category_cubit/category_state.dart';
+import 'package:spex/main.dart';
 
 class CategoryScreen extends StatelessWidget {
   const CategoryScreen({super.key});
@@ -24,7 +27,11 @@ class CategoryScreen extends StatelessWidget {
         child: BlocBuilder<CategoryCubit, CategoryState>(
           builder: (context, state) {
             if (state is CategoryLoadingState) {
-              return  Center(child: CircularProgressIndicator(color: AppColorsLight.mainColor,));
+              return Center(
+                child: CircularProgressIndicator(
+                  color: AppColorsLight.mainColor,
+                ),
+              );
             } else if (state is CategoryLoadedState) {
               return GridView.builder(
                 shrinkWrap: true,
@@ -56,7 +63,7 @@ class CategoryScreen extends StatelessWidget {
                 },
               );
             } else if (state is CategoryErrorState) {
-              return Center(child: Text(state.errorMessage.tr()));
+              return Center(child: TextInAppWidget(text: state.errorMessage.tr(), textColor: isDark ? AppColorsDark.appTextColor : AppColorsLight.appTextColor));
             }
             return const SizedBox.shrink();
           },

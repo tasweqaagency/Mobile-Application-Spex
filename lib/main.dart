@@ -35,7 +35,7 @@ void main() async {
   await EasyLocalization.ensureInitialized();
   Hive.registerAdapter(UserAdapter());
 
-  final isAuthenticated = true;
+  final isAuthenticated = false;
   // await getIt<AuthCubit>().isUserAuthenticable();
   final bool isOnBoardingSeen = await getIt<LocalServices>().getOnBoarding();
   isOnBoarding = isOnBoardingSeen;
@@ -112,8 +112,7 @@ class Spex extends StatelessWidget {
                 theme: lightThemeData(),
                 darkTheme: darkThemeData(),
                 initialRoute:
-                    // isAuthenticated ? Routes.homeScreen :
-                    Routes.layoutScreen,
+                    isUserAuthenticable ? Routes.layoutScreen : Routes.loginScreen,
                 onGenerateRoute: getIt<AppRouter>().generateRoute,
               );
             },

@@ -138,12 +138,14 @@ class MyAppBarWithBackButton extends StatelessWidget
     this.isAutoFocus = false,
     this.bottom,
     this.showSearch = true,
+    this.onChanged,
   });
   final String? title;
   final bool isRealSearch;
   final bool isAutoFocus;
   final PreferredSizeWidget? bottom;
   final bool showSearch;
+  final ValueChanged<String>? onChanged;
 
   @override
   Widget build(BuildContext context) {
@@ -183,6 +185,7 @@ class MyAppBarWithBackButton extends StatelessWidget
                     ? AppColorsDark.appBgColor
                     : AppColorsLight.mainLightColor,
                 isAutoFocus: isAutoFocus,
+                onChanged: onChanged,
               ),
         actions: [
           NotificationIconButton(

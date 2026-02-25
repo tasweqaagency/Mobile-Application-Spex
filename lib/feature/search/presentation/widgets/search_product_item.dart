@@ -5,13 +5,12 @@ import 'package:spex/core/helpers/colors/light_colors.dart';
 import 'package:spex/core/helpers/constants/constants.dart';
 import 'package:spex/core/widgets/network_image_widget.dart';
 import 'package:spex/core/widgets/text_in_app_widget.dart';
-import 'package:spex/feature/home/model/product_model.dart';
-import 'package:spex/feature/home/presentation/widgets/product_rating_widget.dart';
+import 'package:spex/feature/search/model/search_item_model.dart';
 import 'package:spex/generated/locale_keys.g.dart';
 import 'package:spex/main.dart';
 
 class SearchProductItem extends StatelessWidget {
-  final ProductModel product;
+  final SearchItemModel product;
   final VoidCallback? onTap;
 
   const SearchProductItem({super.key, required this.product, this.onTap});
@@ -47,9 +46,7 @@ class SearchProductItem extends StatelessWidget {
                     ? AppColorsDark.appBgColor
                     : AppColorsLight.appBgColor,
                 child: NetworkImageWidget(
-                  imageUrl: product.imagePath.isNotEmpty
-                      ? product.imagePath.first
-                      : '',
+                  imageUrl: product.image ?? '',
                   fit: BoxFit.cover,
                 ),
               ),
@@ -61,21 +58,9 @@ class SearchProductItem extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  // Category Name (Optional)
-                  if (product.category.isNotEmpty)
-                    TextInAppWidget(
-                      text: product.category,
-                      textSize: 10,
-                      textColor: isDark
-                          ? AppColorsDark.appSecondTextColor
-                          : AppColorsLight.appSecondTextColor,
-                      fontWeightIndex: FontSelectionData.regularFontFamily,
-                    ),
-                  const SizedBox(height: 4),
-
                   // Product Name
                   TextInAppWidget(
-                    text: product.name,
+                    text: product.name ?? '',
                     textSize: 14,
                     fontWeightIndex: FontSelectionData.semiBoldFontFamily,
                     textColor: isDark
@@ -96,30 +81,14 @@ class SearchProductItem extends StatelessWidget {
                         children: [
                           TextInAppWidget(
                             text:
-                                '${product.price} ${LocaleKeys.home_egp.tr()}',
+                                '${product.price ?? 0} ${LocaleKeys.home_egp.tr()}',
                             textSize: 14,
                             fontWeightIndex: FontSelectionData.boldFontFamily,
                             textColor: AppColorsLight
                                 .mainColor, // Main color usually looks good for price in both modes
                           ),
-                          if (product.oldPrice != null)
-                            TextInAppWidget(
-                              text:
-                                  '${product.oldPrice} ${LocaleKeys.home_egp.tr()}',
-                              textSize: 10,
-                              textColor: isDark
-                                  ? AppColorsDark.appSecondTextColor
-                                  : AppColorsLight.appSecondTextColor,
-                              textDecoration: TextDecoration.lineThrough,
-                              decorationColor: isDark
-                                  ? AppColorsDark.appSecondTextColor
-                                  : AppColorsLight.appSecondTextColor,
-                            ),
                         ],
                       ),
-
-                      // Rating
-                      OneStarProductRatingWidget(rating: product.rating),
                     ],
                   ),
                 ],

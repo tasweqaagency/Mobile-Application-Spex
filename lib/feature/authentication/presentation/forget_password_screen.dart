@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:spex/core/helpers/colors/dark_colors.dart';
 import 'package:spex/core/helpers/extentions/extentions.dart';
 import 'package:spex/core/routing/routing.dart';
 import 'package:spex/core/widgets/app_button.dart';
@@ -11,6 +12,9 @@ import 'package:spex/feature/authentication/view_model/forget_password_cubit/for
 import 'package:spex/feature/authentication/view_model/forget_password_cubit/forget_password_state.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:spex/generated/locale_keys.g.dart';
+import 'package:spex/core/helpers/colors/light_colors.dart';
+import 'package:spex/feature/authentication/presentation/widgets/email_text_field.dart';
+import 'package:spex/main.dart';
 
 class ForgetPasswordScreen extends StatefulWidget {
   const ForgetPasswordScreen({super.key});
@@ -21,18 +25,18 @@ class ForgetPasswordScreen extends StatefulWidget {
 
 class _ForgetPasswordScreenState extends State<ForgetPasswordScreen> {
   late GlobalKey<FormState> _formKey;
-  late TextEditingController _phoneController;
+  late TextEditingController _emailController;
 
   @override
   void initState() {
     super.initState();
     _formKey = GlobalKey<FormState>();
-    _phoneController = TextEditingController();
+    _emailController = TextEditingController();
   }
 
   @override
   void dispose() {
-    _phoneController.dispose();
+    _emailController.dispose();
     super.dispose();
   }
 
@@ -53,8 +57,8 @@ class _ForgetPasswordScreenState extends State<ForgetPasswordScreen> {
           elevation: 0,
           leading: IconButton(
             icon: Icon(
-              Icons.arrow_back,
-              color: Theme.of(context).iconTheme.color,
+              Icons.arrow_back_ios_new_outlined,
+              color: isDark ? AppColorsDark.appTextColor : AppColorsLight.appTextColor,
             ),
             onPressed: () => context.pop(),
           ),
@@ -73,6 +77,7 @@ class _ForgetPasswordScreenState extends State<ForgetPasswordScreen> {
                       text: LocaleKeys.auth_forget_password_title.tr(),
                       textSize: 24.sp,
                       fontWeightIndex: 700,
+                      textColor: isDark ? AppColorsDark.appTextColor : AppColorsLight.appTextColor,
                     ),
                     SizedBox(height: 8.h),
                     TextInAppWidget(
@@ -81,20 +86,15 @@ class _ForgetPasswordScreenState extends State<ForgetPasswordScreen> {
                       textColor: Colors.grey,
                     ),
                     SizedBox(height: 32.h),
-                    AppTextFormField(
-                      textFormController: _phoneController,
-                      aboveText: LocaleKeys.auth_phone_number.tr(),
-                      keyboardType: TextInputType.phone,
-                      validator: (val) => val == null || val.isEmpty
-                          ? LocaleKeys.auth_phone_required.tr()
-                          : null,
-                    ),
+                    EmailTextField(controller: _emailController),
                     SizedBox(height: 48.h),
                     BlocBuilder<ForgetPasswordCubit, ForgetPasswordState>(
                       builder: (context, state) {
                         if (state is ForgetPasswordLoadingState) {
                           return const Center(
-                            child: CircularProgressIndicator(),
+                            child: CircularProgressIndicator(
+                              color: AppColorsLight.mainColor,
+                            ),
                           );
                         }
                         return AppTextButton(
@@ -108,7 +108,7 @@ class _ForgetPasswordScreenState extends State<ForgetPasswordScreen> {
                             if (_formKey.currentState!.validate()) {
                               context
                                   .read<ForgetPasswordCubit>()
-                                  .forgetPassword(_phoneController.text);
+                                  .forgetPassword(_emailController.text);
                             }
                           },
                         );

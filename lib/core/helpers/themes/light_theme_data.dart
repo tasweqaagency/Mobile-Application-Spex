@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:spex/core/helpers/colors/light_colors.dart';
+
 ThemeData lightThemeData() => ThemeData(
   primaryColor: AppColorsLight.mainColor,
 

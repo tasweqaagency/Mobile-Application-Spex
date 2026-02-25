@@ -25,6 +25,7 @@ class ServicesConstants {
   static String getProductsEndPoint = "${apiVersion}products";
   // static String getProductDetailsEndPoint ="${apiVersion}products";
   static String getCategoriesEndPoint = "${apiVersion}products/categories";
+  static String searchEndPoint = "${apiMobileVersion}search";
 
   static const String USER_TEXT = "user";
   static const String PASSWORD_TEXT = "password";

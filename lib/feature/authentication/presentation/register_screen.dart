@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:spex/core/helpers/colors/dark_colors.dart';
+import 'package:spex/core/helpers/constants/constants.dart';
 import 'package:spex/core/helpers/extentions/extentions.dart';
 import 'package:spex/core/routing/routing.dart';
 import 'package:spex/core/widgets/app_button.dart';
@@ -11,6 +13,10 @@ import 'package:spex/feature/authentication/view_model/register_cubit/register_c
 import 'package:spex/feature/authentication/view_model/register_cubit/register_state.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:spex/generated/locale_keys.g.dart';
+import 'package:spex/core/helpers/colors/light_colors.dart';
+import 'package:spex/feature/authentication/presentation/widgets/email_text_field.dart';
+import 'package:spex/feature/authentication/presentation/widgets/password_text_field.dart';
+import 'package:spex/main.dart';
 
 class RegisterScreen extends StatefulWidget {
   const RegisterScreen({super.key});
@@ -22,6 +28,7 @@ class RegisterScreen extends StatefulWidget {
 class _RegisterScreenState extends State<RegisterScreen> {
   late GlobalKey<FormState> _formKey;
   late TextEditingController _nameController;
+  late TextEditingController _emailController;
   late TextEditingController _phoneController;
   late TextEditingController _passwordController;
   late TextEditingController _confirmPasswordController;
@@ -31,6 +38,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
     super.initState();
     _formKey = GlobalKey<FormState>();
     _nameController = TextEditingController();
+    _emailController = TextEditingController();
     _phoneController = TextEditingController();
     _passwordController = TextEditingController();
     _confirmPasswordController = TextEditingController();
@@ -39,6 +47,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
   @override
   void dispose() {
     _nameController.dispose();
+    _emailController.dispose();
     _phoneController.dispose();
     _passwordController.dispose();
     _confirmPasswordController.dispose();
@@ -59,59 +68,58 @@ class _RegisterScreenState extends State<RegisterScreen> {
       child: Scaffold(
         body: SafeArea(
           child: Padding(
-            padding: EdgeInsets.all(24.w),
+            padding: EdgeInsets.symmetric(horizontal: 24),
             child: SingleChildScrollView(
               child: Form(
                 key: _formKey,
                 child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    SizedBox(height: 40.h),
+                    Align(
+                      alignment: AlignmentDirectional.centerStart,
+                      child: IconButton(
+                        icon: Icon(
+                          Icons.arrow_back_ios_new_outlined,
+                          color: isDark ? AppColorsDark.appTextColor : AppColorsLight.appTextColor,
+                        ),
+                        onPressed: () => context.pop(),
+                      ),
+                    ),
+                    Image.asset(
+                      AppImages.appLogoImagePath,
+                      width: 100,
+                      height: 100,
+                      color: isDark ? AppColorsLight.mainColor : null,
+                      fit: BoxFit.contain,
+                    ),
+                    // SizedBox(height: 24.h),
                     TextInAppWidget(
                       text: LocaleKeys.auth_register_title.tr(),
-                      textSize: 24.sp,
-                      fontWeightIndex: 700,
+                      textSize: 24,
+                      fontWeightIndex: FontSelectionData.boldFontFamily,
+                      textColor: isDark ? AppColorsDark.appTextColor : AppColorsLight.appTextColor,
                     ),
-                    SizedBox(height: 8.h),
+                    SizedBox(height: 8),
                     TextInAppWidget(
                       text: LocaleKeys.auth_register_subtitle.tr(),
-                      textSize: 14.sp,
+                      textSize: 14,
                       textColor: Colors.grey,
                     ),
-                    SizedBox(height: 32.h),
-                    AppTextFormField(
-                      textFormController: _nameController,
+                    SizedBox(height: 32),
+                    NameTextField(
+                      controller: _nameController,
                       aboveText: LocaleKeys.auth_full_name.tr(),
-                      keyboardType: TextInputType.name,
-                      validator: (val) => val == null || val.isEmpty
-                          ? LocaleKeys.auth_name_required.tr()
-                          : null,
                     ),
-                    SizedBox(height: 16.h),
-                    AppTextFormField(
-                      textFormController: _phoneController,
-                      aboveText: LocaleKeys.auth_phone_number.tr(),
-                      keyboardType: TextInputType.phone,
-                      validator: (val) => val == null || val.isEmpty
-                          ? LocaleKeys.auth_phone_required.tr()
-                          : null,
-                    ),
-                    SizedBox(height: 16.h),
-                    AppTextFormField(
-                      textFormController: _passwordController,
-                      aboveText: LocaleKeys.auth_password.tr(),
-                      isPassword: true,
-                      keyboardType: TextInputType.visiblePassword,
-                      validator: (val) => val == null || val.isEmpty
-                          ? LocaleKeys.auth_password_required.tr()
-                          : null,
-                    ),
-                    SizedBox(height: 16.h),
-                    AppTextFormField(
-                      textFormController: _confirmPasswordController,
+                    SizedBox(height: 16),
+                    EmailTextField(controller: _emailController),
+                    SizedBox(height: 16),
+                    PhoneTextField(controller: _phoneController),
+                    SizedBox(height: 16),
+                    PasswordTextField(controller: _passwordController),
+                    SizedBox(height: 16),
+                    PasswordTextField(
+                      controller: _confirmPasswordController,
                       aboveText: LocaleKeys.auth_confirm_password.tr(),
-                      isPassword: true,
-                      keyboardType: TextInputType.visiblePassword,
                       validator: (val) {
                         if (val == null || val.isEmpty) {
                           return LocaleKeys.auth_confirm_password_required.tr();
@@ -122,18 +130,20 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         return null;
                       },
                     ),
-                    SizedBox(height: 32.h),
+                    SizedBox(height: 32),
                     BlocBuilder<RegisterCubit, RegisterState>(
                       builder: (context, state) {
                         if (state is RegisterLoadingState) {
                           return const Center(
-                            child: CircularProgressIndicator(),
+                            child: CircularProgressIndicator(
+                              color: AppColorsLight.mainColor,
+                            ),
                           );
                         }
                         return AppTextButton(
                           buttonText: LocaleKeys.auth_register.tr(),
                           textStyle: TextStyle(
-                            fontSize: 16.sp,
+                            fontSize: 16,
                             color: Colors.white,
                             fontWeight: FontWeight.bold,
                           ),
@@ -141,6 +151,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                             if (_formKey.currentState!.validate()) {
                               context.read<RegisterCubit>().register(
                                 _nameController.text,
+                                _emailController.text,
                                 _phoneController.text,
                                 _passwordController.text,
                               );
@@ -149,22 +160,24 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         );
                       },
                     ),
-                    SizedBox(height: 24.h),
+                    SizedBox(height: 24),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         TextInAppWidget(
                           text: LocaleKeys.auth_already_have_account.tr(),
-                          textSize: 14.sp,
+                          textSize: 14,
+                          textColor:isDark ? AppColorsDark.appTextColor : AppColorsLight.appTextColor,
                         ),
                         TextButton(
                           onPressed: () =>
                               context.pushReplacementNamed(Routes.loginScreen),
                           child: TextInAppWidget(
                             text: LocaleKeys.auth_login.tr(),
-                            textSize: 14.sp,
+                            textSize: 14,
                             textColor: Theme.of(context).primaryColor,
-                            fontWeightIndex: 600,
+                            fontWeightIndex:
+                                FontSelectionData.semiBoldFontFamily,
                           ),
                         ),
                       ],

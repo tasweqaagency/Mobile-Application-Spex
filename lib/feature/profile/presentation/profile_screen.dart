@@ -12,6 +12,8 @@ import 'package:spex/core/widgets/text_in_app_widget.dart';
 import 'package:spex/feature/home/presentation/widgets/my_appbar.dart';
 import 'package:spex/generated/locale_keys.g.dart';
 import 'package:spex/main.dart';
+import 'package:spex/feature/authentication/view_model/auth_cubit.dart';
+import 'package:spex/feature/authentication/view_model/auth_state.dart';
 import 'widgets/profile_info_widget.dart';
 import 'widgets/profile_stats_row.dart';
 import 'widgets/profile_menu_section.dart';
@@ -35,46 +37,97 @@ class _ProfileScreenState extends State<ProfileScreen> {
             child: Column(
               children: [
                 verticalSpace(28),
-                ProfileInfoWidget(name: "Ahmed Mansour"),
-                verticalSpace(32),
-                ProfileStatsRow(
-                  ordersCount: "12",
-                  couponsCount: "5",
-                  pointsCount: "2.4k",
+                BlocBuilder<AuthCubit, AuthState>(
+                  builder: (context, authState) {
+                    if (authState is AuthLoadedState) {
+                      return Column(
+                        children: [
+                          ProfileInfoWidget(name: authState.user.name),
+                          verticalSpace(32),
+                          ProfileStatsRow(
+                            ordersCount: "12",
+                            couponsCount: "5",
+                            pointsCount: "2.4k",
+                          ),
+                          verticalSpace(32),
+                          ProfileMenuSection(
+                            items: [
+                              ProfileMenuItem(
+                                icon: Icons.shopping_bag_outlined,
+                                title: LocaleKeys.home_orders.tr(),
+                                onTap: () {
+                                  context.pushNamed(Routes.myOrdersScreen);
+                                },
+                                iconBgColor: AppColorsLight.profileMyOrdersBg,
+                                iconColor: AppColorsLight.profileMyOrdersIcon,
+                              ),
+                              ProfileMenuItem(
+                                icon: Icons.favorite_border,
+                                title: LocaleKeys.home_favorite.tr(),
+                                onTap: () {
+                                  context.pushNamed(Routes.favoriteScreen);
+                                },
+                                iconBgColor: AppColorsLight.profileWishlistBg,
+                                iconColor: AppColorsLight.profileWishlistIcon,
+                              ),
+                              ProfileMenuItem(
+                                icon: Icons.location_on_outlined,
+                                title: LocaleKeys.orders_shipping_address.tr(),
+                                onTap: () {
+                                  context.pushNamed(
+                                    Routes.shippingAddressesScreen,
+                                  );
+                                },
+                                iconBgColor:
+                                    AppColorsLight.profileShippingAddressBg,
+                                iconColor:
+                                    AppColorsLight.profileShippingAddressIcon,
+                              ),
+                            ],
+                          ),
+                        ],
+                      );
+                    }
+                    return Column(
+                      children: [
+                        Icon(
+                          Icons.account_circle,
+                          size: 100,
+                          color: isDark ? Colors.grey[700] : Colors.grey[300],
+                        ),
+                        verticalSpace(16),
+                        TextInAppWidget(
+                          text: LocaleKeys.profile_login_to_continue.tr(),
+                          textSize: 16,
+                          textColor: Colors.grey,
+                        ),
+                        verticalSpace(16),
+                        ElevatedButton(
+                          onPressed: () {
+                            context.pushNamed(Routes.loginScreen);
+                          },
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: AppColorsLight.mainColor,
+                            padding: EdgeInsets.symmetric(
+                              horizontal: 32,
+                              vertical: 12,
+                            ),
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(8),
+                            ),
+                          ),
+                          child: TextInAppWidget(
+                            text: LocaleKeys.profile_login.tr(),
+                            textSize: 16,
+                            textColor: Colors.white,
+                            fontWeightIndex: FontSelectionData.boldFontFamily,
+                          ),
+                        ),
+                      ],
+                    );
+                  },
                 ),
                 verticalSpace(32),
-                ProfileMenuSection(
-                  items: [
-                    ProfileMenuItem(
-                      icon: Icons.shopping_bag_outlined,
-                      title: LocaleKeys.home_orders.tr(),
-                      onTap: () {
-                        context.pushNamed(Routes.myOrdersScreen);
-                      },
-                      iconBgColor: AppColorsLight.profileMyOrdersBg,
-                      iconColor: AppColorsLight.profileMyOrdersIcon,
-                    ),
-                    ProfileMenuItem(
-                      icon: Icons.favorite_border,
-                      title: LocaleKeys.home_favorite.tr(),
-                      onTap: () {
-                        context.pushNamed(Routes.favoriteScreen);
-                      },
-                      iconBgColor: AppColorsLight.profileWishlistBg,
-                      iconColor: AppColorsLight.profileWishlistIcon,
-                    ),
-                    ProfileMenuItem(
-                      icon: Icons.location_on_outlined,
-                      title: LocaleKeys.orders_shipping_address.tr(),
-                      onTap: () {
-                        context.pushNamed(Routes.shippingAddressesScreen);
-                      },
-                      iconBgColor: AppColorsLight.profileShippingAddressBg,
-                      iconColor: AppColorsLight.profileShippingAddressIcon,
-                    ),
-                  ],
-                ),
-                verticalSpace(24),
                 Align(
                   alignment: AlignmentDirectional.centerStart,
                   child: Padding(
@@ -181,7 +234,13 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   ],
                 ),
                 verticalSpace(28),
-                LogoutButton(onTap: () {}),
+                if (context.read<AuthCubit>().state is AuthLoadedState)
+                  LogoutButton(
+                    onTap: () {
+                      context.read<AuthCubit>().logout();
+                      context.pushReplacementNamed(Routes.loginScreen);
+                    },
+                  ),
                 verticalSpace(28),
               ],
             ),

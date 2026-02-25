@@ -27,26 +27,26 @@ class NotificationIconButton extends StatelessWidget {
             ),
           ),
           if (count != null && count! > 0)
-          Positioned(
-            top: 0,
-            left: 0,
-            child: Container(
-              // padding: const EdgeInsets.all(4),
-              width: 16,
-              height: 16,
-              decoration: const BoxDecoration(
-                color: AppColorsLight.appDarkRedColor,
-                shape: BoxShape.circle,
-              ),
-              child: Center(
-                child: TextInAppWidget(
-                  text: count.toString() ,
-                  textSize: 11,
-                  textColor: Colors.white,
+            Positioned(
+              top: 0,
+              left: 0,
+              child: Container(
+                // padding: const EdgeInsets.all(4),
+                width: 16,
+                height: 16,
+                decoration: const BoxDecoration(
+                  color: AppColorsLight.appDarkRedColor,
+                  shape: BoxShape.circle,
+                ),
+                child: Center(
+                  child: TextInAppWidget(
+                    text: count.toString(),
+                    textSize: 11,
+                    textColor: Colors.white,
+                  ),
                 ),
               ),
             ),
-          ),
         ],
       ),
     );

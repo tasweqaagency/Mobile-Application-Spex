@@ -98,7 +98,6 @@ abstract class  LocaleKeys {
   static const auth_phone_number = 'auth.phone_number';
   static const auth_phone_required = 'auth.phone_required';
   static const auth_password = 'auth.password';
-  static const auth_password_required = 'auth.password_required';
   static const auth_forgot_password = 'auth.forgot_password';
   static const auth_login = 'auth.login';
   static const auth_login_success = 'auth.login_success';
@@ -130,6 +129,19 @@ abstract class  LocaleKeys {
   static const auth_new_password_subtitle = 'auth.new_password_subtitle';
   static const auth_update_password = 'auth.update_password';
   static const auth_password_changed_success = 'auth.password_changed_success';
+  static const auth_enter_required_info = 'auth.enter_required_info';
+  static const auth_phone_not_connected_with_your_account = 'auth.phone_not_connected_with_your_account';
+  static const auth_restore_password = 'auth.restore_password';
+  static const auth_phone_number_required = 'auth.phone_number_required';
+  static const auth_email_required = 'auth.email_required';
+  static const auth_enter_correct_phone_number = 'auth.enter_correct_phone_number';
+  static const auth_enter_correct_email = 'auth.enter_correct_email';
+  static const auth_password_required = 'auth.password_required';
+  static const auth_password_not_match = 'auth.password_not_match';
+  static const auth_weak_password = 'auth.weak_password';
+  static const auth_email = 'auth.email';
+  static const auth_name = 'auth.name';
+  static const auth_continue_as_guest = 'auth.continue_as_guest';
   static const auth = 'auth';
   static const profile_language = 'profile.language';
   static const profile_dark_mode = 'profile.dark_mode';
@@ -139,6 +151,8 @@ abstract class  LocaleKeys {
   static const profile_terms_of_service = 'profile.terms_of_service';
   static const profile_english = 'profile.english';
   static const profile_arabic = 'profile.arabic';
+  static const profile_login_to_continue = 'profile.login_to_continue';
+  static const profile_login = 'profile.login';
   static const profile = 'profile';
   static const product_services_doorstep_delivery = 'product_services.doorstep_delivery';
   static const product_services_delivery_time = 'product_services.delivery_time';

@@ -21,6 +21,20 @@ class NetworkImageWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    if (imageUrl.isEmpty) {
+      return Container(
+        width: width ?? double.infinity,
+        height: height ?? double.infinity,
+        decoration: BoxDecoration(
+          color: AppColorsLight.spexGrayColor,
+          borderRadius: borderRadius ?? BorderRadius.zero,
+        ),
+        child: const Icon(
+          Icons.image_not_supported_outlined,
+          color: AppColorsLight.black50Color,
+        ),
+      );
+    }
     return ClipRRect(
       borderRadius: borderRadius ?? BorderRadius.zero,
       child: CachedNetworkImage(

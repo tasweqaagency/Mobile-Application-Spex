@@ -11,17 +11,21 @@ import 'package:spex/feature/authentication/view_model/login_cubit/login_cubit.d
 import 'package:spex/feature/authentication/view_model/otp_cubit/otp_cubit.dart';
 import 'package:spex/feature/authentication/view_model/register_cubit/register_cubit.dart';
 import 'package:spex/feature/home/view_model/category_cubit/category_cubit.dart';
+import 'package:spex/feature/search/view_model/search_cubit/search_cubit.dart';
 import 'package:spex/feature/layout/view_model/layout_cubit/layout_cubit.dart';
 import 'package:spex/core/helpers/themes/theme_cubit.dart';
 
 import '../helpers/constants/constants.dart';
 import '../networking/local_cervices.dart';
-import '../networking/web_services.dart';
 import '../routing/routing.dart';
 
 final getIt = GetIt.instance;
 
 Future<void> setupGetIt() async {
+  final String credentials =
+      "${ServicesConstants.consumerKey}:${ServicesConstants.consumerSecret}";
+  final String encoded = base64Encode(utf8.encode(credentials));
+
   final dio = Dio(
     BaseOptions(
       baseUrl: ServicesConstants.baseURL,
@@ -32,32 +36,7 @@ Future<void> setupGetIt() async {
         'Content-Type': 'application/json',
         'Access-Control-Allow-Origin': '*',
         'Access-Control-Allow-Headers': 'X-Requested-With',
-      },
-    ),
-  );
-
-  dio.interceptors.add(
-    InterceptorsWrapper(
-      onRequest: (options, handler) {
-        String cKey = ServicesConstants.consumerKey;
-        String cSecret = ServicesConstants.consumerSecret;
-
-        // final authState = getIt<AuthCubit>().state;
-        // if (authState is AuthLoadedState) {
-        //   if (authState.user.consumerKey != null &&
-        //       authState.user.consumerKey!.isNotEmpty) {
-        //     cKey = authState.user.consumerKey!;
-        //   }
-        //   if (authState.user.consumerSecret != null &&
-        //       authState.user.consumerSecret!.isNotEmpty) {
-        //     cSecret = authState.user.consumerSecret!;
-        //   }
-        // }
-
-        final String credentials = "$cKey:$cSecret";
-        final String encoded = base64Encode(utf8.encode(credentials));
-        options.headers['Authorization'] = 'Basic $encoded';
-        return handler.next(options);
+        'Authorization': 'Basic $encoded',
       },
     ),
   );
@@ -67,8 +46,10 @@ Future<void> setupGetIt() async {
   getIt.registerLazySingleton<Network>(() => Network(dio));
   getIt.registerLazySingleton<LayoutCubit>(() => LayoutCubit());
   getIt.registerLazySingleton<AuthCubit>(() => AuthCubit());
-  getIt.registerLazySingleton<WebServices>(() => WebServices());
   getIt.registerLazySingleton<AppRouter>(() => AppRouter());
+  getIt.registerFactory<SearchCubit>(
+    () => SearchCubit(getIt<RemoteServices>()),
+  );
 
   getIt.registerFactoryParam<ThemeCubit, ThemeMode, void>(
     (mode, _) => ThemeCubit(getIt<LocalServices>(), mode),

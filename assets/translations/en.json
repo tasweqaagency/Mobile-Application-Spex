@@ -117,11 +117,11 @@
     "already_have_account": "Already have an account? ",
     "register_success": "Registration Successful",
     "forget_password_title": "Forget Password",
-    "forget_password_subtitle": "Enter your phone number to receive a verification code",
+    "forget_password_subtitle": "Enter your email to receive a verification code",
     "send_otp": "Send OTP",
     "otp_sent_success": "OTP sent successfully",
     "verification": "Verification",
-    "verification_subtitle": "Enter the OTP code we sent to your phone",
+    "verification_subtitle": "Enter the OTP code we sent to your email",
     "otp_code": "OTP Code",
     "otp_required": "OTP cannot be empty",
     "verify": "Verify",
@@ -132,7 +132,17 @@
     "new_password_title": "New Password",
     "new_password_subtitle": "Please enter your new password",
     "update_password": "Update Password",
-    "password_changed_success": "Password changed successfully"
+    "password_changed_success": "Password changed successfully",
+    "enter_required_info": "Please enter the required information",
+    "phone_number_required": "Please enter your phone number",
+    "email_required": "Please enter your email",
+    "enter_correct_phone_number": "Please enter a correct phone number",
+    "enter_correct_email": "Please enter a correct email",
+    "weak_password": "enter password contain at least 6 characters or digits",
+    "password_not_match": "Password not match",
+    "email": "Email",
+    "name": "Name",
+    "continue_as_guest": "Continue as Guest"
   },
   "profile": {
     "language": "Language",
@@ -142,7 +152,9 @@
     "privacy_policy": "Privacy Policy",
     "terms_of_service": "Terms of Service",
     "english": "English",
-    "arabic": "Arabic"
+    "arabic": "Arabic",
+    "login_to_continue": "Login to view profile details",
+    "login": "Login"
   },
   "product_services": {
     "doorstep_delivery": "Doorstep Delivery",

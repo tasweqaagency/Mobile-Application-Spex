@@ -6,6 +6,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:spex/core/di/sl.dart';
 import 'package:spex/core/helpers/constants/constants.dart';
 import 'package:spex/feature/home/model/category_model.dart';
+import 'package:spex/feature/search/model/search_item_model.dart';
 import '../../generated/locale_keys.g.dart';
 import 'network.dart';
 
@@ -49,6 +50,13 @@ class RemoteServices {
       return phone;
     } else {
       return '966$phone';
+    }
+  } 
+   String formatEGPPhone(String phone) {
+    if (phone.startsWith('2')) {
+      return phone;
+    } else {
+      return '2$phone';
     }
   }
 
@@ -110,9 +118,11 @@ class RemoteServices {
   //   // }
   // }
 
-  Future<Either<String,List<CategoryModel>>> getCategories() async {
+  Future<Either<String, List<CategoryModel>>> getCategories() async {
     try {
-      final response = await getIt<Network>().getData(ServicesConstants.getCategoriesEndPoint);
+      final response = await getIt<Network>().getData(
+        ServicesConstants.getCategoriesEndPoint,
+      );
       if (response.statusCode == 200) {
         final resp = response.data;
         List<CategoryModel> categories = (resp as List)
@@ -121,13 +131,36 @@ class RemoteServices {
         return right(categories);
       }
       return left(await responseOfStatusCode(response.statusCode));
-    
-     } on DioException catch (e) {
-       return left(await responseOfStatusCode( e.response?.statusCode) );
+    } on DioException catch (e) {
+      return left(await responseOfStatusCode(e.response?.statusCode));
     } catch (e) {
       return left(e.toString());
     }
   }
+
+  Future<Either<String, List<SearchItemModel>>> search(String query) async {
+    try {
+      final response = await getIt<Network>().getData(
+        ServicesConstants.searchEndPoint,
+        queryParameters: {
+          'q': query,
+        },
+      );
+      if (response.statusCode == 200) {
+        final resp = response.data;
+        List<SearchItemModel> searchItems = (resp as List)
+            .map((x) => SearchItemModel.fromJson(x))
+            .toList();
+        return right(searchItems);
+      }
+      return left(await responseOfStatusCode(response.statusCode));
+    } on DioException catch (e) {
+      return left(await responseOfStatusCode(e.response?.statusCode));
+    } catch (e) {
+      return left(e.toString());
+    }
+  }
+
 
 
 }

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:spex/core/helpers/constants/constants.dart';
 import 'package:spex/core/helpers/extentions/extentions.dart';
 import 'package:spex/core/routing/routing.dart';
 import 'package:spex/core/widgets/app_button.dart';
@@ -11,6 +12,8 @@ import 'package:spex/feature/authentication/view_model/change_password_cubit/cha
 import 'package:spex/feature/authentication/view_model/change_password_cubit/change_password_state.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:spex/generated/locale_keys.g.dart';
+import 'package:spex/core/helpers/colors/light_colors.dart';
+import 'package:spex/feature/authentication/presentation/widgets/password_text_field.dart';
 
 class ChangePasswordScreen extends StatefulWidget {
   const ChangePasswordScreen({super.key});
@@ -77,7 +80,7 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                     TextInAppWidget(
                       text: LocaleKeys.auth_new_password_title.tr(),
                       textSize: 24.sp,
-                      fontWeightIndex: 700,
+                      fontWeightIndex: FontSelectionData.boldFontFamily,
                     ),
                     SizedBox(height: 8.h),
                     TextInAppWidget(
@@ -86,21 +89,14 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                       textColor: Colors.grey,
                     ),
                     SizedBox(height: 32.h),
-                    AppTextFormField(
-                      textFormController: _newPasswordController,
+                    PasswordTextField(
+                      controller: _newPasswordController,
                       aboveText: LocaleKeys.auth_new_password_title.tr(),
-                      isPassword: true,
-                      keyboardType: TextInputType.visiblePassword,
-                      validator: (val) => val == null || val.isEmpty
-                          ? LocaleKeys.auth_password_required.tr()
-                          : null,
                     ),
                     SizedBox(height: 16.h),
-                    AppTextFormField(
-                      textFormController: _confirmNewPasswordController,
+                    PasswordTextField(
+                      controller: _confirmNewPasswordController,
                       aboveText: LocaleKeys.auth_confirm_password.tr(),
-                      isPassword: true,
-                      keyboardType: TextInputType.visiblePassword,
                       validator: (val) {
                         if (val == null || val.isEmpty) {
                           return LocaleKeys.auth_confirm_password_required.tr();
@@ -116,7 +112,9 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                       builder: (context, state) {
                         if (state is ChangePasswordLoadingState) {
                           return const Center(
-                            child: CircularProgressIndicator(),
+                            child: CircularProgressIndicator(
+                              color: AppColorsLight.mainColor,
+                            ),
                           );
                         }
                         return AppTextButton(

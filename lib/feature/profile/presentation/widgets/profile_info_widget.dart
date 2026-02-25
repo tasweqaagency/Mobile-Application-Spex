@@ -10,11 +10,7 @@ class ProfileInfoWidget extends StatelessWidget {
   final String name;
   final String? avatarUrl;
 
-  const ProfileInfoWidget({
-    super.key,
-    required this.name,
-    this.avatarUrl,
-  });
+  const ProfileInfoWidget({super.key, required this.name, this.avatarUrl});
 
   @override
   Widget build(BuildContext context) {
@@ -33,7 +29,9 @@ class ProfileInfoWidget extends StatelessWidget {
               ),
               child: CircleAvatar(
                 radius: 40,
-                backgroundColor: isDark?AppColorsDark.appSecondBgColor:AppColorsLight.mainLightColor,
+                backgroundColor: isDark
+                    ? AppColorsDark.appSecondBgColor
+                    : AppColorsLight.mainLightColor,
                 backgroundImage: avatarUrl != null
                     ? NetworkImage(avatarUrl!)
                     : null,
@@ -65,7 +63,9 @@ class ProfileInfoWidget extends StatelessWidget {
           text: name,
           textSize: 22,
           fontWeightIndex: FontSelectionData.boldFontFamily,
-          textColor: isDark?AppColorsDark.appTextColor:AppColorsLight.appTextColor,
+          textColor: isDark
+              ? AppColorsDark.appTextColor
+              : AppColorsLight.appTextColor,
         ),
       ],
     );

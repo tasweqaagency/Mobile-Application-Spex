@@ -6,7 +6,12 @@ class RegisterCubit extends Cubit<RegisterState> {
   final AuthCubit authCubit;
   RegisterCubit(this.authCubit) : super(RegisterInitialState());
 
-  Future<void> register(String name, String phone, String password) async {
+  Future<void> register(
+    String name,
+    String email,
+    String phone,
+    String password,
+  ) async {
     emit(RegisterLoadingState());
 
     // Simulate API call

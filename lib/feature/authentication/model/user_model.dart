@@ -18,21 +18,8 @@ class User {
   String role;
   @HiveField(6)
   String password;
-  @HiveField(7)
-  String? consumerKey;
-  @HiveField(8)
-  String? consumerSecret;
 
-  User(
-    this.id,
-    this.name,
-    this.phone,
-    this.fcmToken,
-    this.role,
-    this.password,
-    this.consumerKey,
-    this.consumerSecret,
-  );
+  User(this.id, this.name, this.phone, this.fcmToken, this.role, this.password);
   factory User.fromJson(Map<String, dynamic> json) => _$UserFromJson(json);
 
   Map<String, dynamic> toJson() => _$UserToJson(this);

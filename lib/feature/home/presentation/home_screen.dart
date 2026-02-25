@@ -2,10 +2,12 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:spex/core/helpers/colors/dark_colors.dart';
 import 'package:spex/core/helpers/colors/light_colors.dart';
 import 'package:spex/core/helpers/constants/constants.dart';
 import 'package:spex/core/helpers/extentions/extentions.dart';
 import 'package:spex/core/routing/routing.dart';
+import 'package:spex/core/widgets/text_in_app_widget.dart';
 import 'package:spex/feature/home/model/home_mock_data.dart';
 import 'package:spex/feature/home/presentation/widgets/category_card.dart';
 import 'package:spex/feature/home/presentation/widgets/my_appbar.dart';
@@ -16,6 +18,7 @@ import 'package:spex/feature/home/view_model/category_cubit/category_cubit.dart'
 import 'package:spex/feature/home/view_model/category_cubit/category_state.dart';
 import 'package:spex/feature/layout/view_model/layout_cubit/layout_cubit.dart';
 import 'package:spex/generated/locale_keys.g.dart';
+import 'package:spex/main.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -64,7 +67,9 @@ class HomeScreen extends StatelessWidget {
                       builder: (context, state) {
                         if (state is CategoryLoadingState) {
                           return const Center(
-                            child: CircularProgressIndicator(color: AppColorsLight.mainColor,),
+                            child: CircularProgressIndicator(
+                              color: AppColorsLight.mainColor,
+                            ),
                           );
                         } else if (state is CategoryLoadedState) {
                           return ListView.separated(
@@ -79,7 +84,7 @@ class HomeScreen extends StatelessWidget {
                             },
                           );
                         } else if (state is CategoryErrorState) {
-                          return Center(child: Text(state.errorMessage.tr()));
+                          return Center(child: TextInAppWidget(text: state.errorMessage.tr(), textColor: isDark ? AppColorsDark.appTextColor : AppColorsLight.appTextColor));
                         }
                         return const SizedBox.shrink();
                       },

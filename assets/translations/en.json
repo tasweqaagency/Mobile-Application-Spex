@@ -14,7 +14,7 @@
     "search_hint": "Search for products...",
     "categories": "Categories",
     "view_all": "View all",
-    "best_offers": "Best Offers",
+    "best_seller": "Best Sellers",
     "more": "More",
     "in_stock": "In stock",
     "out_of_stock": "Out of stock",
@@ -27,7 +27,11 @@
     "settings": "Settings",
     "logout": "Logout",
     "promosion": "Promosion",
-    "search": "Search"
+    "search": "Search",
+    "no_fav_found": "No favorites found",
+    "compare": "Compare Products",
+    "clear_all": "Clear All",
+    "no_compare_found": "No products to compare"
   },
   "product_details": {
     "recommended": "Recommended",

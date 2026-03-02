@@ -7,10 +7,12 @@ import 'package:spex/core/helpers/fontSelection/font_selection.dart';
 import 'package:spex/generated/locale_keys.g.dart';
 import 'package:spex/main.dart';
 
+import 'package:spex/feature/home/model/product_model.dart';
 import 'package:spex/feature/product_details/presentation/widgets/description_tab.dart';
 
 class ProductDetailsTapBar extends StatefulWidget {
-  const ProductDetailsTapBar({super.key});
+  final SimplifiedProductModel product;
+  const ProductDetailsTapBar({super.key, required this.product});
 
   @override
   State<ProductDetailsTapBar> createState() => _ProductDetailsTapBarState();
@@ -23,7 +25,7 @@ class _ProductDetailsTapBarState extends State<ProductDetailsTapBar>
   @override
   void initState() {
     super.initState();
-    _tabController = TabController(length: 2, vsync: this);
+    _tabController = TabController(length: 1, vsync: this);
   }
 
   @override
@@ -70,7 +72,7 @@ class _ProductDetailsTapBarState extends State<ProductDetailsTapBar>
           ),
           tabs: [
             Tab(text: LocaleKeys.product_details_description.tr()),
-            Tab(text: LocaleKeys.product_details_specifications.tr()),
+            // Tab(text: LocaleKeys.product_details_specifications.tr()),
           ],
         ),
         const SizedBox(height: 20),
@@ -79,8 +81,8 @@ class _ProductDetailsTapBarState extends State<ProductDetailsTapBar>
           child: TabBarView(
             controller: _tabController,
             children: [
-              const DescriptionTab(),
-              const Center(child: Text("Specification Content")),
+              DescriptionTab(product: widget.product),
+              // const Center(child: Text("Specification Content")),
               // const Center(child: Text("Delivery Content")),
             ],
           ),

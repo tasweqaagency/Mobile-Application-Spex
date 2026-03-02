@@ -4,7 +4,6 @@ import 'package:flutter/services.dart';
 import 'package:spex/core/helpers/colors/dark_colors.dart';
 import 'package:spex/core/helpers/colors/light_colors.dart';
 import 'package:spex/core/helpers/constants/constants.dart';
-import 'package:spex/core/helpers/extentions/extentions.dart';
 import 'package:spex/core/helpers/fontSelection/font_selection.dart';
 import 'package:spex/main.dart';
 
@@ -151,7 +150,7 @@ class _TextFormFieldWidgetState extends State<TextFormFieldWidget> {
     );
   }
 
-  widgetText() {
+  SizedBox widgetText() {
     Size size = MediaQuery.of(context).size;
     return SizedBox(
       width: widget.textWidth,
@@ -183,7 +182,7 @@ class _TextFormFieldWidgetState extends State<TextFormFieldWidget> {
     );
   }
 
-  widgetTextFormField() {
+  SizedBox widgetTextFormField() {
     return SizedBox(
       height: widget.textFormHeight ?? 55,
       child: TextFormField(

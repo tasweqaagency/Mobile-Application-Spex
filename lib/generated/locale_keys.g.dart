@@ -16,7 +16,7 @@ abstract class  LocaleKeys {
   static const home_search_hint = 'home.search_hint';
   static const home_categories = 'home.categories';
   static const home_view_all = 'home.view_all';
-  static const home_best_offers = 'home.best_offers';
+  static const home_best_seller = 'home.best_seller';
   static const home_more = 'home.more';
   static const home_in_stock = 'home.in_stock';
   static const home_out_of_stock = 'home.out_of_stock';
@@ -30,6 +30,10 @@ abstract class  LocaleKeys {
   static const home_logout = 'home.logout';
   static const home_promosion = 'home.promosion';
   static const home_search = 'home.search';
+  static const home_no_fav_found = 'home.no_fav_found';
+  static const home_compare = 'home.compare';
+  static const home_clear_all = 'home.clear_all';
+  static const home_no_compare_found = 'home.no_compare_found';
   static const home = 'home';
   static const product_details_recommended = 'product_details.recommended';
   static const product_details_reviews = 'product_details.reviews';

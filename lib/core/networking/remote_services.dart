@@ -5,7 +5,9 @@ import 'package:dio/dio.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:spex/core/di/sl.dart';
 import 'package:spex/core/helpers/constants/constants.dart';
+import 'package:spex/core/helpers/extentions/extentions.dart';
 import 'package:spex/feature/home/model/category_model.dart';
+import 'package:spex/feature/home/model/product_model.dart';
 import 'package:spex/feature/search/model/search_item_model.dart';
 import '../../generated/locale_keys.g.dart';
 import 'network.dart';
@@ -51,8 +53,9 @@ class RemoteServices {
     } else {
       return '966$phone';
     }
-  } 
-   String formatEGPPhone(String phone) {
+  }
+
+  String formatEGPPhone(String phone) {
     if (phone.startsWith('2')) {
       return phone;
     } else {
@@ -142,9 +145,7 @@ class RemoteServices {
     try {
       final response = await getIt<Network>().getData(
         ServicesConstants.searchEndPoint,
-        queryParameters: {
-          'q': query,
-        },
+        queryParameters: {'q': query},
       );
       if (response.statusCode == 200) {
         final resp = response.data;
@@ -161,8 +162,90 @@ class RemoteServices {
     }
   }
 
+  Future<Either<String, List<SimplifiedProductModel>>> getPromotions() async {
+    try {
+      Map<String, dynamic> queryParameters = {
+        'on_sale': true,
+        'status': 'publish',
+        'per_page': 50,
+        'orderby': 'date',
+        'order': 'desc',
+      };
+      final response = await getIt<Network>().getData(
+        ServicesConstants.getProductsEndPoint,
+        queryParameters: queryParameters,
+      );
+      if (response.statusCode == 200) {
+        final resp = response.data;
+        List<ProductModel> products = (resp as List)
+            .map((x) => ProductModel.fromJson(x))
+            .toList();
+        List<SimplifiedProductModel> simplifiedProducts = products
+            .map((x) => x.toSimplified())
+            .toList();
+        return right(simplifiedProducts);
+      }
+      return left(await responseOfStatusCode(response.statusCode));
+    } on DioException catch (e) {
+      return left(await responseOfStatusCode(e.response?.statusCode));
+    } catch (e) {
+      return left(e.toString());
+    }
+  }
 
+  Future<Either<String, List<SimplifiedProductModel>>> getBestSellers() async {
+    try {
+      Map<String, dynamic> queryParameters = {
+        'status': 'publish',
+        'per_page': 50,
+        'orderby': 'popularity',
+        'order': 'desc',
+      };
+      final response = await getIt<Network>().getData(
+        ServicesConstants.getProductsEndPoint,
+        queryParameters: queryParameters,
+      );
+      if (response.statusCode == 200) {
+        final resp = response.data;
+        List<ProductModel> products = (resp as List)
+            .map((x) => ProductModel.fromJson(x))
+            .toList();
+        List<SimplifiedProductModel> simplifiedProducts = products
+            .map((x) => x.toSimplified())
+            .toList();
+        return right(simplifiedProducts);
+      }
+      return left(await responseOfStatusCode(response.statusCode));
+    } on DioException catch (e) {
+      return left(await responseOfStatusCode(e.response?.statusCode));
+    } catch (e) {
+      return left(e.toString());
+    }
+  }
 
+  Future<Either<String, SimplifiedProductModel>> getProductDetails(String sku) async {
+    try {
+      Map<String, dynamic> queryParameters = {'sku': sku};
+      final response = await getIt<Network>().getData(
+        ServicesConstants.getProductsEndPoint,
+        queryParameters: queryParameters,
+      );
+      if (response.statusCode == 200) {
+        final resp = response.data;
+        if (resp is List && resp.isNotEmpty) {
+          ProductModel product = ProductModel.fromJson(resp[0]);
+          SimplifiedProductModel simplifiedProduct = product.toSimplified();
+          return right(simplifiedProduct);
+        }
+        return left("Product not found");
+      }
+      return left(await responseOfStatusCode(response.statusCode));
+    } on DioException catch (e) {
+      return left(await responseOfStatusCode(e.response?.statusCode));
+    } catch (e) {
+      return left(e.toString());
+    }
+  }
 }
 
 Future<String> responseOfStatusCode(int? statusCode) async {

@@ -9,7 +9,7 @@ import '../../../../core/helpers/constants/constants.dart';
 import '../../../../main.dart';
 
 class ProductGiftWidget extends StatelessWidget {
-  final ProductModel giftProduct;
+  final SimplifiedProductModel giftProduct;
   const ProductGiftWidget({super.key, required this.giftProduct});
 
   @override
@@ -35,11 +35,11 @@ class ProductGiftWidget extends StatelessWidget {
             size: 24,
           ),
           const SizedBox(width: 12),
-          if (giftProduct.imagePath.isNotEmpty)
+          if (giftProduct.galleryImages.isNotEmpty)
             ClipRRect(
               borderRadius: BorderRadius.circular(8),
               child: Image.network(
-                giftProduct.imagePath.first,
+                giftProduct.galleryImages.first,
                 height: 48,
                 width: 48,
                 fit: BoxFit.cover,

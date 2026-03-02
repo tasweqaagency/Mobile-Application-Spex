@@ -30,7 +30,7 @@ class CodegenLoader extends AssetLoader{
     "search_hint": "ابحث عن منتحات...",
     "categories": "الأقسام",
     "view_all": "عرض الكل",
-    "best_offers": "أفضل العروض",
+    "best_seller": "الاكثر مبيعا",
     "more": "المزيد",
     "in_stock": "متوفر",
     "out_of_stock": "غير متوفر",
@@ -132,11 +132,11 @@ class CodegenLoader extends AssetLoader{
     "already_have_account": "لديك حساب بالفعل؟ ",
     "register_success": "تم التسجيل بنجاح",
     "forget_password_title": "نسيت كلمة المرور",
-    "forget_password_subtitle": "أدخل رقم هاتفك لاستلام رمز التحقق",
+    "forget_password_subtitle": "أدخل بريدك الالكتروني لاستلام رمز التحقق",
     "send_otp": "إرسال الرمز",
     "otp_sent_success": "تم إرسال الرمز بنجاح",
     "verification": "التحقق",
-    "verification_subtitle": "أدخل رمز التحقق الذي أرسلناه إلى هاتفك",
+    "verification_subtitle": "أدخل رمز التحقق الذي أرسلناه إلى بريدك الالكتروني",
     "otp_code": "رمز التحقق",
     "otp_required": "لا يمكن أن يكون رمز التحقق فارغاً",
     "verify": "تحقق",
@@ -159,7 +159,8 @@ class CodegenLoader extends AssetLoader{
     "password_not_match": "كلمة المرور عير متطابقة",
     "weak_password": "أدخل كلمة مرور تتكون على الأقل من 6 أحرف أو أرقام",
     "email": "الايميل",
-    "name": "الاسم"
+    "name": "الاسم",
+    "continue_as_guest": "المتابعة كضيف"
   },
   "profile": {
     "language": "اللغة",
@@ -169,7 +170,9 @@ class CodegenLoader extends AssetLoader{
     "privacy_policy": "سياسة الخصوصية",
     "terms_of_service": "شروط الخدمة",
     "english": "الإنجليزية",
-    "arabic": "العربية"
+    "arabic": "العربية",
+    "login_to_continue": "قم بتسجيل الدخول لرؤية تفاصيل ملفك الشخصي",
+    "login": "تسجيل الدخول"
   },
   "product_services": {
     "doorstep_delivery": "توصيل للمنزل",
@@ -223,7 +226,7 @@ static const Map<String,dynamic> _en = {
     "search_hint": "Search for products...",
     "categories": "Categories",
     "view_all": "View all",
-    "best_offers": "Best Offers",
+    "best_seller": "Best Sellers",
     "more": "More",
     "in_stock": "In stock",
     "out_of_stock": "Out of stock",
@@ -326,11 +329,11 @@ static const Map<String,dynamic> _en = {
     "already_have_account": "Already have an account? ",
     "register_success": "Registration Successful",
     "forget_password_title": "Forget Password",
-    "forget_password_subtitle": "Enter your phone number to receive a verification code",
+    "forget_password_subtitle": "Enter your email to receive a verification code",
     "send_otp": "Send OTP",
     "otp_sent_success": "OTP sent successfully",
     "verification": "Verification",
-    "verification_subtitle": "Enter the OTP code we sent to your phone",
+    "verification_subtitle": "Enter the OTP code we sent to your email",
     "otp_code": "OTP Code",
     "otp_required": "OTP cannot be empty",
     "verify": "Verify",
@@ -350,7 +353,8 @@ static const Map<String,dynamic> _en = {
     "weak_password": "enter password contain at least 6 characters or digits",
     "password_not_match": "Password not match",
     "email": "Email",
-    "name": "Name"
+    "name": "Name",
+    "continue_as_guest": "Continue as Guest"
   },
   "profile": {
     "language": "Language",
@@ -360,7 +364,9 @@ static const Map<String,dynamic> _en = {
     "privacy_policy": "Privacy Policy",
     "terms_of_service": "Terms of Service",
     "english": "English",
-    "arabic": "Arabic"
+    "arabic": "Arabic",
+    "login_to_continue": "Login to view profile details",
+    "login": "Login"
   },
   "product_services": {
     "doorstep_delivery": "Doorstep Delivery",

@@ -16,6 +16,10 @@ import 'package:spex/feature/home/presentation/widgets/promo_banner.dart';
 import 'package:spex/feature/home/presentation/widgets/section_header.dart';
 import 'package:spex/feature/home/view_model/category_cubit/category_cubit.dart';
 import 'package:spex/feature/home/view_model/category_cubit/category_state.dart';
+import 'package:spex/feature/home/view_model/best_seller_cubit/best_seller_cubit.dart';
+import 'package:spex/feature/home/view_model/best_seller_cubit/best_seller_state.dart';
+import 'package:spex/feature/home/view_model/promotions_cubit/promotions_cubit.dart';
+import 'package:spex/feature/home/view_model/promotions_cubit/promotions_state.dart';
 import 'package:spex/feature/layout/view_model/layout_cubit/layout_cubit.dart';
 import 'package:spex/generated/locale_keys.g.dart';
 import 'package:spex/main.dart';
@@ -84,7 +88,14 @@ class HomeScreen extends StatelessWidget {
                             },
                           );
                         } else if (state is CategoryErrorState) {
-                          return Center(child: TextInAppWidget(text: state.errorMessage.tr(), textColor: isDark ? AppColorsDark.appTextColor : AppColorsLight.appTextColor));
+                          return Center(
+                            child: TextInAppWidget(
+                              text: state.errorMessage.tr(),
+                              textColor: isDark
+                                  ? AppColorsDark.appTextColor
+                                  : AppColorsLight.appTextColor,
+                            ),
+                          );
                         }
                         return const SizedBox.shrink();
                       },
@@ -92,35 +103,56 @@ class HomeScreen extends StatelessWidget {
                   ),
                   SizedBox(height: 24),
                   SectionHeader(
-                    title: LocaleKeys.home_best_offers.tr(),
+                    title: LocaleKeys.home_best_seller.tr(),
                     actionText: LocaleKeys.home_more.tr(),
                     onActionPressed: () {},
                   ),
                   SizedBox(height: 12),
                   SizedBox(
                     height: context.screenWidth * 0.7,
-                    child: ListView.separated(
-                      scrollDirection: Axis.horizontal,
-                      itemBuilder: (context, index) {
-                        return SizedBox(
-                          width: 180,
-                          child: InkWell(
-                            child: ProductCard(
-                              product: HomeMockData.bestOffers[index],
+                    child: BlocBuilder<BestSellerCubit, BestSellerState>(
+                      builder: (context, state) {
+                        if (state is BestSellerLoadingState) {
+                          return const Center(
+                            child: CircularProgressIndicator(
+                              color: AppColorsLight.mainColor,
                             ),
-                            onTap: () {
-                              context.pushNamed(
-                                Routes.productDetailsScreen,
-                                arguments: HomeMockData.bestOffers[index],
+                          );
+                        } else if (state is BestSellerLoadedState) {
+                          return ListView.separated(
+                            scrollDirection: Axis.horizontal,
+                            itemBuilder: (context, index) {
+                              return SizedBox(
+                                width: 180,
+                                child: InkWell(
+                                  child: ProductCard(
+                                    product: state.products[index],
+                                  ),
+                                  onTap: () {
+                                    context.pushNamed(
+                                      Routes.productDetailsScreen,
+                                      arguments: state.products[index],
+                                    );
+                                  },
+                                ),
                               );
                             },
-                          ),
-                        );
+                            separatorBuilder: (context, index) =>
+                                const SizedBox(width: 12),
+                            itemCount: state.products.length,
+                          );
+                        } else if (state is BestSellerErrorState) {
+                          return Center(
+                            child: TextInAppWidget(
+                              text: state.errorMessage,
+                              textColor: isDark
+                                  ? AppColorsDark.appTextColor
+                                  : AppColorsLight.appTextColor,
+                            ),
+                          );
+                        }
+                        return const SizedBox.shrink();
                       },
-                      separatorBuilder: (context, index) {
-                        return const SizedBox(width: 12);
-                      },
-                      itemCount: HomeMockData.bestOffers.length,
                     ),
                   ),
                 ],

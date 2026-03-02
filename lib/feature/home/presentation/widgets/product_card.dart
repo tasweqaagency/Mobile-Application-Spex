@@ -11,9 +11,14 @@ import 'package:spex/feature/home/presentation/widgets/product_label_flag_widget
 import 'package:spex/feature/home/presentation/widgets/product_rating_widget.dart';
 import 'package:spex/generated/locale_keys.g.dart';
 import 'package:spex/main.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:spex/feature/favorite/view_model/favorite_cubit.dart';
+import 'package:spex/feature/favorite/view_model/favorite_state.dart';
+import 'package:spex/feature/compare/view_model/compare_cubit.dart';
+import 'package:spex/feature/compare/view_model/compare_state.dart';
 
 class ProductCard extends StatelessWidget {
-  final ProductModel product;
+  final SimplifiedProductModel product;
 
   const ProductCard({super.key, required this.product});
 
@@ -40,7 +45,7 @@ class ProductCard extends StatelessWidget {
         children: [
           Stack(
             children: [
-              ProductImageWidget(imageUrl: product.imagePath),
+              ProductImageWidget(imageUrl: product.galleryImages),
               if (product.isHot)
                 Positioned(
                   top: 10,
@@ -68,19 +73,47 @@ class ProductCard extends StatelessWidget {
                   mainAxisSize: MainAxisSize.min,
                   spacing: 12,
                   children: [
-                    ProductIconBottonWidget(
-                      icon: product.isFavorite
-                          ? Icons.favorite
-                          : Icons.favorite_border,
-                      onTap: () {},
-                      color: product.isFavorite
-                          ? AppColorsLight.appDarkRedColor
-                          : AppColorsLight.whiteColor,
+                    BlocBuilder<FavoriteCubit, FavoriteState>(
+                      builder: (context, state) {
+                        bool isFavorite = false;
+                        if (state is FavoriteLoaded) {
+                          isFavorite = state.favorites.any(
+                            (e) => e.id == product.id,
+                          );
+                        }
+                        return ProductIconBottonWidget(
+                          icon: isFavorite
+                              ? Icons.favorite
+                              : Icons.favorite_border,
+                          onTap: () {
+                            context.read<FavoriteCubit>().toggleFavorite(
+                              product,
+                            );
+                          },
+                          color: isFavorite
+                              ? AppColorsLight.appDarkRedColor
+                              : AppColorsLight.whiteColor,
+                        );
+                      },
                     ),
-                    ProductIconBottonWidget(
-                      icon: Icons.swap_horiz_outlined,
-                      onTap: () {},
-                      color: AppColorsLight.whiteColor,
+                    BlocBuilder<CompareCubit, CompareState>(
+                      builder: (context, state) {
+                        bool isInCompare = false;
+                        if (state is CompareLoaded) {
+                          isInCompare = state.products.any(
+                            (e) => e.id == product.id,
+                          );
+                        }
+                        return ProductIconBottonWidget(
+                          icon: Icons.swap_horiz_outlined,
+                          onTap: () {
+                            context.read<CompareCubit>().toggleCompare(product);
+                          },
+                          color: isInCompare
+                              ? AppColorsLight.mainColor
+                              : AppColorsLight.whiteColor,
+                        );
+                      },
                     ),
                   ],
                 ),

@@ -47,4 +47,6 @@ class AppColorsLight {
   static const Color profilePaymentMethodsIcon = Color(0xFF9C27B0);
   static const Color profileSettingsBg = Color(0xFFECEFF1);
   static const Color profileSettingsIcon = Color(0xFF607D8B);
+  static const Color profileSupportBg = Color(0xFFE0F7FA);
+  static const Color profileSupportIcon = Color(0xFF00BCD4);
 }

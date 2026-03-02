@@ -9,6 +9,8 @@ import 'package:spex/core/helpers/themes/dark_theme_data.dart';
 import 'package:spex/core/helpers/themes/light_theme_data.dart';
 import 'package:spex/core/helpers/themes/theme_cubit.dart';
 import 'package:spex/feature/home/view_model/category_cubit/category_cubit.dart';
+import 'package:spex/feature/home/view_model/best_seller_cubit/best_seller_cubit.dart';
+import 'package:spex/feature/home/view_model/promotions_cubit/promotions_cubit.dart';
 import 'package:spex/feature/layout/view_model/layout_cubit/layout_cubit.dart';
 import 'bloc_observer.dart';
 import 'core/di/sl.dart';
@@ -17,6 +19,8 @@ import 'core/networking/local_cervices.dart';
 import 'core/routing/routing.dart';
 import 'feature/authentication/model/user_model.dart';
 import 'feature/authentication/view_model/auth_cubit.dart';
+import 'package:spex/feature/favorite/view_model/favorite_cubit.dart';
+import 'package:spex/feature/compare/view_model/compare_cubit.dart';
 
 bool isOnBoarding = false;
 bool isDark = false;
@@ -35,7 +39,7 @@ void main() async {
   await EasyLocalization.ensureInitialized();
   Hive.registerAdapter(UserAdapter());
 
-  final isAuthenticated = false;
+  final isAuthenticated = true;
   // await getIt<AuthCubit>().isUserAuthenticable();
   final bool isOnBoardingSeen = await getIt<LocalServices>().getOnBoarding();
   isOnBoarding = isOnBoardingSeen;
@@ -92,6 +96,22 @@ class Spex extends StatelessWidget {
           lazy: false,
           create: (context) => getIt<CategoryCubit>()..getCategories(),
         ),
+        BlocProvider<BestSellerCubit>(
+          lazy: false,
+          create: (context) => getIt<BestSellerCubit>()..getBestSellers(),
+        ),
+        BlocProvider<PromotionsCubit>(
+          lazy: false,
+          create: (context) => getIt<PromotionsCubit>()..getPromotions(),
+        ),
+        BlocProvider<FavoriteCubit>(
+          lazy: false,
+          create: (context) => getIt<FavoriteCubit>()..getFavorites(),
+        ),
+        BlocProvider<CompareCubit>(
+          lazy: false,
+          create: (context) => getIt<CompareCubit>()..getComparedProducts(),
+        ),
       ],
       child: ScreenUtilInit(
         minTextAdapt: true,
@@ -111,8 +131,9 @@ class Spex extends StatelessWidget {
                 title: AppConstants.APP_NAME,
                 theme: lightThemeData(),
                 darkTheme: darkThemeData(),
-                initialRoute:
-                    isUserAuthenticable ? Routes.layoutScreen : Routes.loginScreen,
+                initialRoute: isUserAuthenticable
+                    ? Routes.layoutScreen
+                    : Routes.loginScreen,
                 onGenerateRoute: getIt<AppRouter>().generateRoute,
               );
             },

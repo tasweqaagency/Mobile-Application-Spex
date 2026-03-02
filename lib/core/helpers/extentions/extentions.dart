@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:intl/intl.dart';
 import 'package:spex/core/helpers/colors/dark_colors.dart';
 import 'package:spex/core/helpers/constants/constants.dart';
+import 'package:spex/feature/home/model/product_model.dart';
 import 'package:spex/main.dart';
 
 import '../colors/light_colors.dart';
@@ -85,7 +86,6 @@ extension ScreenSize on BuildContext {
 //   return uuid.v4();
 // }
 
-
 SizedBox verticalSpace(double height) => SizedBox(height: height);
 
 SizedBox horizontalSpace(double width) => SizedBox(width: width);
@@ -165,4 +165,37 @@ BoxDecoration myBoxDecorationWithBorder() {
       ),
     ],
   );
+}
+
+extension ProductModelExtension on ProductModel {
+  SimplifiedProductModel toSimplified() {
+    return SimplifiedProductModel(
+      id: id,
+      name: name,
+      slug: slug,
+      description: description,
+      shortDescription: shortDescription,
+      price: price,
+      regularPrice: regularPrice,
+      salePrice: salePrice,
+      image: images.isNotEmpty ? images.first.src : '',
+      galleryImages: images.map((e) => e.src).toList(),
+      rating: rating,
+      ratingCount: ratingCount,
+      category: category,
+      brand: brands.isNotEmpty ? brands.first.name : '',
+      inStock: inStock,
+      isFavorite: isFavorite,
+      isSale: salePrice.isNotEmpty,
+      colors: colors,
+      availableSizes: availableSizes,
+      productUrl: permalink,
+      fbtProducts: fbtProducts,
+      giftProducts: giftProducts,
+      isHot: isHot,
+      isNew: isNew,
+      sku: sku,
+      attributes: attributes,
+    );
+  }
 }

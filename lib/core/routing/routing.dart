@@ -22,7 +22,9 @@ import 'package:spex/feature/orders/model/order_model.dart';
 import 'package:spex/feature/orders/presentation/my_orders_screen.dart';
 import 'package:spex/feature/orders/presentation/order_details_screen.dart';
 import 'package:spex/feature/product_details/presentation/product_details_screen.dart';
+import 'package:spex/feature/product_details/view_model/product_details_cubit.dart';
 import 'package:spex/feature/search/presentation/search_screen.dart';
+import 'package:spex/feature/compare/presentation/compare_screen.dart';
 
 class Routes {
   static const loginScreen = '/login';
@@ -39,6 +41,7 @@ class Routes {
   static const shippingAddressesScreen = '/shippingAddresses';
   static const notificationScreen = '/notification';
   static const favoriteScreen = '/favorite';
+  static const compareScreen = '/compare';
 }
 
 class AppRouter {
@@ -103,8 +106,13 @@ class AppRouter {
       case Routes.layoutScreen:
         return NavigateToPageWidget(const AppLayout());
       case Routes.productDetailsScreen:
+        final product = arguments as SimplifiedProductModel;
         return NavigateToPageWidget(
-          ProductDetailsScreen(product: arguments as ProductModel),
+          BlocProvider(
+            create: (context) =>
+                getIt<ProductDetailsCubit>()..getProductDetails(product.sku),
+            child: ProductDetailsScreen(product: product),
+          ),
         );
       case Routes.searchScreen:
         return NavigateToPageWidget(const SearchScreen());
@@ -120,6 +128,8 @@ class AppRouter {
         return NavigateToPageWidget(const NotificationScreen());
       case Routes.favoriteScreen:
         return NavigateToPageWidget(const FavoriteScreen());
+      case Routes.compareScreen:
+        return NavigateToPageWidget(const CompareScreen());
       // case Routes.cartScreen:
       //   return MaterialPageRoute(
       //     builder: (_) => BlocProvider.value(

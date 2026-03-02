@@ -5,7 +5,7 @@ import 'product_details_promo_card.dart';
 import 'product_details_carousel_indicators.dart';
 
 class ProductDetailsBanner extends StatefulWidget {
-  final ProductModel product;
+  final SimplifiedProductModel product;
 
   const ProductDetailsBanner({super.key, required this.product});
 
@@ -24,7 +24,7 @@ class _ProductDetailsBannerState extends State<ProductDetailsBanner> {
       children: [
         CarouselSlider.builder(
           carouselController: _carouselController,
-          itemCount: widget.product.imagePath.length,
+          itemCount: widget.product.galleryImages.length,
           options: CarouselOptions(
             height: MediaQuery.of(context).size.height * 0.225,
             viewportFraction: 0.9,
@@ -43,13 +43,13 @@ class _ProductDetailsBannerState extends State<ProductDetailsBanner> {
             },
           ),
           itemBuilder: (context, index, realIndex) {
-            final item = widget.product.imagePath[index];
+            final item = widget.product.galleryImages[index];
             return ProductDetailsPromoCard(item: item);
           },
         ),
         const SizedBox(height: 12),
         ProductDetailsCarouselIndicators(
-          imageCount: widget.product.imagePath.length,
+          imageCount: widget.product.galleryImages.length,
           currentPage: _currentPage,
           carouselController: _carouselController,
         ),

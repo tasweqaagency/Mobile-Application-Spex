@@ -920,6 +920,10 @@ class SimplifiedProductModel {
   final String productUrl;
   final List<int> fbtProducts;
   final List<int> giftProducts;
+  final bool isHot;
+  final bool isNew;
+  final String sku;
+  final List<ProductAttribute> attributes;
 
   SimplifiedProductModel({
     required this.id,
@@ -944,34 +948,77 @@ class SimplifiedProductModel {
     required this.productUrl,
     required this.fbtProducts,
     required this.giftProducts,
+    required this.isHot,
+    required this.isNew,
+    required this.sku,
+    this.attributes = const [],
   });
-}
 
-extension ProductModelExtension on ProductModel {
-  SimplifiedProductModel toSimplified() {
+  double? get oldPrice => double.tryParse(regularPrice);
+
+  Map<String, dynamic> toJson() {
+    return {
+      'id': id,
+      'name': name,
+      'slug': slug,
+      'description': description,
+      'shortDescription': shortDescription,
+      'price': price,
+      'regularPrice': regularPrice,
+      'salePrice': salePrice,
+      'image': image,
+      'galleryImages': galleryImages,
+      'rating': rating,
+      'ratingCount': ratingCount,
+      'category': category,
+      'brand': brand,
+      'inStock': inStock,
+      'isFavorite': isFavorite,
+      'isSale': isSale,
+      'colors': colors.map((e) => e.value).toList(),
+      'availableSizes': availableSizes,
+      'productUrl': productUrl,
+      'fbtProducts': fbtProducts,
+      'giftProducts': giftProducts,
+      'isHot': isHot,
+      'isNew': isNew,
+      'sku': sku,
+      'attributes': attributes.map((e) => e.toJson()).toList(),
+    };
+  }
+
+  factory SimplifiedProductModel.fromJson(Map<String, dynamic> json) {
     return SimplifiedProductModel(
-      id: id,
-      name: name,
-      slug: slug,
-      description: description,
-      shortDescription: shortDescription,
-      price: price,
-      regularPrice: regularPrice,
-      salePrice: salePrice,
-      image: images.isNotEmpty ? images.first.src : '',
-      galleryImages: images.map((e) => e.src).toList(),
-      rating: rating,
-      ratingCount: ratingCount,
-      category: category,
-      brand: brands.isNotEmpty ? brands.first.name : '',
-      inStock: inStock,
-      isFavorite: isFavorite,
-      isSale: salePrice.isNotEmpty,
-      colors: colors,
-      availableSizes: availableSizes,
-      productUrl: permalink,
-      fbtProducts: fbtProducts,
-      giftProducts: giftProducts,
+      id: json['id'],
+      name: json['name'],
+      slug: json['slug'],
+      description: json['description'],
+      shortDescription: json['shortDescription'],
+      price: json['price'],
+      regularPrice: json['regularPrice'],
+      salePrice: json['salePrice'],
+      image: json['image'],
+      galleryImages: List<String>.from(json['galleryImages']),
+      rating: json['rating'],
+      ratingCount: json['ratingCount'],
+      category: json['category'],
+      brand: json['brand'],
+      inStock: json['inStock'],
+      isFavorite: json['isFavorite'],
+      isSale: json['isSale'],
+      colors: (json['colors'] as List).map((e) => Color(e)).toList(),
+      availableSizes: List<String>.from(json['availableSizes']),
+      productUrl: json['productUrl'],
+      fbtProducts: List<int>.from(json['fbtProducts']),
+      giftProducts: List<int>.from(json['giftProducts']),
+      isHot: json['isHot'],
+      isNew: json['isNew'],
+      sku: json['sku'],
+      attributes:
+          (json['attributes'] as List?)
+              ?.map((e) => ProductAttribute.fromJson(e))
+              .toList() ??
+          [],
     );
   }
 }

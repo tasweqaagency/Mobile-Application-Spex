@@ -39,10 +39,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 verticalSpace(28),
                 BlocBuilder<AuthCubit, AuthState>(
                   builder: (context, authState) {
-                    if (authState is AuthLoadedState) {
+                    if (true) {
                       return Column(
                         children: [
-                          ProfileInfoWidget(name: authState.user.name),
+                          ProfileInfoWidget(name: ""),
                           verticalSpace(32),
                           ProfileStatsRow(
                             ordersCount: "12",
@@ -82,6 +82,15 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                     AppColorsLight.profileShippingAddressBg,
                                 iconColor:
                                     AppColorsLight.profileShippingAddressIcon,
+                              ),
+                              ProfileMenuItem(
+                                icon: Icons.compare_arrows,
+                                title: LocaleKeys.home_compare.tr(),
+                                onTap: () {
+                                  context.pushNamed(Routes.compareScreen);
+                                },
+                                iconBgColor: AppColorsLight.profileSupportBg,
+                                iconColor: AppColorsLight.profileSupportIcon,
                               ),
                             ],
                           ),

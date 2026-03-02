@@ -36,6 +36,7 @@ class ServicesConstants {
   static const String PASSWORD_BOX = "passwordBox";
   static const String ONBOARDING_BOX = "onBoardingBox";
   static const String THEME_BOX = "themeBox";
+  static const String FAVORITES_BOX = "favoritesBox";
 }
 
 class ValuesOfAllApp {

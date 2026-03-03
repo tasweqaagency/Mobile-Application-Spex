@@ -25,6 +25,8 @@ import 'package:spex/feature/product_details/presentation/product_details_screen
 import 'package:spex/feature/product_details/view_model/product_details_cubit.dart';
 import 'package:spex/feature/search/presentation/search_screen.dart';
 import 'package:spex/feature/compare/presentation/compare_screen.dart';
+import 'package:spex/feature/profile/presentation/privacy_policy_screen.dart';
+import 'package:spex/feature/profile/presentation/terms_of_service_screen.dart';
 
 class Routes {
   static const loginScreen = '/login';
@@ -42,6 +44,8 @@ class Routes {
   static const notificationScreen = '/notification';
   static const favoriteScreen = '/favorite';
   static const compareScreen = '/compare';
+  static const privacyPolicyScreen = '/privacyPolicy';
+  static const termsOfServiceScreen = '/termsOfService';
 }
 
 class AppRouter {
@@ -130,6 +134,10 @@ class AppRouter {
         return NavigateToPageWidget(const FavoriteScreen());
       case Routes.compareScreen:
         return NavigateToPageWidget(const CompareScreen());
+      case Routes.privacyPolicyScreen:
+        return NavigateToPageWidget(const PrivacyPolicyScreen());
+      case Routes.termsOfServiceScreen:
+        return NavigateToPageWidget(const TermsOfServiceScreen());
       // case Routes.cartScreen:
       //   return MaterialPageRoute(
       //     builder: (_) => BlocProvider.value(

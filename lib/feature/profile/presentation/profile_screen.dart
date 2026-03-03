@@ -229,14 +229,18 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     ProfileMenuItem(
                       icon: Icons.security_outlined,
                       title: LocaleKeys.profile_privacy_policy.tr(),
-                      onTap: () {},
+                      onTap: () {
+                        context.pushNamed(Routes.privacyPolicyScreen);
+                      },
                       iconBgColor: AppColorsLight.profileShippingAddressBg,
                       iconColor: AppColorsLight.profileShippingAddressIcon,
                     ),
                     ProfileMenuItem(
                       icon: Icons.description_outlined,
                       title: LocaleKeys.profile_terms_of_service.tr(),
-                      onTap: () {},
+                      onTap: () {
+                        context.pushNamed(Routes.termsOfServiceScreen);
+                      },
                       iconBgColor: AppColorsLight.profileWishlistBg,
                       iconColor: AppColorsLight.profileWishlistIcon,
                     ),

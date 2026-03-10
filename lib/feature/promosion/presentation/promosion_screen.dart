@@ -33,17 +33,17 @@ class PromosionScreen extends StatelessWidget {
                 crossAxisSpacing: 12,
                 mainAxisSpacing: 12,
               ),
-              itemCount: state.products.length,
+              itemCount: state.products.items!.length,
               itemBuilder: (context, index) {
-                final product = state.products[index];
+                final product = state.products.items![index];
                 return InkWell(
                   onTap: () {
                     context.pushNamed(
                       Routes.productDetailsScreen,
-                      arguments: product,
+                      arguments: product.toSimplifiedProduct(),
                     );
                   },
-                  child: ProductCard(product: product),
+                  child: ProductCard(product: product.toSimplifiedProduct()),
                 );
               },
             );

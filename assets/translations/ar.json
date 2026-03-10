@@ -40,7 +40,11 @@
     "description": "الوصف",
     "add_to_cart": "إضافة إلى السلة",
     "buy_now": "شراء الآن",
-    "frequently_bought_together": "غالبا يتم شراؤها معًا"
+    "frequently_bought_together": "غالبا يتم شراؤها معًا",
+    "related_products": "المنتجات ذات الصلة",
+    "total_price": "السعر الإجمالي",
+    "select_color": "اختار اللون",
+    "select_size": "اختار المقاس"
   },
   "cart": {
     "delivery_address": "عنوان التوصيل",

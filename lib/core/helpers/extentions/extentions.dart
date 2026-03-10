@@ -3,7 +3,9 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:intl/intl.dart';
 import 'package:spex/core/helpers/colors/dark_colors.dart';
 import 'package:spex/core/helpers/constants/constants.dart';
+import 'package:spex/feature/category/model/pagination_rresponse_model.dart';
 import 'package:spex/feature/home/model/product_model.dart';
+import 'package:spex/feature/product_details/model/mini_product_model.dart';
 import 'package:spex/main.dart';
 
 import '../colors/light_colors.dart';
@@ -89,6 +91,7 @@ extension ScreenSize on BuildContext {
 SizedBox verticalSpace(double height) => SizedBox(height: height);
 
 SizedBox horizontalSpace(double width) => SizedBox(width: width);
+
 String removePlusFromPhone(String phone) {
   if (phone.startsWith('+')) {
     return phone.substring(1);
@@ -192,10 +195,81 @@ extension ProductModelExtension on ProductModel {
       productUrl: permalink,
       fbtProducts: fbtProducts,
       giftProducts: giftProducts,
+      relatedProducts: relatedIds,
       isHot: isHot,
       isNew: isNew,
       sku: sku,
       attributes: attributes,
+    );
+  }
+}
+
+// extension CategoryProductItemExtension on CategoryProductItem {
+//   SimplifiedProductModel toSimplifiedProduct() {
+//     return SimplifiedProductModel(
+//       id: id ?? 0,
+//       name: name ?? '',
+//       slug: '',
+//       description: '',
+//       shortDescription: '',
+//       price: price ?? '0',
+//       regularPrice: "" ?? '0',
+//       salePrice: '',
+//       image: image ?? '',
+//       galleryImages: [image ?? ''],
+//       rating: 0,
+//       ratingCount: 0,
+//       category: '',
+//       brand: '',
+//       inStock: true,
+//       isFavorite: false,
+//       isSale: false,
+//       colors: [],
+//       availableSizes: [],
+//       productUrl: '',
+//       fbtProducts: [],
+//       giftProducts: [],
+//       relatedProducts: [],
+//       isHot: false,
+//       isNew: false,
+//       sku: "",
+//       attributes: [],
+//     );
+//   }
+// }
+
+extension MiniProductModelExtension on MiniProductModel {
+  SimplifiedProductModel toSimplifiedProduct() {
+    return SimplifiedProductModel(
+      id: id ?? 0,
+      name: name ?? '',
+      slug: '',
+      description: '',
+      shortDescription: '',
+      price: price ?? '0',
+      regularPrice: regularPrice ?? '0',
+      salePrice: salePrice ?? '',
+      image: image ?? '',
+      galleryImages: [image ?? ''],
+      rating: 0,
+      ratingCount: 0,
+      category: '',
+      brand: '',
+      inStock:
+          StockStatus.fromString(stockStatus ?? 'instock') ==
+          StockStatus.instock,
+      isFavorite: false,
+      isSale: onSale ?? false,
+      colors: [],
+      availableSizes: [],
+      productUrl: permalink ?? '',
+      fbtProducts: [],
+      giftProducts: [],
+      relatedProducts: [],
+      isHot: false,
+      isNew: false,
+      sku: sku ?? '',
+      attributes: [],
     );
   }
 }

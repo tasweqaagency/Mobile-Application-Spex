@@ -6,8 +6,10 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:spex/core/di/sl.dart';
 import 'package:spex/core/helpers/constants/constants.dart';
 import 'package:spex/core/helpers/extentions/extentions.dart';
-import 'package:spex/feature/home/model/category_model.dart';
+import 'package:spex/feature/category/model/category_model.dart';
+import 'package:spex/feature/category/model/pagination_rresponse_model.dart';
 import 'package:spex/feature/home/model/product_model.dart';
+import 'package:spex/feature/product_details/model/mini_product_model.dart';
 import 'package:spex/feature/search/model/search_item_model.dart';
 import '../../generated/locale_keys.g.dart';
 import 'network.dart';
@@ -162,28 +164,28 @@ class RemoteServices {
     }
   }
 
-  Future<Either<String, List<SimplifiedProductModel>>> getPromotions() async {
+  Future<Either<String, PaginationResponseModel<MiniProductModel>>> getPromotions({int page = 1}) async {
     try {
       Map<String, dynamic> queryParameters = {
-        'on_sale': true,
-        'status': 'publish',
-        'per_page': 50,
-        'orderby': 'date',
-        'order': 'desc',
+        // 'on_sale': true,
+        // 'status': 'publish',
+        'per_page': AppConstants.perPage,
+        "page": page,
+        // 'orderby': 'date',
+        // 'order': 'desc',
       };
       final response = await getIt<Network>().getData(
-        ServicesConstants.getProductsEndPoint,
+        ServicesConstants.getPromotionsEndPoint,
         queryParameters: queryParameters,
       );
       if (response.statusCode == 200) {
         final resp = response.data;
-        List<ProductModel> products = (resp as List)
-            .map((x) => ProductModel.fromJson(x))
-            .toList();
-        List<SimplifiedProductModel> simplifiedProducts = products
-            .map((x) => x.toSimplified())
-            .toList();
-        return right(simplifiedProducts);
+        PaginationResponseModel<MiniProductModel> paginationResponseModel =
+            PaginationResponseModel.fromJson(
+              resp,
+              (json) => MiniProductModel.fromJson(json),
+            );
+        return right(paginationResponseModel);
       }
       return left(await responseOfStatusCode(response.statusCode));
     } on DioException catch (e) {
@@ -193,27 +195,25 @@ class RemoteServices {
     }
   }
 
-  Future<Either<String, List<SimplifiedProductModel>>> getBestSellers() async {
+  Future<Either<String, PaginationResponseModel<MiniProductModel>>>
+  getBestSellers({int page = 1}) async {
     try {
       Map<String, dynamic> queryParameters = {
-        'status': 'publish',
-        'per_page': 50,
-        'orderby': 'popularity',
-        'order': 'desc',
+        'page': page,
+        'per_page': AppConstants.perPage,
       };
       final response = await getIt<Network>().getData(
-        ServicesConstants.getProductsEndPoint,
+        ServicesConstants.getBestSellersEndPoint,
         queryParameters: queryParameters,
       );
       if (response.statusCode == 200) {
         final resp = response.data;
-        List<ProductModel> products = (resp as List)
-            .map((x) => ProductModel.fromJson(x))
-            .toList();
-        List<SimplifiedProductModel> simplifiedProducts = products
-            .map((x) => x.toSimplified())
-            .toList();
-        return right(simplifiedProducts);
+        PaginationResponseModel<MiniProductModel> paginationResponseModel =
+            PaginationResponseModel.fromJson(
+              resp,
+              (json) => MiniProductModel.fromJson(json),
+            );
+        return right(paginationResponseModel);
       }
       return left(await responseOfStatusCode(response.statusCode));
     } on DioException catch (e) {
@@ -223,7 +223,9 @@ class RemoteServices {
     }
   }
 
-  Future<Either<String, SimplifiedProductModel>> getProductDetails(String sku) async {
+  Future<Either<String, SimplifiedProductModel>> getProductDetails(
+    String sku,
+  ) async {
     try {
       Map<String, dynamic> queryParameters = {'sku': sku};
       final response = await getIt<Network>().getData(
@@ -238,6 +240,64 @@ class RemoteServices {
           return right(simplifiedProduct);
         }
         return left("Product not found");
+      }
+      return left(await responseOfStatusCode(response.statusCode));
+    } on DioException catch (e) {
+      return left(await responseOfStatusCode(e.response?.statusCode));
+    } catch (e) {
+      return left(e.toString());
+    }
+  }
+
+  Future<Either<String, PaginationResponseModel<MiniProductModel>>>
+  getCategoryProducts(int categoryId, {int page = 1, int perPage = 20}) async {
+    try {
+      final response = await getIt<Network>().postData(
+        ServicesConstants.categoryProductsEndPoint,
+        options: Options(
+          headers: {
+            'X-Category-Id': categoryId,
+            'X-Per-Page': perPage,
+            'X-Page': page,
+          },
+        ),
+      );
+      if (response.statusCode == 200) {
+        final resp = response.data;
+        PaginationResponseModel<MiniProductModel> products =
+            PaginationResponseModel<MiniProductModel>.fromJson(
+              resp,
+              (json) => MiniProductModel.fromJson(json),
+            );
+        return right(products);
+      }
+      return left(await responseOfStatusCode(response.statusCode));
+    } on DioException catch (e) {
+      return left(await responseOfStatusCode(e.response?.statusCode));
+    } catch (e) {
+      return left(e.toString());
+    }
+  }
+
+  Future<Either<String, List<SimplifiedProductModel>>> getListOfProducts(
+    List<int> productIds,
+  ) async {
+    try {
+      final response = await getIt<Network>().getDataWithBodyAndQuery(
+        {'ids': productIds},
+        null,
+        ServicesConstants.productsListEndPoint,
+      );
+      if (response.statusCode == 200) {
+        final resp = response.data;
+        List<MiniProductModel> products = (resp['products'] as List)
+            .map((x) => MiniProductModel.fromJson(x))
+            .toList();
+
+        List<SimplifiedProductModel> simplifiedProducts = products
+            .map((x) => x.toSimplifiedProduct())
+            .toList();
+        return right(simplifiedProducts);
       }
       return left(await responseOfStatusCode(response.statusCode));
     } on DioException catch (e) {

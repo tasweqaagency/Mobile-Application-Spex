@@ -43,7 +43,11 @@ class CodegenLoader extends AssetLoader{
     "settings": "الاعدادات",
     "logout": "تسجيل الخروج",
     "promosion": "عروض",
-    "search": "بحث"
+    "search": "بحث",
+    "no_fav_found": "لم يتم العثور على منتجات في المفضلة",
+    "compare": "مقارنة المنتجات",
+    "clear_all": "مسح الكل",
+    "no_compare_found": "لا توجد منتجات للمقارنة"
   },
   "product_details": {
     "recommended": "المنتجات الموصى بها",
@@ -52,7 +56,9 @@ class CodegenLoader extends AssetLoader{
     "description": "الوصف",
     "add_to_cart": "إضافة إلى السلة",
     "buy_now": "شراء الآن",
-    "frequently_bought_together": "غالبا يتم شراؤها معًا"
+    "frequently_bought_together": "غالبا يتم شراؤها معًا",
+    "related_products": "المنتجات ذات الصلة",
+    "total_price": "السعر الإجمالي"
   },
   "cart": {
     "delivery_address": "عنوان التوصيل",
@@ -208,6 +214,56 @@ class CodegenLoader extends AssetLoader{
     "faq_a3": "جميع الأسعار المعروضة على الموقع شاملة ضريبة القيمة المضافة.",
     "need_help": "تحتاج مساعدة؟",
     "subscribe_us": "تابعنا"
+  },
+  "policy": {
+    "privacy_policy_title": "سياسة الخصوصية",
+    "terms_title": "الشروط والأحكام",
+    "privacy": {
+      "item_1_title": "1. جمع البيانات",
+      "item_1_body": "نقوم بجمع ومعالجة البيانات الشخصية التي يقدمها المستخدمون طواعية عند الوصول إلى الموقع الإلكتروني أو التطبيق، أو إنشاء حساب، أو إتمام عملية شراء. قد تشمل هذه البيانات، على سبيل المثال لا الحصر: الاسم، رقم الهاتف، عنوان البريد الإلكتروني، عنوان الشحن، وتفاصيل الدفع.\n\nالبريد الإلكتروني online@spexeg.com ورقم خدمة العملاء +201275555063 هي قنوات اتصال رسمية مملوكة لشركة Spex.",
+      "item_2_title": "2. استخدام البيانات",
+      "item_2_body": "تُستخدم البيانات من أجل:\n- معالجة الطلبات والتسليمات\n- التواصل مع المستخدمين\n- تحسين الخدمات\n- الامتثال للالتزامات القانونية",
+      "item_3_title": "3. مشاركة البيانات",
+      "item_3_body": "- لا يتم بيع أو تأجير بيانات المستخدم.\n- قد تتم مشاركة البيانات مع مزودي الخدمة من أجل تنفيذ الطلبات.",
+      "item_4_title": "4. حماية البيانات",
+      "item_4_body": "نقوم بتنفيذ إجراءات أمنية مناسبة لحماية البيانات الشخصية.",
+      "item_5_title": "5. ملفات تعريف الارتباط",
+      "item_5_body": "تُستخدم ملفات تعريف الارتباط لتحسين تجربة المستخدم وتحليل الأداء.",
+      "item_6_title": "6. حقوق المستخدم",
+      "item_6_body": "يمكن للمستخدمين طلب الوصول إلى بياناتهم الشخصية أو تصحيحها أو حذفها.",
+      "item_7_title": "7. خصوصية الأطفال",
+      "item_7_body": "خدماتنا غير مخصصة للأطفال دون سن 13 عاماً.",
+      "item_8_title": "8. تحديثات السياسة",
+      "item_8_body": "تحتفظ Spex بالحق، وفقاً لتقديرها الخاص، في تعديل أو تحديث سياسة الخصوصية هذه في أي وقت. ويشكل الاستمرار في استخدام الموقع الإلكتروني أو التطبيق بعد هذه التغييرات قبولاً قانونياً للسياسة المعدلة."
+    },
+    "terms": {
+      "item_1_title": "1. التعاريف",
+      "item_1_body": "- الموقع الإلكتروني / التطبيق: يشير إلى الموقع الإلكتروني وتطبيق الهاتف المحمول المملوك والمدار من قبل الشركة.\n- الشركة: Spex هي الكيان القانوني الذي يمتلك ويدير المنصة.\n- المستخدم / العميل: أي شخص يزور المنصة أو يسجل فيها أو يشتري منها.\n- المنتجات: جميع الأجهزة الإلكترونية والإكسسوارات المعروضة للبيع.",
+      "item_2_title": "2. قبول الشروط",
+      "item_2_body": "من خلال الوصول إلى الموقع الإلكتروني أو التطبيق أو استخدامه، أو إنشاء حساب، أو إتمام أي معاملة، فإنك تقر صراحة وتوافق قانوناً على الالتزام الكامل بهذه الشروط والأحكام وسياسة خصوصية Spex دون قيد أو شرط. إذا كنت لا توافق، يرجى التوقف عن الاستخدام.",
+      "item_3_title": "3. الأهلية",
+      "item_3_body": "- يجب أن يكون عمر المستخدمين 18 عاماً على الأقل أو استخدام الخدمة تحت إشراف الوالدين.\n- تحتفظ الشركة بالحق في تعليق أو إنهاء الحسابات التي تنتهك هذه الشروط.",
+      "item_4_title": "4. تسجيل الحساب",
+      "item_4_body": "- يجب على المستخدمين تقديم معلومات دقيقة ومحدثة.\n- المستخدمون مسؤولون عن الحفاظ على سرية الحساب.\n- لن تتحمل Spex أي مسؤولية قانونية أو مالية عن أي استخدام غير مصرح به لحساب المستخدم، وتقع المسؤولية الكاملة على عاتق المستخدم.",
+      "item_5_title": "5. المنتجات والأسعار",
+      "item_5_body": "- تُعرض الأسعار بالجنيه المصري (EGP) وتشمل الضرائب المعمول بها ما لم ينص على خلاف ذلك.\n- قد تقوم الشركة بتحديث الأسعار أو تفاصيل المنتجات في أي وقت.\n- صور المنتجات ومواصفاتها هي لأغراض التوضيح فقط.",
+      "item_6_title": "6. الطلبات والمدفوعات",
+      "item_6_body": "- تقدم الشركة خيارات الدفع بالتقسيط من خلال مزودي خدمة خارجيين معتمدين، وتخضع لشروطهم وأحكامهم.\n- يتم تأكيد الطلبات عند الدفع الناجح.\n- تحتفظ الشركة بالحق في إلغاء الطلبات دون إذن المستخدمين بسبب ظروف قد تشمل، على سبيل المثال لا الحصر: مشاكل في التسعير، أو مشاكل في التوفر، أو الاشتباه في وجود احتيال حتى لو تم تأكيد الطلب أو دفعه بالفعل.\n- تخضع المدفوعات لشروط مزودي خدمة الدفع الخارجيين.",
+      "item_7_title": "7. الشحن والتسليم",
+      "item_7_body": "- يتوفر الشحن داخل مصر ما لم ينص على خلاف ذلك.\n- جميع الجداول الزمنية للتسليم المقدمة هي تقديرات فقط وغير ملزمة قانوناً، وقد تختلف بسبب عوامل لوجستية أو أحداث القوة القاهرة الخارجة عن سيطرة Spex.\n- الشركة غير مسؤولة عن تأخيرات شركات الشحن.",
+      "item_8_title": "8. الإرجاع والاسترداد",
+      "item_8_body": "- المنتجات الرقمية (مثل الأكواد أو البرامج أو الاشتراكات) غير قابلة للاسترداد بمجرد تسليمها أو تفعيلها.\n- يمكنك إرجاع طلبك في غضون 14 يومًا إذا كان بنفس الحالة التي استلمته بها (مغلف ولم يتم فتحه)، و30 يومًا إذا كان به عيب.\n- ستكون طريقة رد الأموال هي نفس طريقة الدفع باستثناء طريقة الدفع نقداً عند الاستلام، حيث سيكون رد الأموال عن طريق تحويل بنكي.\n- رسوم الشحن غير قابلة للاسترداد.\n- يمكنك إرجاع طلبك بنفسك إلى أي من متاجرنا أو شحنه إلى مستودعنا (سيتم محاسبتك على رسوم شحن الإرجاع).\n- في حالة وجود عيب في المنتجات، سنستلم منتجاتك لفحصها من قبل الشركة المصنعة للتأكد مما إذا كانت مؤهلة للإرجاع (قد تختلف فترة الفحص من مصنع لآخر).\n- تتم عملية رد الأموال بمجرد استلام المنتجات المرتجعة من الشركة المصنعة في حال كانت معيبة أو من العميل إذا كانت العبوة مغلقة ولم تفتح كما تم استلامها في غضون (14) يوم عمل.\n- يرجى فحص المنتج عند الاستلام قبل فتح العبوة للتأكد من مطابقتها لطلبك. لن يتم قبول المرتجعات إذا تم فتح عبوة المنتج، حتى في حالة وجود أصناف غير صحيحة.",
+      "item_9_title": "9. الضمان",
+      "item_9_body": "- المنتجات مغطاة بضمانات الشركة المصنعة أو الموزع المعتمد.\n- الشركة غير مسؤولة عن سوء الاستخدام أو التعامل غير السليم.",
+      "item_10_title": "10. الملكية الفكرية",
+      "item_10_body": "جميع المحتويات مملوكة للشركة أو مرخصة لها ولا يجوز إعادة استخدامها دون إذن.",
+      "item_11_title": "11. حدود المسؤولية",
+      "item_11_body": "لن تكون Spex مسؤولة تحت أي ظرف من الظروف عن أي أضرار غير مباشرة أو عرضية أو تبعية أو خسارة أرباح تنشأ عن أو تتعلق باستخدام أو عدم القدرة على استخدام المنصة.",
+      "item_12_title": "12. القانون الواجب التطبيق",
+      "item_12_body": "تخضع هذه الشروط لقوانين جمهورية مصر العربية.",
+      "item_13_title": "13. التعديلات",
+      "item_13_body": "قد تقوم الشركة بتعديل هذه الشروط في أي وقت. ويشكل الاستمرار في الاستخدام قبولاً لهذه التعديلات."
+    }
   }
 };
 static const Map<String,dynamic> _en = {
@@ -239,7 +295,11 @@ static const Map<String,dynamic> _en = {
     "settings": "Settings",
     "logout": "Logout",
     "promosion": "Promosion",
-    "search": "Search"
+    "search": "Search",
+    "no_fav_found": "No favorites found",
+    "compare": "Compare Products",
+    "clear_all": "Clear All",
+    "no_compare_found": "No products to compare"
   },
   "product_details": {
     "recommended": "Recommended",
@@ -248,7 +308,9 @@ static const Map<String,dynamic> _en = {
     "description": "Description",
     "add_to_cart": "Add to Cart",
     "buy_now": "Buy Now",
-    "frequently_bought_together": "frequently bought together"
+    "frequently_bought_together": "frequently bought together",
+    "related_products": "Related Products",
+    "total_price": "total price"
   },
   "cart": {
     "delivery_address": "Delivery Address",
@@ -402,6 +464,56 @@ static const Map<String,dynamic> _en = {
     "faq_a3": "All prices shown on the website are inclusive of VAT.",
     "need_help": "Need Help?",
     "subscribe_us": "Subscribe us"
+  },
+  "policy": {
+    "privacy_policy_title": "Privacy Policy",
+    "terms_title": "Terms & Conditions",
+    "privacy": {
+      "item_1_title": "1. Data Collection",
+      "item_1_body": "We collect and process personal data voluntarily provided by users when accessing the Website or App, creating an account, or completing a purchase. Such data may include, but is not limited to: name, phone number, email address, shipping address, and payment details.\n\nThe email address online@spexeg.com and customer service number +201275555063 are official contact channels owned by Spex.",
+      "item_2_title": "2. Data Usage",
+      "item_2_body": "Data is used to:\n- Process orders and deliveries\n- Communicate with users\n- Improve services\n- Comply with legal obligations",
+      "item_3_title": "3. Data Sharing",
+      "item_3_body": "- User data is not sold or rented.\n- Data may be shared with service providers for order fulfillment.",
+      "item_4_title": "4. Data Protection",
+      "item_4_body": "We implement appropriate security measures to protect personal data.",
+      "item_5_title": "5. Cookies",
+      "item_5_body": "Cookies are used to enhance user experience and analyze performance.",
+      "item_6_title": "6. User Rights",
+      "item_6_body": "Users may request access, correction, or deletion of their personal data.",
+      "item_7_title": "7. Children’s Privacy",
+      "item_7_body": "Our services are not intended for children under 13.",
+      "item_8_title": "8. Policy Updates",
+      "item_8_body": "Spex reserves the right, at its sole discretion, to amend or update this Privacy Policy at any time. Continued use of the Website or App following such changes constitutes legal acceptance of the revised policy."
+    },
+    "terms": {
+      "item_1_title": "1. Definitions",
+      "item_1_body": "- Website / App: Refers to the website and mobile application owned and operated by the Company.\n- Company: Spex is the legal entity owning and operating the platform.\n- User / Customer: Any person who visits, registers, or purchases from the platform.\n- Products: All electronic devices and accessories offered for sale.",
+      "item_2_title": "2. Acceptance of Terms",
+      "item_2_body": "By accessing or using the Website or App, creating an account, or completing any transaction, you expressly acknowledge and legally agree to be fully bound by these Terms & Conditions and the Privacy Policy of Spex without limitation or condition. If you do not agree, please discontinue use.",
+      "item_3_title": "3. Eligibility",
+      "item_3_body": "- Users must be at least 18 years old or use the service under parental supervision.\n- The Company reserves the right to suspend or terminate accounts violating these terms.",
+      "item_4_title": "4. Account Registration",
+      "item_4_body": "- Users must provide accurate and up-to-date information.\n- Users are responsible for maintaining account confidentiality.\n- Spex shall not bear any legal or financial liability for any unauthorized use of a user account, and full responsibility rests with the user.",
+      "item_5_title": "5. Products & Pricing",
+      "item_5_body": "- Prices are displayed in Egyptian Pounds (EGP) and include applicable taxes unless stated otherwise.\n- The Company may update prices or product details at any time.\n- Product images and specifications are for illustration purposes only.",
+      "item_6_title": "6. Orders & Payments",
+      "item_6_body": "- The Company offers installment payment options through authorized third-party providers, subject to their terms and conditions.\n- Orders are confirmed upon successful payment.\n- The Company reserves the right to cancel orders without users' permissions due to circumstances that may include, but are not limited to: pricing issues, stock issues, or suspected fraud even if the order has already been confirmed or paid for.\n- Payments are subject to third-party payment providers' terms.",
+      "item_7_title": "7. Shipping & Delivery",
+      "item_7_body": "- Shipping is available within Egypt unless stated otherwise.\n- All delivery timelines provided are estimates only and are not legally binding, and may vary due to logistical factors or force majeure events beyond Spex's control.\n- The Company is not responsible for courier delays.",
+      "item_8_title": "8. Returns & Refunds",
+      "item_8_body": "- Digital products (such as codes, software, or subscriptions) are non-refundable once delivered or activated.\n- You can return your order within 14 days if it is in the same condition as received (Sealed package and Unopened), and 30 days if it is defective.\n- The refund method will be the same as the payment method except for cash on delivery payment method, the refund will be a bank transfer.\n- Shipping fees is non-refundable.\n- You can return your order by yourself to any of our stores or ship it to our warehouse (you will be charged for the return shipping fees).\n- In case of defective items, we will receive your items for inspection by their manufacturer to confirm whether they are eligible for return (the inspection period may vary from one manufacturer to another).\n- The refund process takes place once the returned products are received from the manufacturer in case they are defective or from the consumer if the package is sealed and unopened as received within (14) business days.\n- Please inspect the product upon receipt before opening the product package to ensure it matches your order. Returns will not be accepted if the product package is opened, even in case of incorrect items.",
+      "item_9_title": "9. Warranty",
+      "item_9_body": "- Products are covered by manufacturer or authorized distributor warranties.\n- The Company is not responsible for misuse or improper handling.",
+      "item_10_title": "10. Intellectual Property",
+      "item_10_body": "All content is owned or licensed by the Company and may not be reused without permission.",
+      "item_11_title": "11. Limitation of Liability",
+      "item_11_body": "Under no circumstances shall Spex be liable for any indirect, incidental, consequential, or loss-of-profit damages arising out of or related to the use or inability to use the platform.",
+      "item_12_title": "12. Governing Law",
+      "item_12_body": "These Terms shall be governed by the laws of the Arab Republic of Egypt.",
+      "item_13_title": "13. Amendments",
+      "item_13_body": "The Company may modify these Terms at any time. Continued use constitutes acceptance."
+    }
   }
 };
 static const Map<String, Map<String,dynamic>> mapLocales = {"ar": _ar, "en": _en};

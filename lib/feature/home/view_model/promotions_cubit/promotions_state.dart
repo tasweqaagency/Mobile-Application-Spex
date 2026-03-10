@@ -1,4 +1,6 @@
+import 'package:spex/feature/category/model/pagination_rresponse_model.dart';
 import 'package:spex/feature/home/model/product_model.dart';
+import 'package:spex/feature/product_details/model/mini_product_model.dart';
 
 abstract class PromotionsState {}
 
@@ -7,7 +9,7 @@ class PromotionsInitialState extends PromotionsState {}
 class PromotionsLoadingState extends PromotionsState {}
 
 class PromotionsLoadedState extends PromotionsState {
-  final List<SimplifiedProductModel> products;
+  final PaginationResponseModel<MiniProductModel> products;
   PromotionsLoadedState(this.products);
 }
 

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:spex/feature/home/model/promo_banner_model.dart';
-import 'category_model.dart';
+import '../../category/model/category_model.dart';
 import 'product_model.dart';
 
 class HomeMockData {

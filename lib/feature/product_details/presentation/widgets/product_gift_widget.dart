@@ -82,7 +82,7 @@ class ProductGiftWidget extends StatelessWidget {
               ),
               if (giftProduct.oldPrice != null)
                 TextInAppWidget(
-                  text: "${giftProduct.oldPrice} ${LocaleKeys.home_egp.tr()}",
+                  text: "${giftProduct.oldPrice ?? giftProduct.price } ${LocaleKeys.home_egp.tr()}",
                   textSize: 12,
                   fontWeightIndex: FontSelectionData.regularFontFamily,
                   textColor: isDark

@@ -14,8 +14,8 @@ import 'package:spex/feature/home/presentation/widgets/my_appbar.dart';
 import 'package:spex/feature/home/presentation/widgets/product_card.dart';
 import 'package:spex/feature/home/presentation/widgets/promo_banner.dart';
 import 'package:spex/feature/home/presentation/widgets/section_header.dart';
-import 'package:spex/feature/home/view_model/category_cubit/category_cubit.dart';
-import 'package:spex/feature/home/view_model/category_cubit/category_state.dart';
+import 'package:spex/feature/category/view_model/category_cubit/category_cubit.dart';
+import 'package:spex/feature/category/view_model/category_cubit/category_state.dart';
 import 'package:spex/feature/home/view_model/best_seller_cubit/best_seller_cubit.dart';
 import 'package:spex/feature/home/view_model/best_seller_cubit/best_seller_state.dart';
 import 'package:spex/feature/home/view_model/promotions_cubit/promotions_cubit.dart';
@@ -126,12 +126,12 @@ class HomeScreen extends StatelessWidget {
                                 width: 180,
                                 child: InkWell(
                                   child: ProductCard(
-                                    product: state.products[index],
+                                    product: state.products.items![index].toSimplifiedProduct(),
                                   ),
                                   onTap: () {
                                     context.pushNamed(
                                       Routes.productDetailsScreen,
-                                      arguments: state.products[index],
+                                      arguments: state.products.items![index].toSimplifiedProduct(),
                                     );
                                   },
                                 ),
@@ -139,7 +139,7 @@ class HomeScreen extends StatelessWidget {
                             },
                             separatorBuilder: (context, index) =>
                                 const SizedBox(width: 12),
-                            itemCount: state.products.length,
+                            itemCount: state.products.items!.length,
                           );
                         } else if (state is BestSellerErrorState) {
                           return Center(

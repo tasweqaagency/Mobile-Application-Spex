@@ -27,6 +27,9 @@ import 'package:spex/feature/search/presentation/search_screen.dart';
 import 'package:spex/feature/compare/presentation/compare_screen.dart';
 import 'package:spex/feature/profile/presentation/privacy_policy_screen.dart';
 import 'package:spex/feature/profile/presentation/terms_of_service_screen.dart';
+import 'package:spex/feature/category/presentation/category_products_screen.dart';
+import 'package:spex/feature/category/view_model/category_products_cubit/category_products_cubit.dart';
+import 'package:spex/feature/category/model/category_model.dart';
 
 class Routes {
   static const loginScreen = '/login';
@@ -46,6 +49,7 @@ class Routes {
   static const compareScreen = '/compare';
   static const privacyPolicyScreen = '/privacyPolicy';
   static const termsOfServiceScreen = '/termsOfService';
+  static const categoryProductsScreen = '/categoryProducts';
 }
 
 class AppRouter {
@@ -114,7 +118,7 @@ class AppRouter {
         return NavigateToPageWidget(
           BlocProvider(
             create: (context) =>
-                getIt<ProductDetailsCubit>()..getProductDetails(product.sku),
+                getIt<ProductDetailsCubit>()..getProductDetails(product.sku.isEmpty?product.id.toString():product.sku),
             child: ProductDetailsScreen(product: product),
           ),
         );
@@ -138,6 +142,13 @@ class AppRouter {
         return NavigateToPageWidget(const PrivacyPolicyScreen());
       case Routes.termsOfServiceScreen:
         return NavigateToPageWidget(const TermsOfServiceScreen());
+      case Routes.categoryProductsScreen:
+        return NavigateToPageWidget(
+          BlocProvider(
+            create: (context) => getIt<CategoryProductsCubit>(),
+            child: CategoryProductsScreen(category: arguments as CategoryModel),
+          ),
+        );
       // case Routes.cartScreen:
       //   return MaterialPageRoute(
       //     builder: (_) => BlocProvider.value(

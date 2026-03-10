@@ -53,7 +53,7 @@ class FavoriteScreen extends StatelessWidget {
                   onTap: () {
                     context.pushNamed(
                       Routes.productDetailsScreen,
-                      arguments: product,
+                      arguments: product.id,
                     );
                   },
                   child: ProductCard(product: product),

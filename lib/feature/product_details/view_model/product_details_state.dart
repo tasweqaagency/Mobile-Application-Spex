@@ -8,7 +8,16 @@ class ProductDetailsLoadingState extends ProductDetailsState {}
 
 class ProductDetailsLoadedState extends ProductDetailsState {
   final SimplifiedProductModel product;
-  ProductDetailsLoadedState(this.product);
+  final List<SimplifiedProductModel> giftProducts;
+  final List<SimplifiedProductModel> fbtProducts;
+  final List<SimplifiedProductModel> relatedProducts;
+
+  ProductDetailsLoadedState({
+    required this.product,
+    this.giftProducts = const [],
+    this.fbtProducts = const [],
+    this.relatedProducts = const [],
+  });
 }
 
 class ProductDetailsErrorState extends ProductDetailsState {

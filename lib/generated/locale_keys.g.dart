@@ -12,7 +12,7 @@ abstract class  LocaleKeys {
   static const home_category = 'home.category';
   static const home_favorite = 'home.favorite';
   static const home_cart = 'home.cart';
-  static const home_account = 'home.account';
+  static const home_my_account = 'home.my_account';
   static const home_search_hint = 'home.search_hint';
   static const home_categories = 'home.categories';
   static const home_view_all = 'home.view_all';
@@ -42,6 +42,10 @@ abstract class  LocaleKeys {
   static const product_details_add_to_cart = 'product_details.add_to_cart';
   static const product_details_buy_now = 'product_details.buy_now';
   static const product_details_frequently_bought_together = 'product_details.frequently_bought_together';
+  static const product_details_related_products = 'product_details.related_products';
+  static const product_details_total_price = 'product_details.total_price';
+  static const product_details_select_color = 'product_details.select_color';
+  static const product_details_select_size = 'product_details.select_size';
   static const product_details = 'product_details';
   static const cart_delivery_address = 'cart.delivery_address';
   static const cart_edit = 'cart.edit';
@@ -102,6 +106,7 @@ abstract class  LocaleKeys {
   static const auth_phone_number = 'auth.phone_number';
   static const auth_phone_required = 'auth.phone_required';
   static const auth_password = 'auth.password';
+  static const auth_password_required = 'auth.password_required';
   static const auth_forgot_password = 'auth.forgot_password';
   static const auth_login = 'auth.login';
   static const auth_login_success = 'auth.login_success';
@@ -134,15 +139,12 @@ abstract class  LocaleKeys {
   static const auth_update_password = 'auth.update_password';
   static const auth_password_changed_success = 'auth.password_changed_success';
   static const auth_enter_required_info = 'auth.enter_required_info';
-  static const auth_phone_not_connected_with_your_account = 'auth.phone_not_connected_with_your_account';
-  static const auth_restore_password = 'auth.restore_password';
   static const auth_phone_number_required = 'auth.phone_number_required';
   static const auth_email_required = 'auth.email_required';
   static const auth_enter_correct_phone_number = 'auth.enter_correct_phone_number';
   static const auth_enter_correct_email = 'auth.enter_correct_email';
-  static const auth_password_required = 'auth.password_required';
-  static const auth_password_not_match = 'auth.password_not_match';
   static const auth_weak_password = 'auth.weak_password';
+  static const auth_password_not_match = 'auth.password_not_match';
   static const auth_email = 'auth.email';
   static const auth_name = 'auth.name';
   static const auth_continue_as_guest = 'auth.continue_as_guest';

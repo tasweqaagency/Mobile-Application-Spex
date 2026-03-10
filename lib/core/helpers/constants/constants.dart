@@ -1,5 +1,7 @@
 class AppConstants {
   static const APP_NAME = "SPEX";
+
+  static const int perPage = 50;
 }
 
 class AppImages {
@@ -16,6 +18,7 @@ class ServicesConstants {
   static const String baseURL = "https://spexeg.com/wp-json/";
   static const String apiVersion = "wc/v3/";
   static const String apiMobileVersion = "mobile/v1/";
+  static const String apiCustomVersion = "custom/v1/";
 
   // static const String baseURL = "https://api.smat.sa/";
 
@@ -23,9 +26,13 @@ class ServicesConstants {
   static String consumerSecret = "cs_88435eac44ab81115d95850db10598a5028f2720";
 
   static String getProductsEndPoint = "${apiVersion}products";
+  static String getBestSellersEndPoint = "${apiCustomVersion}best-selling-products";
+  static String getPromotionsEndPoint = "${apiCustomVersion}discount-products";
   // static String getProductDetailsEndPoint ="${apiVersion}products";
   static String getCategoriesEndPoint = "${apiVersion}products/categories";
   static String searchEndPoint = "${apiMobileVersion}search";
+  static String categoryProductsEndPoint = "${apiCustomVersion}category-products";
+  static String productsListEndPoint = "${apiMobileVersion}products-by-ids";
 
   static const String USER_TEXT = "user";
   static const String PASSWORD_TEXT = "password";

@@ -1,4 +1,4 @@
-import 'package:spex/feature/home/model/category_model.dart';
+import 'package:spex/feature/category/model/category_model.dart';
 
 abstract class CategoryState {}
 

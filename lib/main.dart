@@ -8,7 +8,7 @@ import 'package:hive_flutter/adapters.dart';
 import 'package:spex/core/helpers/themes/dark_theme_data.dart';
 import 'package:spex/core/helpers/themes/light_theme_data.dart';
 import 'package:spex/core/helpers/themes/theme_cubit.dart';
-import 'package:spex/feature/home/view_model/category_cubit/category_cubit.dart';
+import 'package:spex/feature/category/view_model/category_cubit/category_cubit.dart';
 import 'package:spex/feature/home/view_model/best_seller_cubit/best_seller_cubit.dart';
 import 'package:spex/feature/home/view_model/promotions_cubit/promotions_cubit.dart';
 import 'package:spex/feature/layout/view_model/layout_cubit/layout_cubit.dart';

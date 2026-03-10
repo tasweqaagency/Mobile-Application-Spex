@@ -265,7 +265,7 @@ class ProductModel {
       price: json['price'],
       regularPrice: json['regular_price']?.toString() ?? '',
       salePrice: json['sale_price']?.toString() ?? '',
-      onSale: json['on_sale'] ?? false,
+      onSale: json['on_sale'] == null || json['on_sale'] == "" ? false : true,
       purchasable: json['purchasable'] ?? false,
       totalSales: json['total_sales'] ?? 0,
       virtual: json['virtual'] ?? false,
@@ -920,6 +920,7 @@ class SimplifiedProductModel {
   final String productUrl;
   final List<int> fbtProducts;
   final List<int> giftProducts;
+  final List<int> relatedProducts;
   final bool isHot;
   final bool isNew;
   final String sku;
@@ -948,6 +949,7 @@ class SimplifiedProductModel {
     required this.productUrl,
     required this.fbtProducts,
     required this.giftProducts,
+    required this.relatedProducts,
     required this.isHot,
     required this.isNew,
     required this.sku,
@@ -980,6 +982,7 @@ class SimplifiedProductModel {
       'productUrl': productUrl,
       'fbtProducts': fbtProducts,
       'giftProducts': giftProducts,
+      'related_ids': relatedProducts,
       'isHot': isHot,
       'isNew': isNew,
       'sku': sku,
@@ -1011,6 +1014,9 @@ class SimplifiedProductModel {
       productUrl: json['productUrl'],
       fbtProducts: List<int>.from(json['fbtProducts']),
       giftProducts: List<int>.from(json['giftProducts']),
+      relatedProducts: json['related_ids'] != null
+          ? List<int>.from(json['related_ids'])
+          : [],
       isHot: json['isHot'],
       isNew: json['isNew'],
       sku: json['sku'],

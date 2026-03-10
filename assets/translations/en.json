@@ -40,7 +40,11 @@
     "description": "Description",
     "add_to_cart": "Add to Cart",
     "buy_now": "Buy Now",
-    "frequently_bought_together": "frequently bought together"
+    "frequently_bought_together": "frequently bought together",
+    "related_products": "Related Products",
+    "total_price": "total price",
+    "select_color": "Select Color",
+    "select_size": "Select Size"
   },
   "cart": {
     "delivery_address": "Delivery Address",

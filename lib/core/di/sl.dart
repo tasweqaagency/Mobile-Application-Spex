@@ -10,7 +10,7 @@ import 'package:spex/feature/authentication/view_model/forget_password_cubit/for
 import 'package:spex/feature/authentication/view_model/login_cubit/login_cubit.dart';
 import 'package:spex/feature/authentication/view_model/otp_cubit/otp_cubit.dart';
 import 'package:spex/feature/authentication/view_model/register_cubit/register_cubit.dart';
-import 'package:spex/feature/home/view_model/category_cubit/category_cubit.dart';
+import 'package:spex/feature/category/view_model/category_cubit/category_cubit.dart';
 import 'package:spex/feature/home/view_model/best_seller_cubit/best_seller_cubit.dart';
 import 'package:spex/feature/home/view_model/promotions_cubit/promotions_cubit.dart';
 import 'package:spex/feature/search/view_model/search_cubit/search_cubit.dart';
@@ -20,6 +20,7 @@ import 'package:spex/feature/product_details/view_model/product_details_cubit.da
 import 'package:spex/feature/favorite/data/favorite_local_data_source.dart';
 import 'package:spex/feature/favorite/view_model/favorite_cubit.dart';
 import 'package:spex/feature/compare/view_model/compare_cubit.dart';
+import 'package:spex/feature/category/view_model/category_products_cubit/category_products_cubit.dart';
 
 import '../helpers/constants/constants.dart';
 import '../networking/local_cervices.dart';
@@ -72,6 +73,7 @@ Future<void> setupGetIt() async {
     () => FavoriteCubit(getIt<FavoriteLocalDataSource>()),
   );
   getIt.registerLazySingleton<CompareCubit>(() => CompareCubit());
+  getIt.registerFactory<CategoryProductsCubit>(() => CategoryProductsCubit());
 
   // Auth feature specific cubits
   getIt.registerFactory<LoginCubit>(() => LoginCubit(getIt<AuthCubit>()));

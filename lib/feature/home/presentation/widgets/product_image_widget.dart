@@ -21,7 +21,7 @@ class _ProductImageWidgetState extends State<ProductImageWidget> {
       child: Stack(
         children: [
           ClipRRect(
-            borderRadius: BorderRadius.only(
+            borderRadius: const BorderRadius.only(
               topLeft: Radius.circular(12),
               topRight: Radius.circular(12),
             ),
@@ -40,8 +40,9 @@ class _ProductImageWidgetState extends State<ProductImageWidget> {
               itemBuilder: (context, index, realIndex) {
                 return NetworkImageWidget(
                   imageUrl: widget.imageUrl[index],
-                  // height: widget.height * 0.9,
-                  // width: widget.width * 0.9,
+                  fit: BoxFit.fill,
+                  width: double.infinity,
+                  height: double.infinity,
                 );
               },
             ),

@@ -1,5 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:share_plus/share_plus.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:spex/core/helpers/colors/light_colors.dart';
 import 'package:spex/core/helpers/constants/constants.dart';
@@ -16,6 +17,8 @@ import 'package:spex/feature/product_details/presentation/widgets/icon_box.dart'
 import 'package:spex/feature/product_details/presentation/widgets/product_details_banner.dart';
 import 'package:spex/feature/product_details/presentation/widgets/product_details_tapbar.dart';
 import 'package:spex/feature/product_details/presentation/widgets/product_gift_widget.dart';
+import 'package:spex/feature/product_details/presentation/widgets/product_size_widget.dart';
+import 'package:spex/feature/product_details/presentation/widgets/product_color_widget.dart';
 import 'package:spex/feature/product_details/presentation/widgets/product_services_widget.dart';
 import 'package:spex/generated/locale_keys.g.dart';
 import 'package:spex/main.dart';
@@ -66,6 +69,8 @@ class ProductDetailsScreen extends StatelessWidget {
                           spacing: 10,
                           children: [
                             ProductDetailsBanner(product: currentProduct),
+                            // ... Category and Icons Row
+                            // (omitted for brevity, assume unchanged or just keep logic)
                             Row(
                               spacing: 10,
                               children: [
@@ -127,7 +132,11 @@ class ProductDetailsScreen extends StatelessWidget {
                                 ),
                                 ProductIconBottonWidget(
                                   icon: Icons.ios_share_outlined,
-                                  onTap: () {},
+                                  onTap: () {
+                                    Share.share(
+                                      '${currentProduct.name}\n${currentProduct.productUrl}',
+                                    );
+                                  },
                                   color: AppColorsLight.whiteColor,
                                 ),
                               ],
@@ -143,6 +152,7 @@ class ProductDetailsScreen extends StatelessWidget {
                               isEllipsisTextOverflow: true,
                             ),
                             ProductRatingWidget(rating: currentProduct.rating),
+                            // ... Price Row
                             Row(
                               mainAxisSize: MainAxisSize.max,
                               mainAxisAlignment: MainAxisAlignment.end,
@@ -184,59 +194,55 @@ class ProductDetailsScreen extends StatelessWidget {
                                 ),
                               ],
                             ),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                currentProduct.inStock
-                                    ? Row(
-                                        mainAxisSize: MainAxisSize.min,
-                                        children: [
-                                          const Icon(
-                                            Icons.check_circle_outline_rounded,
-                                            color: AppColorsDark.greenColor2,
-                                            size: 20,
-                                          ),
-                                          const SizedBox(width: 4),
-                                          TextInAppWidget(
-                                            text: LocaleKeys.home_in_stock.tr(),
-                                            textSize: 16,
-                                            fontWeightIndex: FontSelectionData
-                                                .boldFontFamily,
-                                            textColor: isDark
-                                                ? AppColorsDark.greenColor2
-                                                : AppColorsLight.greenColor2,
-                                          ),
-                                        ],
-                                      )
-                                    : TextInAppWidget(
-                                        text: LocaleKeys.home_out_of_stock.tr(),
-                                        textSize: 14,
-                                        fontWeightIndex: FontSelectionData
-                                            .semiBoldFontFamily,
-                                        textColor: isDark
-                                            ? AppColorsDark.appRedColor
-                                            : AppColorsLight.appRedColor,
+                            // ... Stock Row
+                            currentProduct.inStock
+                                ? Row(
+                                    mainAxisSize: MainAxisSize.min,
+                                    children: [
+                                      const Icon(
+                                        Icons.check_circle_outline_rounded,
+                                        color: AppColorsDark.greenColor2,
+                                        size: 20,
                                       ),
-                                Row(
-                                  mainAxisSize: MainAxisSize.min,
-                                  spacing: 5,
-                                  children: currentProduct.colors
-                                      .map(
-                                        (color) => Container(
-                                          width: 20,
-                                          height: 20,
-                                          decoration: BoxDecoration(
-                                            color: color,
-                                            shape: BoxShape.circle,
-                                            border: Border.all(
-                                              color: AppColorsDark.mainColor,
-                                              width: 2,
-                                            ),
-                                          ),
-                                        ),
-                                      )
-                                      .toList(),
-                                ),
+                                      const SizedBox(width: 4),
+                                      TextInAppWidget(
+                                        text: LocaleKeys.home_in_stock.tr(),
+                                        textSize: 16,
+                                        fontWeightIndex:
+                                            FontSelectionData.boldFontFamily,
+                                        textColor: isDark
+                                            ? AppColorsDark.greenColor2
+                                            : AppColorsLight.greenColor2,
+                                      ),
+                                    ],
+                                  )
+                                : TextInAppWidget(
+                                    text: LocaleKeys.home_out_of_stock.tr(),
+                                    textSize: 14,
+                                    fontWeightIndex:
+                                        FontSelectionData.semiBoldFontFamily,
+                                    textColor: isDark
+                                        ? AppColorsDark.appRedColor
+                                        : AppColorsLight.appRedColor,
+                                  ),
+                            Wrap(
+                              spacing: 20,
+                              runSpacing: 15,
+                              children: [
+                                if (currentProduct.colors.isNotEmpty)
+                                  ProductColorWidget(
+                                    colors: currentProduct.colors,
+                                    onColorSelected: (color) {
+                                      print("Selected color: $color");
+                                    },
+                                  ),
+                                if (currentProduct.availableSizes.isNotEmpty)
+                                  ProductSizeWidget(
+                                    sizes: currentProduct.availableSizes,
+                                    onSizeSelected: (size) {
+                                      print("Selected size: $size");
+                                    },
+                                  ),
                               ],
                             ),
                             Divider(
@@ -247,44 +253,88 @@ class ProductDetailsScreen extends StatelessWidget {
                                   : AppColorsLight.appSecondTextColor
                                         .withValues(alpha: 0.5),
                             ),
-                            ProductGiftWidget(
-                              giftProduct: HomeMockData.bestOffers[0]
-                                  .toSimplified(),
-                            ),
-                            const SizedBox(height: 10),
-                            SectionHeader(
-                              title: LocaleKeys.product_details_recommended
-                                  .tr(),
-                            ),
-                            const SizedBox(height: 5),
-                            SizedBox(
-                              height: context.screenWidth * 0.7,
-                              child: ListView.separated(
-                                scrollDirection: Axis.horizontal,
-                                itemCount: HomeMockData.bestOffers.length,
-                                separatorBuilder: (context, index) =>
-                                    const SizedBox(width: 12),
-                                itemBuilder: (context, index) {
-                                  final item = HomeMockData.bestOffers[index]
-                                      .toSimplified();
-                                  return SizedBox(
-                                    width: 180,
-                                    child: InkWell(
-                                      child: ProductCard(product: item),
-                                      onTap: () {
-                                        context.pushNamed(
-                                          Routes.productDetailsScreen,
-                                          arguments: item,
-                                        );
-                                      },
-                                    ),
-                                  );
-                                },
+                            // GIFT PRODUCTS
+                            if (state is ProductDetailsLoadedState &&
+                                state.giftProducts.isNotEmpty)
+                              ...state.giftProducts.map(
+                                (gp) => ProductGiftWidget(giftProduct: gp),
                               ),
-                            ),
+
+                            const SizedBox(height: 10),
+                            // FBT PRODUCTS
+                            if (state is ProductDetailsLoadedState &&
+                                state.fbtProducts.isNotEmpty) ...[
+                              SectionHeader(
+                                title: LocaleKeys
+                                    .product_details_frequently_bought_together
+                                    .tr(),
+                              ),
+                              const SizedBox(height: 5),
+                              SizedBox(
+                                height: context.screenWidth * 0.7,
+                                child: ListView.separated(
+                                  scrollDirection: Axis.horizontal,
+                                  itemCount: state.fbtProducts.length,
+                                  separatorBuilder: (context, index) =>
+                                      const SizedBox(width: 12),
+                                  itemBuilder: (context, index) {
+                                    final item = state.fbtProducts[index];
+                                    return SizedBox(
+                                      width: 180,
+                                      child: InkWell(
+                                        child: ProductCard(product: item),
+                                        onTap: () {
+                                          context.pushNamed(
+                                            Routes.productDetailsScreen,
+                                            arguments: item,
+                                          );
+                                        },
+                                      ),
+                                    );
+                                  },
+                                ),
+                              ),
+                            ],
+
                             const SizedBox(height: 10),
                             const ProductServicesWidget(),
                             ProductDetailsTapBar(product: currentProduct),
+
+                            const SizedBox(height: 10),
+                            // RELATED PRODUCTS
+                            if (state is ProductDetailsLoadedState &&
+                                state.relatedProducts.isNotEmpty) ...[
+                              SectionHeader(
+                                title: LocaleKeys
+                                    .product_details_related_products
+                                    .tr(),
+                              ),
+                              const SizedBox(height: 5),
+                              SizedBox(
+                                height: context.screenWidth * 0.7,
+                                child: ListView.separated(
+                                  scrollDirection: Axis.horizontal,
+                                  itemCount: state.relatedProducts.length,
+                                  separatorBuilder: (context, index) =>
+                                      const SizedBox(width: 12),
+                                  itemBuilder: (context, index) {
+                                    final item = state.relatedProducts[index];
+                                    return SizedBox(
+                                      width: 180,
+                                      child: InkWell(
+                                        child: ProductCard(product: item),
+                                        onTap: () {
+                                          context.pushNamed(
+                                            Routes.productDetailsScreen,
+                                            arguments: item,
+                                          );
+                                        },
+                                      ),
+                                    );
+                                  },
+                                ),
+                              ),
+                            ],
                             const SizedBox(height: 80),
                           ],
                         ),
@@ -312,7 +362,7 @@ class ProductDetailsScreen extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             TextInAppWidget(
-                              text: "total price",
+                              text: LocaleKeys.product_details_total_price.tr(),
                               textSize: 16,
                               fontWeightIndex:
                                   FontSelectionData.regularFontFamily,
@@ -347,8 +397,8 @@ class ProductDetailsScreen extends StatelessWidget {
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(12),
                             ),
-                            child: const TextInAppWidget(
-                              text: "Buy Now",
+                            child: TextInAppWidget(
+                              text: LocaleKeys.product_details_buy_now.tr(),
                               textSize: 16,
                               fontWeightIndex: FontSelectionData.boldFontFamily,
                               textColor: AppColorsDark.appTextColor,

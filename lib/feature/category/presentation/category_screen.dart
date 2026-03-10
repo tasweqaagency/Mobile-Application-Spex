@@ -7,8 +7,8 @@ import 'package:spex/core/widgets/text_in_app_widget.dart';
 import 'package:spex/feature/home/presentation/widgets/category_card.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:spex/feature/home/presentation/widgets/my_appbar.dart';
-import 'package:spex/feature/home/view_model/category_cubit/category_cubit.dart';
-import 'package:spex/feature/home/view_model/category_cubit/category_state.dart';
+import 'package:spex/feature/category/view_model/category_cubit/category_cubit.dart';
+import 'package:spex/feature/category/view_model/category_cubit/category_state.dart';
 import 'package:spex/main.dart';
 
 class CategoryScreen extends StatelessWidget {

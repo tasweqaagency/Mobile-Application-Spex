@@ -19,7 +19,8 @@ class CodegenLoader extends AssetLoader{
     "bad_request": "استجابة غير صحيحة، حدث خطأ ما.",
     "request_not_found": "لم يتم العثور على طلبك، حاول لاحقًا!",
     "server_error": "خطأ في الخادم الداخلي، حاول لاحقًا.",
-    "unknown_error_message": "عذرًا، حدث خطأ. حاول مرة أخرى"
+    "unknown_error_message": "عذرًا، حدث خطأ. حاول مرة أخرى",
+    "wrong_data": "البيانات غير صحيحة"
   },
   "home": {
     "home": "الرئيسية",
@@ -58,7 +59,9 @@ class CodegenLoader extends AssetLoader{
     "buy_now": "شراء الآن",
     "frequently_bought_together": "غالبا يتم شراؤها معًا",
     "related_products": "المنتجات ذات الصلة",
-    "total_price": "السعر الإجمالي"
+    "total_price": "السعر الإجمالي",
+    "select_color": "اختار اللون",
+    "select_size": "اختار المقاس"
   },
   "cart": {
     "delivery_address": "عنوان التوصيل",
@@ -271,7 +274,8 @@ static const Map<String,dynamic> _en = {
     "bad_request": "Bad request, something went wrong.",
     "request_not_found": "Your request was not found, please try again later!",
     "server_error": "Internal server error, please try again later.",
-    "unknown_error_message": "Sorry, something went wrong. Please try again."
+    "unknown_error_message": "Sorry, something went wrong. Please try again.",
+    "wrong_data": "Wrong Data"
   },
   "home": {
     "home": "Home",
@@ -310,7 +314,9 @@ static const Map<String,dynamic> _en = {
     "buy_now": "Buy Now",
     "frequently_bought_together": "frequently bought together",
     "related_products": "Related Products",
-    "total_price": "total price"
+    "total_price": "total price",
+    "select_color": "Select Color",
+    "select_size": "Select Size"
   },
   "cart": {
     "delivery_address": "Delivery Address",

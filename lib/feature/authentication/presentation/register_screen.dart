@@ -27,7 +27,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
   late GlobalKey<FormState> _formKey;
   late TextEditingController _nameController;
   late TextEditingController _emailController;
-  late TextEditingController _phoneController;
+  // late TextEditingController _phoneController;
   late TextEditingController _passwordController;
   late TextEditingController _confirmPasswordController;
 
@@ -37,7 +37,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
     _formKey = GlobalKey<FormState>();
     _nameController = TextEditingController();
     _emailController = TextEditingController();
-    _phoneController = TextEditingController();
+    // _phoneController = TextEditingController();
     _passwordController = TextEditingController();
     _confirmPasswordController = TextEditingController();
   }
@@ -46,7 +46,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
   void dispose() {
     _nameController.dispose();
     _emailController.dispose();
-    _phoneController.dispose();
+    // _phoneController.dispose();
     _passwordController.dispose();
     _confirmPasswordController.dispose();
     super.dispose();
@@ -110,8 +110,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     ),
                     SizedBox(height: 16),
                     EmailTextField(controller: _emailController),
-                    SizedBox(height: 16),
-                    PhoneTextField(controller: _phoneController),
+                    // SizedBox(height: 16),
+                    // PhoneTextField(controller: _phoneController),
                     SizedBox(height: 16),
                     PasswordTextField(controller: _passwordController),
                     SizedBox(height: 16),
@@ -150,7 +150,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                               context.read<RegisterCubit>().register(
                                 _nameController.text,
                                 _emailController.text,
-                                _phoneController.text,
+                                // _phoneController.text,
                                 _passwordController.text,
                               );
                             }

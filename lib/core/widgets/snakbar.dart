@@ -24,9 +24,9 @@ class AppSnackBar {
   }
 
   static void _show(String message, Color color) {
-    if (snackBarKey.currentState != null) {
-      snackBarKey.currentState!.hideCurrentSnackBar();
-      snackBarKey.currentState!.showSnackBar(
+    if (snackbarKey.currentState != null) {
+      snackbarKey.currentState!.hideCurrentSnackBar();
+      snackbarKey.currentState!.showSnackBar(
         SnackBar(
           content: TextInAppWidget(
             text: message,

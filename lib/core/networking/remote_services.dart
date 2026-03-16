@@ -6,6 +6,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:spex/core/di/sl.dart';
 import 'package:spex/core/helpers/constants/constants.dart';
 import 'package:spex/core/helpers/extentions/extentions.dart';
+import 'package:spex/feature/authentication/model/user_model.dart';
 import 'package:spex/feature/category/model/category_model.dart';
 import 'package:spex/feature/category/model/pagination_rresponse_model.dart';
 import 'package:spex/feature/home/model/product_model.dart';
@@ -123,6 +124,67 @@ class RemoteServices {
   //   // }
   // }
 
+  Future<Either<String,User> > login(String email, String password)async{
+    try {
+      final body = {
+        'email': email,
+        'password': password
+      };
+       final response = await getIt<Network>().getDataWithBodyAndQuery(
+        body,
+        null,
+        ServicesConstants.loginEndPoint
+        
+      );
+      if (response.statusCode == 200) {
+        final resp = response.data;
+        User user = User.fromJson(resp);
+        return right(user);
+      }
+      else if (response.statusCode == 401) {
+        return left(LocaleKeys.api_replay_message_wrong_data.tr());
+      }
+      return left(await responseOfStatusCode(response.statusCode));
+    } on DioException catch (e) {
+      if (e.response != null && e.response!.data is Map) {
+        return left(e.response!.data["error"] ?? e.toString());
+      }
+      return left(e.toString());
+    } catch (e) {
+      return left(e.toString());
+    }
+  }
+  
+  Future<Either<String,String> > register(String name, String email, String password, )async{
+    try {
+      final body = { 
+        'name': name,
+        'email': email,
+        'password': password
+      };
+       final response = await getIt<Network>().getDataWithBodyAndQuery(
+        body,
+        null,
+        ServicesConstants.registerEndPoint
+        
+      );
+      if (response.statusCode == 200) {
+        return right(LocaleKeys.auth_register_success.tr());
+      }
+      else {
+        return left(response.data["error"]);
+      }
+      // return left(await responseOfStatusCode(response.statusCode));
+    } on DioException catch (e) {
+      if (e.response != null && e.response!.data is Map) {
+        return left(e.response!.data["error"] ?? e.toString());
+      }
+      return left(e.toString());
+    } catch (e) {
+      return left(e.toString());
+    }
+  }
+
   Future<Either<String, List<CategoryModel>>> getCategories() async {
     try {
       final response = await getIt<Network>().getData(
@@ -225,7 +287,8 @@ class RemoteServices {
 
   Future<Either<String, SimplifiedProductModel>> getProductDetails(
     String sku,
-  ) async {
+  )
+  async {
     try {
       Map<String, dynamic> queryParameters = {'sku': sku};
       final response = await getIt<Network>().getData(
@@ -250,7 +313,8 @@ class RemoteServices {
   }
 
   Future<Either<String, PaginationResponseModel<MiniProductModel>>>
-  getCategoryProducts(int categoryId, {int page = 1, int perPage = 20}) async {
+  getCategoryProducts(int categoryId, {int page = 1, int perPage = 20})
+  async {
     try {
       final response = await getIt<Network>().postData(
         ServicesConstants.categoryProductsEndPoint,

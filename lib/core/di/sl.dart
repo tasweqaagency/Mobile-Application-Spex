@@ -75,9 +75,8 @@ Future<void> setupGetIt() async {
   getIt.registerLazySingleton<CompareCubit>(() => CompareCubit());
   getIt.registerFactory<CategoryProductsCubit>(() => CategoryProductsCubit());
 
-  // Auth feature specific cubits
-  getIt.registerFactory<LoginCubit>(() => LoginCubit(getIt<AuthCubit>()));
-  getIt.registerFactory<RegisterCubit>(() => RegisterCubit(getIt<AuthCubit>()));
+  getIt.registerFactory<LoginCubit>(() => LoginCubit());
+  getIt.registerFactory<RegisterCubit>(() => RegisterCubit());
   getIt.registerFactory<ForgetPasswordCubit>(() => ForgetPasswordCubit());
   getIt.registerFactory<OtpCubit>(() => OtpCubit());
   getIt.registerFactory<ChangePasswordCubit>(() => ChangePasswordCubit());

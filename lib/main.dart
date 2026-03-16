@@ -27,8 +27,6 @@ bool isDark = false;
 final GlobalKey<ScaffoldMessengerState> snackbarKey =
     GlobalKey<ScaffoldMessengerState>();
 final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
-final GlobalKey<ScaffoldMessengerState> snackBarKey =
-    GlobalKey<ScaffoldMessengerState>();
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -39,10 +37,9 @@ void main() async {
   await EasyLocalization.ensureInitialized();
   Hive.registerAdapter(UserAdapter());
 
-  final isAuthenticated = true;
-  // await getIt<AuthCubit>().isUserAuthenticable();
-  final bool isOnBoardingSeen = await getIt<LocalServices>().getOnBoarding();
-  isOnBoarding = isOnBoardingSeen;
+  final isAuthenticated = await getIt<AuthCubit>().isUserAuthenticable();
+  // final bool isOnBoardingSeen = await getIt<LocalServices>().getOnBoarding();
+  // isOnBoarding = isOnBoardingSeen;
   final bool isDarkTheme = await getIt<LocalServices>().getTheme();
   isDark = isDarkTheme;
   runApp(

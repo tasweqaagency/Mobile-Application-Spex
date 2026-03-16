@@ -25,6 +25,8 @@ class ServicesConstants {
   static String consumerKey = "ck_41f208124a533bae17da18ad55dd080a2387918e";
   static String consumerSecret = "cs_88435eac44ab81115d95850db10598a5028f2720";
 
+  static String loginEndPoint = "${apiMobileVersion}login";
+  static String registerEndPoint = "${apiMobileVersion}register";
   static String getProductsEndPoint = "${apiVersion}products";
   static String getBestSellersEndPoint = "${apiCustomVersion}best-selling-products";
   static String getPromotionsEndPoint = "${apiCustomVersion}discount-products";
@@ -34,16 +36,16 @@ class ServicesConstants {
   static String categoryProductsEndPoint = "${apiCustomVersion}category-products";
   static String productsListEndPoint = "${apiMobileVersion}products-by-ids";
 
-  static const String USER_TEXT = "user";
-  static const String PASSWORD_TEXT = "password";
-  static const String ONBOARDING_TEXT = "onBoarding";
-  static const String THEME_TEXT = "theme";
+  static const String USER_TEXT = "spex_user";
+  static const String PASSWORD_TEXT = "spex_password";
+  static const String ONBOARDING_TEXT = "spex_onBoarding";
+  static const String THEME_TEXT = "spex_theme";
 
-  static const String USER_BOX = "userBox";
-  static const String PASSWORD_BOX = "passwordBox";
-  static const String ONBOARDING_BOX = "onBoardingBox";
-  static const String THEME_BOX = "themeBox";
-  static const String FAVORITES_BOX = "favoritesBox";
+  static const String USER_BOX = "spex_userBox";
+  static const String PASSWORD_BOX = "spex_passwordBox";
+  static const String ONBOARDING_BOX = "spex_onBoardingBox";
+  static const String THEME_BOX = "spex_themeBox";
+  static const String FAVORITES_BOX = "spex_favoritesBox";
 }
 
 class ValuesOfAllApp {

@@ -17,31 +17,22 @@ class UserAdapter extends TypeAdapter<User> {
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
     return User(
-      fields[1] as String,
+      fields[1] as int,
       fields[2] as String,
       fields[3] as String,
-      fields[4] as String,
-      fields[5] as String,
-      fields[6] as String,
     );
   }
 
   @override
   void write(BinaryWriter writer, User obj) {
     writer
-      ..writeByte(6)
+      ..writeByte(3)
       ..writeByte(1)
       ..write(obj.id)
       ..writeByte(2)
       ..write(obj.name)
       ..writeByte(3)
-      ..write(obj.phone)
-      ..writeByte(4)
-      ..write(obj.fcmToken)
-      ..writeByte(5)
-      ..write(obj.role)
-      ..writeByte(6)
-      ..write(obj.password);
+      ..write(obj.email);
   }
 
   @override
@@ -60,19 +51,13 @@ class UserAdapter extends TypeAdapter<User> {
 // **************************************************************************
 
 User _$UserFromJson(Map<String, dynamic> json) => User(
-      json['id'] as String,
+      (json['user_id'] as num).toInt(),
       json['name'] as String,
-      json['phone'] as String,
-      json['fcmToken'] as String,
-      json['role'] as String,
-      json['password'] as String,
+      json['email'] as String,
     );
 
 Map<String, dynamic> _$UserToJson(User instance) => <String, dynamic>{
-      'id': instance.id,
+      'user_id': instance.id,
       'name': instance.name,
-      'phone': instance.phone,
-      'fcmToken': instance.fcmToken,
-      'role': instance.role,
-      'password': instance.password,
+      'email': instance.email,
     };

@@ -1,25 +1,23 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:spex/feature/authentication/view_model/auth_cubit.dart';
+import 'package:spex/core/di/sl.dart';
+import 'package:spex/core/networking/remote_services.dart';
 import 'register_state.dart';
 
 class RegisterCubit extends Cubit<RegisterState> {
-  final AuthCubit authCubit;
-  RegisterCubit(this.authCubit) : super(RegisterInitialState());
+  RegisterCubit() : super(RegisterInitialState());
 
   Future<void> register(
     String name,
     String email,
-    String phone,
     String password,
   ) async {
     emit(RegisterLoadingState());
-
-    // Simulate API call
-    await Future.delayed(const Duration(seconds: 2));
-
     try {
-      // Logic could authenticate directly or send to login screen.
-      emit(RegisterSuccessState());
+      final result = await getIt<RemoteServices>().register(name, email, password);
+      result.fold(
+        (error) => emit(RegisterErrorState(error)),
+        (success) => emit(RegisterSuccessState()),
+      );
     } catch (e) {
       emit(RegisterErrorState(e.toString()));
     }

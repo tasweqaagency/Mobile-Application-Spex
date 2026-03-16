@@ -3,7 +3,8 @@
     "bad_request": "Bad request, something went wrong.",
     "request_not_found": "Your request was not found, please try again later!",
     "server_error": "Internal server error, please try again later.",
-    "unknown_error_message": "Sorry, something went wrong. Please try again."
+    "unknown_error_message": "Sorry, something went wrong. Please try again.",
+    "wrong_data":"Wrong Data"
   },
   "home": {
     "home":"Home",

@@ -1,5 +1,8 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:spex/core/di/sl.dart';
+import 'package:spex/core/networking/local_cervices.dart';
+import 'package:spex/core/networking/remote_services.dart';
 import 'package:spex/feature/authentication/model/user_model.dart';
 import 'package:spex/generated/locale_keys.g.dart';
 import 'auth_state.dart';
@@ -9,6 +12,15 @@ class AuthCubit extends Cubit<AuthState> {
 
   void authenticateUser(User user) {
     emit(AuthLoadedState(user));
+  }
+
+  Future<bool> isUserAuthenticable() async {
+    final user = await getIt<LocalServices>().getUser();
+    if (user != null) {
+      emit(AuthLoadedState(user));
+      return true;
+    }
+    return false;
   }
 
   String? nameValidator(String? value) {

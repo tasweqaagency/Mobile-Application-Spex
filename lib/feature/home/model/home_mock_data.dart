@@ -31,21 +31,21 @@ class HomeMockData {
       name: 'Headsets',
       imagePath:
           'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?q=80&w=1000&auto=format&fit=crop',
-      productCount: 1,
+      // productCount: 1,
     ),
     CategoryModel(
       id: 2,
       name: 'Motherboards',
       imagePath:
           'https://images.unsplash.com/photo-1518770660439-4636190af475?q=80&w=1000&auto=format&fit=crop',
-      productCount: 8,
+      // productCount: 8,
     ),
     CategoryModel(
       id: 3,
       name: 'Processors',
       imagePath:
           'https://images.unsplash.com/photo-1591799264318-7e6ef8ddb7ea?q=80&w=1000&auto=format&fit=crop',
-      productCount: 12,
+      // productCount: 12,
     ),
   ];
 

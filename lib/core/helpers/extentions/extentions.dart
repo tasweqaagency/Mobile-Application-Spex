@@ -3,11 +3,12 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:intl/intl.dart';
 import 'package:spex/core/helpers/colors/dark_colors.dart';
 import 'package:spex/core/helpers/constants/constants.dart';
-import 'package:spex/feature/category/model/pagination_rresponse_model.dart';
 import 'package:spex/feature/home/model/product_model.dart';
 import 'package:spex/feature/product_details/model/mini_product_model.dart';
+import 'package:spex/feature/search/model/search_item_model.dart';
 import 'package:spex/main.dart';
 
+import 'package:spex/feature/cart/model/cart_item.dart';
 import '../colors/light_colors.dart';
 
 // extension Navigation on BuildContext {
@@ -106,6 +107,42 @@ extension DateTimeFormatter on DateTime {
   }
 }
 
+extension ColorParser on String {
+  Color toColor() {
+    try {
+      String hexStr = replaceAll('#', '');
+      final colorNamesMap = {
+        'pink': Colors.pink,
+        'red': Colors.red,
+        'blue': Colors.blue,
+        'green': Colors.green,
+        'black': Colors.black,
+        'white': Colors.white,
+        'grey': Colors.grey,
+        'gray': Colors.grey,
+        'yellow': Colors.yellow,
+        'orange': Colors.orange,
+        'purple': Colors.purple,
+        'brown': Colors.brown,
+        'cyan': Colors.cyan,
+        'teal': Colors.teal,
+        'indigo': Colors.indigo,
+        'lime': Colors.lime,
+        'amber': Colors.amber,
+      };
+
+      if (colorNamesMap.containsKey(hexStr.toLowerCase())) {
+        return colorNamesMap[hexStr.toLowerCase()]!;
+      }
+
+      if (hexStr.length == 6) hexStr = 'FF$hexStr';
+      return Color(int.parse(hexStr, radix: 16));
+    } catch (e) {
+      return Colors.transparent;
+    }
+  }
+}
+
 extension StringDateParser on String {
   DateTime toDateTime() {
     return DateFormat("d/M/yyyy , h:mm a", "ar").parse(this);
@@ -199,6 +236,7 @@ extension ProductModelExtension on ProductModel {
       isHot: isHot,
       isNew: isNew,
       sku: sku,
+      colorNames: availableColors,
       attributes: attributes,
     );
   }
@@ -246,8 +284,8 @@ extension MiniProductModelExtension on MiniProductModel {
       slug: '',
       description: '',
       shortDescription: '',
-      price: price ?? '0',
-      regularPrice: regularPrice ?? '0',
+      price: price ?? '',
+      regularPrice: regularPrice ?? '',
       salePrice: salePrice ?? '',
       image: image ?? '',
       galleryImages: [image ?? ''],
@@ -260,8 +298,6 @@ extension MiniProductModelExtension on MiniProductModel {
           StockStatus.instock,
       isFavorite: false,
       isSale: onSale ?? false,
-      colors: [],
-      availableSizes: [],
       productUrl: permalink ?? '',
       fbtProducts: [],
       giftProducts: [],
@@ -269,7 +305,134 @@ extension MiniProductModelExtension on MiniProductModel {
       isHot: false,
       isNew: false,
       sku: sku ?? '',
+      colorNames: variations
+              ?.map((v) => v.attributes?.paColor?.label ?? '')
+              .where((c) => c.isNotEmpty)
+              .toSet()
+              .toList() ??
+          [],
       attributes: [],
+      variations: variations,
+      availableSizes:
+          variations
+              ?.map((v) => v.attributes?.paSize?.label ?? '')
+              .where((s) => s.isNotEmpty)
+              .toSet()
+              .toList() ??
+          [],
+      colors:
+          variations
+              ?.map((v) => v.attributes?.paColor?.hex ?? '')
+              .where((c) => c.isNotEmpty)
+              .toSet()
+              .map((hex) => hex.toColor())
+              .where((c) => c != Colors.transparent)
+              .toList() ??
+          [],
     );
+  }
+}
+extension SearchItemModelExtension on SearchItemModel {
+  SimplifiedProductModel toSimplifiedProduct() {
+    return SimplifiedProductModel(
+      id:int.tryParse(id??"0") ?? 0,
+      name: name ?? '',
+      slug: '',
+      description: '',
+      shortDescription: '',
+      price: price ?? '',
+      regularPrice:  '',
+      salePrice: '',
+      image: image ?? '',
+      galleryImages: [image ?? ''],
+      rating: 0,
+      ratingCount: 0,
+      category: '',
+      brand: '',
+      inStock: true,
+      isFavorite: false,
+      isSale: false,
+      productUrl: '',
+      fbtProducts: [],
+      giftProducts: [],
+      relatedProducts: [],
+      isHot: false,
+      isNew: false,
+      sku: '',
+      colorNames: variations
+              ?.map((v) => v.attributes?.paColor?.label ?? '')
+              .where((c) => c.isNotEmpty)
+              .toSet()
+              .toList() ??
+          [],
+      attributes: [],
+      variations: variations,
+      availableSizes:
+          variations
+              ?.map((v) => v.attributes?.paSize?.label ?? '')
+              .where((s) => s.isNotEmpty)
+              .toSet()
+              .toList() ??
+          [],
+      colors:
+          variations
+              ?.map((v) => v.attributes?.paColor?.hex ?? '')
+              .where((c) => c.isNotEmpty)
+              .toSet()
+              .map((hex) => hex.toColor())
+              .where((c) => c != Colors.transparent)
+              .toList() ??
+          [],
+    );
+  }
+}
+extension SimplifiedProductModelExtension on SimplifiedProductModel {
+  CartItem toCartItem({
+    Variations? selectedVariation,
+    String? forcedColor,
+    String? forcedSize,
+    int quantity = 1,
+  }) {
+    // Safely extract color and size labels with overrides
+    final String? color =
+        forcedColor ?? selectedVariation?.attributes?.paColor?.label;
+    final String? size =
+        forcedSize ?? selectedVariation?.attributes?.paSize?.label;
+
+    String variantInfo = "";
+    if ((color != null && color.isNotEmpty) ||
+        (size != null && size.isNotEmpty)) {
+      String separator = (color != null &&
+              color.isNotEmpty &&
+              size != null &&
+              size.isNotEmpty)
+          ? ', '
+          : '';
+      variantInfo = " (${color ?? ''}$separator${size ?? ''})";
+    }
+
+    if (selectedVariation != null) {
+      return CartItem(
+        productId: id,
+        variationId: selectedVariation.id,
+        name: "$name$variantInfo",
+        image: selectedVariation.image ?? image,
+        price: double.tryParse(selectedVariation.price ?? '0') ?? 0,
+        selectedColor: color,
+        selectedSize: size,
+        variation: selectedVariation,
+        quantity: quantity,
+      );
+    } else {
+      return CartItem(
+        productId: id,
+        name: "$name$variantInfo",
+        image: image,
+        price: double.tryParse(price) ?? 0,
+        selectedColor: color,
+        selectedSize: size,
+        quantity: quantity,
+      );
+    }
   }
 }

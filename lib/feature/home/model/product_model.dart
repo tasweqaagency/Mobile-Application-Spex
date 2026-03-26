@@ -1,4 +1,5 @@
 import 'dart:ui';
+import 'package:spex/feature/product_details/model/mini_product_model.dart';
 
 enum ProductStatus {
   publish,
@@ -925,6 +926,8 @@ class SimplifiedProductModel {
   final bool isNew;
   final String sku;
   final List<ProductAttribute> attributes;
+  final List<String> colorNames;
+  final List<Variations>? variations;
 
   SimplifiedProductModel({
     required this.id,
@@ -953,7 +956,9 @@ class SimplifiedProductModel {
     required this.isHot,
     required this.isNew,
     required this.sku,
+    required this.colorNames,
     this.attributes = const [],
+    this.variations,
   });
 
   double? get oldPrice => double.tryParse(regularPrice);
@@ -986,7 +991,9 @@ class SimplifiedProductModel {
       'isHot': isHot,
       'isNew': isNew,
       'sku': sku,
+      'colorNames': colorNames,
       'attributes': attributes.map((e) => e.toJson()).toList(),
+      'variations': variations?.map((e) => e.toJson()).toList(),
     };
   }
 
@@ -1020,11 +1027,16 @@ class SimplifiedProductModel {
       isHot: json['isHot'],
       isNew: json['isNew'],
       sku: json['sku'],
+      colorNames: List<String>.from(json['colorNames'] ?? []),
       attributes:
           (json['attributes'] as List?)
               ?.map((e) => ProductAttribute.fromJson(e))
               .toList() ??
           [],
+      variations:
+          (json['variations'] as List?)
+              ?.map((e) => Variations.fromJson(e))
+              .toList(),
     );
   }
 }

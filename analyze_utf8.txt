@@ -1,0 +1,136 @@
+﻿Analyzing spex...
+
+warning - lib\core\widgets\phone_text_form_widget.dart:20:7 - This class (or a class that this class inherits from) is marked as '@immutable', but one or more of its instance fields aren't final: PhoneTextFormWidget.controller, PhoneTextFormWidget.initialCountry, PhoneTextFormWidget.initialNumber - must_be_immutable
+warning - lib\feature\authentication\presentation\widgets\password_text_field.dart:13:7 - This class (or a class that this class inherits from) is marked as '@immutable', but one or more of its instance fields aren't final: PasswordTextField.controller, PasswordTextField.validator, PasswordTextField.aboveText, PasswordTextField.borderRadius, PasswordTextField.isForgetPassword, PasswordTextField.forgetPasswordOnTap - must_be_immutable
+warning - lib\feature\authentication\presentation\widgets\text_form_field_widget.dart:10:7 - This class (or a class that this class inherits from) is marked as '@immutable', but one or more of its instance fields aren't final: TextFormFieldWidget.isPassword, TextFormFieldWidget.isPhoneNumber, TextFormFieldWidget.keyboardType - must_be_immutable
+warning - lib\feature\authentication\presentation\widgets\text_form_field_widget.dart:154:10 - The value of the local variable 'size' isn't used. Try removing the variable or using it. - unused_local_variable
+warning - lib\feature\cart\presentation\widgets\coupon_section.dart:22:15 - Dead code. Try removing the code, or fixing the code before it so that it can be reached. - dead_code
+warning - lib\feature\home\presentation\best_seller_products_screen.dart:11:8 - Unused import: 'package:spex/feature/category/model/category_model.dart'. Try removing the import directive. - unused_import
+warning - lib\feature\home\presentation\best_seller_products_screen.dart:12:8 - Unused import: 'package:spex/feature/category/view_model/category_products_cubit/category_products_cubit.dart'. Try removing the import directive. - unused_import
+warning - lib\feature\home\presentation\best_seller_products_screen.dart:13:8 - Unused import: 'package:spex/feature/category/view_model/category_products_cubit/category_products_state.dart'. Try removing the import directive. - unused_import
+warning - lib\feature\home\presentation\widgets\category_card.dart:1:8 - Unused import: 'package:easy_localization/easy_localization.dart'. Try removing the import directive. - unused_import
+warning - lib\feature\home\presentation\widgets\category_card.dart:7:8 - Unused import: 'package:spex/generated/locale_keys.g.dart'. Try removing the import directive. - unused_import
+warning - lib\feature\product_details\presentation\widgets\variation_selection_dialog.dart:6:8 - Unused import: 'package:spex/core/helpers/extentions/extentions.dart'. Try removing the import directive. - unused_import
+warning - lib\feature\profile\presentation\profile_screen.dart:100:21 - Dead code. Try removing the code, or fixing the code before it so that it can be reached. - dead_code
+   info - lib\bloc_observer.dart:7:5 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - lib\bloc_observer.dart:13:5 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - lib\bloc_observer.dart:19:5 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - lib\bloc_observer.dart:25:5 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - lib\bloc_observer.dart:30:5 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - lib\bloc_observer.dart:37:5 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - lib\core\helpers\constants\constants.dart:2:16 - The constant name 'APP_NAME' isn't a lowerCamelCase identifier. Try changing the name to follow the lowerCamelCase style. - constant_identifier_names
+   info - lib\core\helpers\constants\constants.dart:52:23 - The constant name 'USER_TEXT' isn't a lowerCamelCase identifier. Try changing the name to follow the lowerCamelCase style. - constant_identifier_names
+   info - lib\core\helpers\constants\constants.dart:53:23 - The constant name 'PASSWORD_TEXT' isn't a lowerCamelCase identifier. Try changing the name to follow the lowerCamelCase style. - constant_identifier_names
+   info - lib\core\helpers\constants\constants.dart:54:23 - The constant name 'ONBOARDING_TEXT' isn't a lowerCamelCase identifier. Try changing the name to follow the lowerCamelCase style. - constant_identifier_names
+   info - lib\core\helpers\constants\constants.dart:55:23 - The constant name 'THEME_TEXT' isn't a lowerCamelCase identifier. Try changing the name to follow the lowerCamelCase style. - constant_identifier_names
+   info - lib\core\helpers\constants\constants.dart:57:23 - The constant name 'USER_BOX' isn't a lowerCamelCase identifier. Try changing the name to follow the lowerCamelCase style. - constant_identifier_names
+   info - lib\core\helpers\constants\constants.dart:58:23 - The constant name 'PASSWORD_BOX' isn't a lowerCamelCase identifier. Try changing the name to follow the lowerCamelCase style. - constant_identifier_names
+   info - lib\core\helpers\constants\constants.dart:59:23 - The constant name 'ONBOARDING_BOX' isn't a lowerCamelCase identifier. Try changing the name to follow the lowerCamelCase style. - constant_identifier_names
+   info - lib\core\helpers\constants\constants.dart:60:23 - The constant name 'THEME_BOX' isn't a lowerCamelCase identifier. Try changing the name to follow the lowerCamelCase style. - constant_identifier_names
+   info - lib\core\helpers\constants\constants.dart:61:23 - The constant name 'FAVORITES_BOX' isn't a lowerCamelCase identifier. Try changing the name to follow the lowerCamelCase style. - constant_identifier_names
+   info - lib\core\networking\network.dart:31:9 - Missing type annotation. Try replacing 'var' with a type annotation. - strict_top_level_inference
+   info - lib\core\networking\network.dart:32:9 - Missing type annotation. Try replacing 'var' with a type annotation. - strict_top_level_inference
+   info - lib\core\networking\network.dart:45:9 - Missing type annotation. Try replacing 'var' with a type annotation. - strict_top_level_inference
+   info - lib\core\networking\network.dart:46:9 - Missing type annotation. Try replacing 'var' with a type annotation. - strict_top_level_inference
+   info - lib\core\networking\network.dart:59:9 - Missing type annotation. Try replacing 'var' with a type annotation. - strict_top_level_inference
+   info - lib\core\networking\network.dart:67:9 - Missing type annotation. Try replacing 'var' with a type annotation. - strict_top_level_inference
+   info - lib\core\networking\web_constants.dart:2:16 - The constant name 'USERS_TEXT' isn't a lowerCamelCase identifier. Try changing the name to follow the lowerCamelCase style. - constant_identifier_names
+   info - lib\core\networking\web_constants.dart:3:16 - The constant name 'USER_TEXT' isn't a lowerCamelCase identifier. Try changing the name to follow the lowerCamelCase style. - constant_identifier_names
+   info - lib\core\networking\web_constants.dart:5:16 - The constant name 'LAPTOPS_TEXT' isn't a lowerCamelCase identifier. Try changing the name to follow the lowerCamelCase style. - constant_identifier_names
+   info - lib\core\networking\web_constants.dart:6:16 - The constant name 'LAPTOP_TEXT' isn't a lowerCamelCase identifier. Try changing the name to follow the lowerCamelCase style. - constant_identifier_names
+   info - lib\core\networking\web_constants.dart:7:16 - The constant name 'ADDITIONALS_TEXT' isn't a lowerCamelCase identifier. Try changing the name to follow the lowerCamelCase style. - constant_identifier_names
+   info - lib\core\networking\web_constants.dart:8:16 - The constant name 'CART_ITEMS_TEXT' isn't a lowerCamelCase identifier. Try changing the name to follow the lowerCamelCase style. - constant_identifier_names
+   info - lib\core\networking\web_constants.dart:10:16 - The constant name 'PAYMENTS_TEXT' isn't a lowerCamelCase identifier. Try changing the name to follow the lowerCamelCase style. - constant_identifier_names
+   info - lib\core\networking\web_constants.dart:11:16 - The constant name 'ORDERS_TEXT' isn't a lowerCamelCase identifier. Try changing the name to follow the lowerCamelCase style. - constant_identifier_names
+   info - lib\core\networking\web_constants.dart:12:16 - The constant name 'DEALER_ID_TEXT' isn't a lowerCamelCase identifier. Try changing the name to follow the lowerCamelCase style. - constant_identifier_names
+   info - lib\core\networking\web_constants.dart:14:16 - The constant name 'VISIBILITY_TEXT' isn't a lowerCamelCase identifier. Try changing the name to follow the lowerCamelCase style. - constant_identifier_names
+   info - lib\core\networking\web_constants.dart:16:16 - The constant name 'PHONE_FIELD_TEXT' isn't a lowerCamelCase identifier. Try changing the name to follow the lowerCamelCase style. - constant_identifier_names
+   info - lib\core\networking\web_constants.dart:17:16 - The constant name 'PASSWORD_FIELD_TEXT' isn't a lowerCamelCase identifier. Try changing the name to follow the lowerCamelCase style. - constant_identifier_names
+   info - lib\core\widgets\app_text_form_field.dart:100:25 - Assignment to a variable of type 'void'. Try removing the assignment or changing the type of the variable. - void_checks
+   info - lib\core\widgets\app_text_form_field.dart:202:23 - Assignment to a variable of type 'void'. Try removing the assignment or changing the type of the variable. - void_checks
+   info - lib\core\widgets\custom_pagination_widget.dart:91:45 - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss. Try replacing the use of the deprecated member with the replacement. - deprecated_member_use
+   info - lib\core\widgets\custom_pagination_widget.dart:135:47 - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss. Try replacing the use of the deprecated member with the replacement. - deprecated_member_use
+   info - lib\core\widgets\snakbar.dart:76:7 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - lib\feature\cart\model\create_order_model.dart:35:23 - Unnecessary 'new' keyword. Try removing the 'new' keyword. - unnecessary_new
+   info - lib\feature\cart\model\create_order_model.dart:41:39 - Unnecessary 'new' keyword. Try removing the 'new' keyword. - unnecessary_new
+   info - lib\feature\cart\model\create_order_model.dart:41:39 - Unnecessary constructor invocation. Try using a collection literal. - prefer_collection_literals
+   info - lib\feature\cart\model\create_order_model.dart:42:30 - Unnecessary 'this.' qualifier. Try removing 'this.'. - unnecessary_this
+   info - lib\feature\cart\model\create_order_model.dart:43:26 - Unnecessary 'this.' qualifier. Try removing 'this.'. - unnecessary_this
+   info - lib\feature\cart\model\create_order_model.dart:44:25 - Unnecessary 'this.' qualifier. Try removing 'this.'. - unnecessary_this
+   info - lib\feature\cart\model\create_order_model.dart:45:21 - Unnecessary 'this.' qualifier. Try removing 'this.'. - unnecessary_this
+   info - lib\feature\cart\model\create_order_model.dart:46:21 - Unnecessary 'this.' qualifier. Try removing 'this.'. - unnecessary_this
+   info - lib\feature\cart\model\create_order_model.dart:47:23 - Unnecessary 'this.' qualifier. Try removing 'this.'. - unnecessary_this
+   info - lib\feature\cart\model\create_order_model.dart:48:20 - Unnecessary 'this.' qualifier. Try removing 'this.'. - unnecessary_this
+   info - lib\feature\cart\model\create_order_model.dart:49:20 - Unnecessary 'this.' qualifier. Try removing 'this.'. - unnecessary_this
+   info - lib\feature\cart\model\create_order_model.dart:50:9 - Unnecessary 'this.' qualifier. Try removing 'this.'. - unnecessary_this
+   info - lib\feature\cart\model\create_order_model.dart:51:26 - Unnecessary 'this.' qualifier. Try removing 'this.'. - unnecessary_this
+   info - lib\feature\cart\model\create_order_model.dart:70:11 - Unnecessary 'new' keyword. Try removing the 'new' keyword. - unnecessary_new
+   info - lib\feature\cart\model\create_order_model.dart:75:39 - Unnecessary 'new' keyword. Try removing the 'new' keyword. - unnecessary_new
+   info - lib\feature\cart\model\create_order_model.dart:75:39 - Unnecessary constructor invocation. Try using a collection literal. - prefer_collection_literals
+   info - lib\feature\cart\model\create_order_model.dart:76:18 - Unnecessary 'this.' qualifier. Try removing 'this.'. - unnecessary_this
+   info - lib\feature\cart\model\create_order_model.dart:77:28 - Unnecessary 'this.' qualifier. Try removing 'this.'. - unnecessary_this
+   info - lib\feature\cart\model\create_order_model.dart:78:19 - Unnecessary 'this.' qualifier. Try removing 'this.'. - unnecessary_this
+   info - lib\feature\cart\model\create_order_model.dart:79:9 - Unnecessary 'this.' qualifier. Try removing 'this.'. - unnecessary_this
+   info - lib\feature\cart\model\create_order_model.dart:80:28 - Unnecessary 'this.' qualifier. Try removing 'this.'. - unnecessary_this
+   info - lib\feature\cart\model\create_order_model.dart:98:39 - Unnecessary 'new' keyword. Try removing the 'new' keyword. - unnecessary_new
+   info - lib\feature\cart\model\create_order_model.dart:98:39 - Unnecessary constructor invocation. Try using a collection literal. - prefer_collection_literals
+   info - lib\feature\cart\model\create_order_model.dart:99:24 - Unnecessary 'this.' qualifier. Try removing 'this.'. - unnecessary_this
+   info - lib\feature\cart\model\create_order_model.dart:100:23 - Unnecessary 'this.' qualifier. Try removing 'this.'. - unnecessary_this
+   info - lib\feature\category\model\category_model.dart:35:11 - Unnecessary 'new' keyword. Try removing the 'new' keyword. - unnecessary_new
+   info - lib\feature\category\model\category_model.dart:38:11 - Unnecessary 'new' keyword. Try removing the 'new' keyword. - unnecessary_new
+   info - lib\feature\category\model\category_model.dart:43:20 - Unnecessary 'new' keyword. Try removing the 'new' keyword. - unnecessary_new
+   info - lib\feature\category\model\category_model.dart:49:39 - Unnecessary 'new' keyword. Try removing the 'new' keyword. - unnecessary_new
+   info - lib\feature\category\model\category_model.dart:49:39 - Unnecessary constructor invocation. Try using a collection literal. - prefer_collection_literals
+   info - lib\feature\category\model\category_model.dart:50:9 - Unnecessary 'this.' qualifier. Try removing 'this.'. - unnecessary_this
+   info - lib\feature\category\model\category_model.dart:51:26 - Unnecessary 'this.' qualifier. Try removing 'this.'. - unnecessary_this
+   info - lib\feature\category\model\category_model.dart:53:9 - Unnecessary 'this.' qualifier. Try removing 'this.'. - unnecessary_this
+   info - lib\feature\category\model\category_model.dart:54:28 - Unnecessary 'this.' qualifier. Try removing 'this.'. - unnecessary_this
+   info - lib\feature\category\model\category_model.dart:56:9 - Unnecessary 'this.' qualifier. Try removing 'this.'. - unnecessary_this
+   info - lib\feature\category\model\category_model.dart:57:23 - Unnecessary 'this.' qualifier. Try removing 'this.'. - unnecessary_this
+   info - lib\feature\category\model\category_model.dart:77:39 - Unnecessary 'new' keyword. Try removing the 'new' keyword. - unnecessary_new
+   info - lib\feature\category\model\category_model.dart:77:39 - Unnecessary constructor invocation. Try using a collection literal. - prefer_collection_literals
+   info - lib\feature\category\model\category_model.dart:78:18 - Unnecessary 'this.' qualifier. Try removing 'this.'. - unnecessary_this
+   info - lib\feature\category\model\category_model.dart:79:20 - Unnecessary 'this.' qualifier. Try removing 'this.'. - unnecessary_this
+   info - lib\feature\category\model\category_model.dart:80:20 - Unnecessary 'this.' qualifier. Try removing 'this.'. - unnecessary_this
+   info - lib\feature\category\model\category_model.dart:101:39 - Unnecessary 'new' keyword. Try removing the 'new' keyword. - unnecessary_new
+   info - lib\feature\category\model\category_model.dart:101:39 - Unnecessary constructor invocation. Try using a collection literal. - prefer_collection_literals
+   info - lib\feature\category\model\category_model.dart:102:20 - Unnecessary 'this.' qualifier. Try removing 'this.'. - unnecessary_this
+   info - lib\feature\category\model\category_model.dart:103:24 - Unnecessary 'this.' qualifier. Try removing 'this.'. - unnecessary_this
+   info - lib\feature\category\model\category_model.dart:104:21 - Unnecessary 'this.' qualifier. Try removing 'this.'. - unnecessary_this
+   info - lib\feature\category\model\category_model.dart:105:27 - Unnecessary 'this.' qualifier. Try removing 'this.'. - unnecessary_this
+   info - lib\feature\home\model\product_model.dart:983:37 - 'value' is deprecated and shouldn't be used. Use component accessors like .r or .g, or toARGB32 for an explicit conversion. Try replacing the use of the deprecated member with the replacement. - deprecated_member_use
+   info - lib\feature\home\presentation\widgets\custom_search_bar.dart:8:73 - The prefix 'FontSelection' isn't a lower_case_with_underscores identifier. Try changing the prefix to follow the lower_case_with_underscores style. - library_prefixes
+   info - lib\feature\product_details\model\mini_product_model.dart:102:16 - Unnecessary empty statement. Try removing the empty statement or restructuring the code. - empty_statements
+   info - lib\feature\product_details\model\mini_product_model.dart:105:11 - Unnecessary 'new' keyword. Try removing the 'new' keyword. - unnecessary_new
+   info - lib\feature\product_details\model\mini_product_model.dart:111:39 - Unnecessary 'new' keyword. Try removing the 'new' keyword. - unnecessary_new
+   info - lib\feature\product_details\model\mini_product_model.dart:111:39 - Unnecessary constructor invocation. Try using a collection literal. - prefer_collection_literals
+   info - lib\feature\product_details\model\mini_product_model.dart:112:18 - Unnecessary 'this.' qualifier. Try removing 'this.'. - unnecessary_this
+   info - lib\feature\product_details\model\mini_product_model.dart:113:19 - Unnecessary 'this.' qualifier. Try removing 'this.'. - unnecessary_this
+   info - lib\feature\product_details\model\mini_product_model.dart:114:21 - Unnecessary 'this.' qualifier. Try removing 'this.'. - unnecessary_this
+   info - lib\feature\product_details\model\mini_product_model.dart:115:29 - Unnecessary 'this.' qualifier. Try removing 'this.'. - unnecessary_this
+   info - lib\feature\product_details\model\mini_product_model.dart:116:26 - Unnecessary 'this.' qualifier. Try removing 'this.'. - unnecessary_this
+   info - lib\feature\product_details\model\mini_product_model.dart:117:28 - Unnecessary 'this.' qualifier. Try removing 'this.'. - unnecessary_this
+   info - lib\feature\product_details\model\mini_product_model.dart:118:26 - Unnecessary 'this.' qualifier. Try removing 'this.'. - unnecessary_this
+   info - lib\feature\product_details\model\mini_product_model.dart:119:9 - Unnecessary 'this.' qualifier. Try removing 'this.'. - unnecessary_this
+   info - lib\feature\product_details\model\mini_product_model.dart:120:28 - Unnecessary 'this.' qualifier. Try removing 'this.'. - unnecessary_this
+   info - lib\feature\product_details\model\mini_product_model.dart:122:21 - Unnecessary 'this.' qualifier. Try removing 'this.'. - unnecessary_this
+   info - lib\feature\product_details\model\mini_product_model.dart:135:79 - Unnecessary 'new' keyword. Try removing the 'new' keyword. - unnecessary_new
+   info - lib\feature\product_details\model\mini_product_model.dart:137:81 - Unnecessary 'new' keyword. Try removing the 'new' keyword. - unnecessary_new
+   info - lib\feature\product_details\model\mini_product_model.dart:141:39 - Unnecessary 'new' keyword. Try removing the 'new' keyword. - unnecessary_new
+   info - lib\feature\product_details\model\mini_product_model.dart:141:39 - Unnecessary constructor invocation. Try using a collection literal. - prefer_collection_literals
+   info - lib\feature\product_details\model\mini_product_model.dart:142:9 - Unnecessary 'this.' qualifier. Try removing 'this.'. - unnecessary_this
+   info - lib\feature\product_details\model\mini_product_model.dart:143:25 - Unnecessary 'this.' qualifier. Try removing 'this.'. - unnecessary_this
+   info - lib\feature\product_details\model\mini_product_model.dart:145:9 - Unnecessary 'this.' qualifier. Try removing 'this.'. - unnecessary_this
+   info - lib\feature\product_details\model\mini_product_model.dart:146:26 - Unnecessary 'this.' qualifier. Try removing 'this.'. - unnecessary_this
+   info - lib\feature\product_details\model\mini_product_model.dart:168:39 - Unnecessary 'new' keyword. Try removing the 'new' keyword. - unnecessary_new
+   info - lib\feature\product_details\model\mini_product_model.dart:168:39 - Unnecessary constructor invocation. Try using a collection literal. - prefer_collection_literals
+   info - lib\feature\product_details\model\mini_product_model.dart:169:21 - Unnecessary 'this.' qualifier. Try removing 'this.'. - unnecessary_this
+   info - lib\feature\product_details\model\mini_product_model.dart:170:20 - Unnecessary 'this.' qualifier. Try removing 'this.'. - unnecessary_this
+   info - lib\feature\product_details\model\mini_product_model.dart:171:20 - Unnecessary 'this.' qualifier. Try removing 'this.'. - unnecessary_this
+   info - lib\feature\product_details\model\mini_product_model.dart:172:25 - Unnecessary 'this.' qualifier. Try removing 'this.'. - unnecessary_this
+   info - lib\feature\product_details\presentation\product_details_screen.dart:234:39 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - lib\feature\product_details\presentation\product_details_screen.dart:241:39 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - lib\feature\product_details\presentation\product_details_screen.dart:438:9 - Don't use 'BuildContext's across async gaps. Try rewriting the code to not use the 'BuildContext', or guard the use with a 'mounted' check. - use_build_context_synchronously
+   info - lib\feature\product_details\presentation\product_details_screen.dart:439:30 - Don't use 'BuildContext's across async gaps. Try rewriting the code to not use the 'BuildContext', or guard the use with a 'mounted' check. - use_build_context_synchronously
+
+132 issues found.

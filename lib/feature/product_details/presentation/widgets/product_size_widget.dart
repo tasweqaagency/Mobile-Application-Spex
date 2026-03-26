@@ -7,26 +7,21 @@ import '../../../../core/helpers/constants/constants.dart';
 import '../../../../core/widgets/text_in_app_widget.dart';
 import '../../../../main.dart';
 
-class ProductSizeWidget extends StatefulWidget {
+class ProductSizeWidget extends StatelessWidget {
   final List<String> sizes;
+  final String? selectedSize;
   final Function(String) onSizeSelected;
 
   const ProductSizeWidget({
     super.key,
     required this.sizes,
+    this.selectedSize,
     required this.onSizeSelected,
   });
 
   @override
-  State<ProductSizeWidget> createState() => _ProductSizeWidgetState();
-}
-
-class _ProductSizeWidgetState extends State<ProductSizeWidget> {
-  String? selectedSize;
-
-  @override
   Widget build(BuildContext context) {
-    if (widget.sizes.isEmpty) return const SizedBox.shrink();
+    if (sizes.isEmpty) return const SizedBox.shrink();
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -43,14 +38,11 @@ class _ProductSizeWidgetState extends State<ProductSizeWidget> {
         Wrap(
           spacing: 10,
           runSpacing: 10,
-          children: widget.sizes.map((size) {
+          children: sizes.map((size) {
             final isSelected = selectedSize == size;
             return GestureDetector(
               onTap: () {
-                setState(() {
-                  selectedSize = size;
-                });
-                widget.onSizeSelected(size);
+                onSizeSelected(size);
               },
               child: AnimatedContainer(
                 duration: const Duration(milliseconds: 200),
@@ -61,34 +53,33 @@ class _ProductSizeWidgetState extends State<ProductSizeWidget> {
                 decoration: BoxDecoration(
                   color: isSelected
                       ? (isDark
-                            ? AppColorsDark.mainColor
-                            : AppColorsLight.mainColor)
+                          ? AppColorsDark.mainColor
+                          : AppColorsLight.mainColor)
                       : (isDark
-                            ? AppColorsDark.appSecondBgColor
-                            : AppColorsLight.whiteColor),
+                          ? AppColorsDark.appSecondBgColor
+                          : AppColorsLight.whiteColor),
                   borderRadius: BorderRadius.circular(8),
                   border: Border.all(
                     color: isSelected
                         ? (isDark
-                              ? AppColorsDark.mainColor
-                              : AppColorsLight.mainColor)
+                            ? AppColorsDark.mainColor
+                            : AppColorsLight.mainColor)
                         : (isDark
-                              ? AppColorsDark.appSecondTextColor.withValues(
-                                  alpha: 0.3,
-                                )
-                              : AppColorsLight.appSecondTextColor.withValues(
-                                  alpha: 0.3,
-                                )),
+                            ? AppColorsDark.appSecondTextColor.withValues(
+                                alpha: 0.3,
+                              )
+                            : AppColorsLight.appSecondTextColor.withValues(
+                                alpha: 0.3,
+                              )),
                     width: 1.5,
                   ),
                   boxShadow: isSelected
                       ? [
                           BoxShadow(
-                            color:
-                                (isDark
-                                        ? AppColorsDark.mainColor
-                                        : AppColorsLight.mainColor)
-                                    .withValues(alpha: 0.3),
+                            color: (isDark
+                                    ? AppColorsDark.mainColor
+                                    : AppColorsLight.mainColor)
+                                .withValues(alpha: 0.3),
                             blurRadius: 8,
                             offset: const Offset(0, 4),
                           ),
@@ -104,8 +95,8 @@ class _ProductSizeWidgetState extends State<ProductSizeWidget> {
                   textColor: isSelected
                       ? (isDark ? AppColorsDark.appTextColor : Colors.white)
                       : (isDark
-                            ? AppColorsDark.appTextColor
-                            : AppColorsLight.appTextColor),
+                          ? AppColorsDark.appTextColor
+                          : AppColorsLight.appTextColor),
                 ),
               ),
             );

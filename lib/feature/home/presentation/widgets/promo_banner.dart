@@ -1,11 +1,11 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
-import '../../model/promo_banner_model.dart';
+import '../../model/slider_banner.dart';
 import 'promo_banner_card.dart';
 import 'carousel_indicators.dart';
 
 class PromoBanner extends StatefulWidget {
-  final List<PromoBannerItem> items;
+  final List<SliderBanner> items;
 
   const PromoBanner({super.key, required this.items});
 

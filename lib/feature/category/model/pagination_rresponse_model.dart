@@ -17,10 +17,10 @@ class PaginationResponseModel<T> {
     Map<String, dynamic> json,
     T Function(Map<String, dynamic>) fromJsonT,
   ) {
-    page = json['page'] ?? 1;
-    perPage = json['per_page'] ?? 10;
-    total = json['count'] ?? 0;
-    totalPages = (perPage! > 0) ? (total! / perPage!).ceil() : 0;
+    page = json['page'] ?? json['current_page'] ?? 1;
+    perPage = json['per_page'] ?? json['page_size'] ?? 10;
+    total = json['count'] ?? json['total'] ?? json['total_items'] ?? 0;
+    totalPages = json['total_pages'] ?? json['last_page'] ?? ((perPage! > 0) ? (total! / perPage!).ceil() : 0);
     if (json['items'] != null ||
         json['products'] != null ||
         json['categories'] != null) {

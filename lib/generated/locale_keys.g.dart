@@ -47,6 +47,10 @@ abstract class  LocaleKeys {
   static const product_details_total_price = 'product_details.total_price';
   static const product_details_select_color = 'product_details.select_color';
   static const product_details_select_size = 'product_details.select_size';
+  static const product_details_select_variation = 'product_details.select_variation';
+  static const product_details_price = 'product_details.price';
+  static const product_details_color = 'product_details.color';
+  static const product_details_size = 'product_details.size';
   static const product_details = 'product_details';
   static const cart_delivery_address = 'cart.delivery_address';
   static const cart_edit = 'cart.edit';
@@ -66,11 +70,15 @@ abstract class  LocaleKeys {
   static const cart_apply = 'cart.apply';
   static const cart_cancel = 'cart.cancel';
   static const cart_sar = 'cart.sar';
+  static const cart_add_to_cart = 'cart.add_to_cart';
+  static const cart_added_to_cart_success = 'cart.added_to_cart_success';
+  static const cart_empty_message = 'cart.empty_message';
   static const cart = 'cart';
   static const orders_order_history = 'orders.order_history';
   static const orders_all_orders = 'orders.all_orders';
   static const orders_in_transit = 'orders.in_transit';
   static const orders_completed = 'orders.completed';
+  static const orders_no_orders = 'orders.no_orders';
   static const orders_order_details = 'orders.order_details';
   static const orders_order_id = 'orders.order_id';
   static const orders_placed_on = 'orders.placed_on';
@@ -87,6 +95,9 @@ abstract class  LocaleKeys {
   static const orders_grand_total = 'orders.grand_total';
   static const orders_quantity = 'orders.quantity';
   static const orders = 'orders';
+  static const notifications_title = 'notifications.title';
+  static const notifications_no_notifications = 'notifications.no_notifications';
+  static const notifications = 'notifications';
   static const address_shipping_addresses = 'address.shipping_addresses';
   static const address_home = 'address.home';
   static const address_office = 'address.office';

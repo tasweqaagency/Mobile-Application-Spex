@@ -12,38 +12,36 @@ import 'package:spex/feature/category/model/category_model.dart';
 import 'package:spex/feature/category/view_model/category_products_cubit/category_products_cubit.dart';
 import 'package:spex/feature/category/view_model/category_products_cubit/category_products_state.dart';
 import 'package:spex/feature/home/presentation/widgets/product_card.dart';
+import 'package:spex/feature/home/view_model/best_seller_cubit/best_seller_cubit.dart';
+import 'package:spex/feature/home/view_model/best_seller_cubit/best_seller_state.dart';
 import 'package:spex/generated/locale_keys.g.dart';
 import 'package:spex/main.dart';
 
-class CategoryProductsScreen extends StatefulWidget {
-  final CategoryModel category;
-
-  const CategoryProductsScreen({super.key, required this.category});
+class BestSellerProductsScreen extends StatefulWidget {
+  const BestSellerProductsScreen({super.key});
 
   @override
-  State<CategoryProductsScreen> createState() => _CategoryProductsScreenState();
+  State<BestSellerProductsScreen> createState() =>
+      _BestSellerProductsScreenState();
 }
 
-class _CategoryProductsScreenState extends State<CategoryProductsScreen> {
+class _BestSellerProductsScreenState extends State<BestSellerProductsScreen> {
   int _currentPage = 1;
 
-  @override
-  void initState() {
-    super.initState();
-    context.read<CategoryProductsCubit>().getCategoryProducts(
-      widget.category.id,
-      page: 1,
-    );
-  }
+  // @override
+  // void initState() {
+  //   super.initState();
+  //   context.read<CategoryProductsCubit>().getCategoryProducts(
+  //     widget.category.id,
+  //     page: _currentPage,
+  //   );
+  // }
 
   void _onPageChanged(int page) {
     setState(() {
       _currentPage = page;
     });
-    context.read<CategoryProductsCubit>().getCategoryProducts(
-      widget.category.id,
-      page: _currentPage,
-    );
+    context.read<BestSellerCubit>().getBestSellers(page: _currentPage);
   }
 
   @override
@@ -51,7 +49,7 @@ class _CategoryProductsScreenState extends State<CategoryProductsScreen> {
     return Scaffold(
       appBar: AppBar(
         title: TextInAppWidget(
-          text: widget.category.name,
+          text: LocaleKeys.home_best_seller.tr(),
           textSize: 18,
           fontWeightIndex: FontSelectionData.boldFontFamily,
           textColor: isDark
@@ -69,16 +67,16 @@ class _CategoryProductsScreenState extends State<CategoryProductsScreen> {
           onPressed: () => Navigator.pop(context),
         ),
       ),
-      body: BlocBuilder<CategoryProductsCubit, CategoryProductsState>(
+      body: BlocBuilder<BestSellerCubit, BestSellerState>(
         builder: (context, state) {
-          if (state is CategoryProductsLoadingState) {
+          if (state is BestSellerLoadingState) {
             return const Center(
               child: CircularProgressIndicator(color: AppColorsLight.mainColor),
             );
-          } else if (state is CategoryProductsLoadedState) {
+          } else if (state is BestSellerLoadedState) {
             final paginationResult = state.products;
             final items = paginationResult.items ?? [];
-            final totalPages = paginationResult.pagination!.totalPages ?? 1;
+            final totalPages = paginationResult.totalPages ?? 1;
 
             if (items.isEmpty) {
               return Center(
@@ -138,7 +136,7 @@ class _CategoryProductsScreenState extends State<CategoryProductsScreen> {
                 ),
               ],
             );
-          } else if (state is CategoryProductsErrorState) {
+          } else if (state is BestSellerErrorState) {
             return Center(
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -152,11 +150,8 @@ class _CategoryProductsScreenState extends State<CategoryProductsScreen> {
                   const SizedBox(height: 16),
                   ElevatedButton(
                     onPressed: () => context
-                        .read<CategoryProductsCubit>()
-                        .getCategoryProducts(
-                          widget.category.id,
-                          page: _currentPage,
-                        ),
+                        .read<BestSellerCubit>()
+                        .getBestSellers(page: _currentPage),
                     child: Text(LocaleKeys.api_replay_message_bad_request.tr()),
                   ),
                 ],

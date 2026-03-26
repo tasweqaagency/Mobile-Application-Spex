@@ -123,7 +123,7 @@ class _MyOrdersScreenState extends State<MyOrdersScreen>
   @override
   void initState() {
     super.initState();
-    _tabController = TabController(length: mockOrders.length, vsync: this);
+    _tabController = TabController(length: 3, vsync: this);
   }
 
   @override

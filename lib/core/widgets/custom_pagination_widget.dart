@@ -2,14 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:spex/core/helpers/colors/dark_colors.dart';
 import 'package:spex/core/helpers/colors/light_colors.dart';
 import 'package:spex/core/helpers/constants/constants.dart';
-import 'package:spex/core/helpers/extentions/extentions.dart';
 import 'package:spex/core/widgets/text_in_app_widget.dart';
 import 'package:spex/main.dart';
 
 class CustomPaginationWidget extends StatelessWidget {
   final int currentPage;
   final int totalPages;
-  final ValueChanged<int> onPageChanged;
+  final Function(int) onPageChanged;
 
   const CustomPaginationWidget({
     super.key,

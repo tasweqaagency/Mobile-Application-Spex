@@ -5,12 +5,13 @@ import 'package:spex/core/helpers/colors/light_colors.dart';
 import 'package:spex/core/helpers/constants/constants.dart';
 import 'package:spex/core/widgets/network_image_widget.dart';
 import 'package:spex/core/widgets/text_in_app_widget.dart';
-import 'package:spex/feature/search/model/search_item_model.dart';
+import 'package:spex/feature/home/presentation/widgets/product_label_flag_widget.dart';
+import 'package:spex/feature/product_details/model/mini_product_model.dart';
 import 'package:spex/generated/locale_keys.g.dart';
 import 'package:spex/main.dart';
 
 class SearchProductItem extends StatelessWidget {
-  final SearchItemModel product;
+  final MiniProductModel product;
   final VoidCallback? onTap;
 
   const SearchProductItem({super.key, required this.product, this.onTap});
@@ -75,18 +76,57 @@ class SearchProductItem extends StatelessWidget {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      // Price
+                      // Price and Stock
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          TextInAppWidget(
-                            text:
-                                '${product.price ?? 0} ${LocaleKeys.home_egp.tr()}',
-                            textSize: 14,
-                            fontWeightIndex: FontSelectionData.boldFontFamily,
-                            textColor: AppColorsLight
-                                .mainColor, // Main color usually looks good for price in both modes
+                          Row(
+                            children: [
+                              TextInAppWidget(
+                                text:
+                                    '${product.price ?? 0} ${LocaleKeys.home_egp.tr()}',
+                                textSize: 14,
+                                fontWeightIndex: FontSelectionData.boldFontFamily,
+                                textColor: AppColorsLight.mainColor,
+                              ),
+                              if (product.onSale == true &&
+                                  product.regularPrice != null &&
+                                  product.regularPrice!.isNotEmpty &&
+                                  product.regularPrice != product.price) ...[
+                                const SizedBox(width: 8),
+                                Text(
+                                  '${product.regularPrice} ${LocaleKeys.home_egp.tr()}',
+                                  style: TextStyle(
+                                    fontSize: 12,
+                                    decoration: TextDecoration.lineThrough,
+                                    color: isDark
+                                        ? AppColorsDark.appSecondTextColor
+                                        : AppColorsLight.appSecondTextColor,
+                                  ),
+                                ),
+                              ],
+                            ],
                           ),
+                          const SizedBox(height: 4),
+                          // if (product.onSale == true) ...[
+                          //   const SizedBox(height: 8),
+                          //   ProductLabelFlagWidget(
+                          //     text: LocaleKeys.home_promosion.tr(),
+                          //     color: AppColorsLight.appRedColor,
+                          //   ),
+                          // ],
+                          // const SizedBox(height: 4),
+                          if (product.inStock != null) ...[
+                            TextInAppWidget(
+                              text: product.inStock == true
+                                  ? LocaleKeys.home_in_stock.tr()
+                                  : LocaleKeys.home_out_of_stock.tr(),
+                              textSize: 12,
+                              textColor: product.inStock == true
+                                  ? Colors.green
+                                  : Colors.red,
+                          ),
+                          ]
                         ],
                       ),
                     ],

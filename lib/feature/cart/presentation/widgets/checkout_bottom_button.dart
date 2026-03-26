@@ -5,7 +5,12 @@ import 'package:spex/core/helpers/colors/light_colors.dart';
 import 'package:spex/core/widgets/app_button.dart';
 import 'package:spex/generated/locale_keys.g.dart';
 import 'package:spex/main.dart';
-
+enum PaymobTransactionStatus {
+  successful,  // Payment completed successfully
+  rejected,    // Payment was rejected
+  pending,     // Payment is pending
+  unknown      // Unknown or error status
+}
 class CheckoutBottomButton extends StatelessWidget {
   const CheckoutBottomButton({super.key});
 
@@ -34,7 +39,9 @@ class CheckoutBottomButton extends StatelessWidget {
                   fontWeight: FontWeight.bold,
                   color: AppColorsLight.whiteColor,
                 ),
-                onPressed: () {},
+                onPressed: () async {
+
+                },
                 borderRadius: 20,
                 backgroundColor: AppColorsLight
                     .mainColor, // AppTextButton uses mainColor by default but I can override if needed

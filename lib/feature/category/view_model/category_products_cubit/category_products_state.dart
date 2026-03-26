@@ -1,5 +1,4 @@
-import 'package:spex/feature/category/model/pagination_rresponse_model.dart';
-import 'package:spex/feature/product_details/model/mini_product_model.dart';
+import 'package:spex/feature/category/model/category_model.dart';
 
 abstract class CategoryProductsState {}
 
@@ -8,7 +7,7 @@ class CategoryProductsInitialState extends CategoryProductsState {}
 class CategoryProductsLoadingState extends CategoryProductsState {}
 
 class CategoryProductsLoadedState extends CategoryProductsState {
-  PaginationResponseModel<MiniProductModel> products;
+  CategoryProduct products;
   CategoryProductsLoadedState(this.products);
 }
 

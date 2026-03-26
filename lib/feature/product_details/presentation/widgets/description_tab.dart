@@ -5,7 +5,6 @@ import '../../../../core/helpers/colors/dark_colors.dart';
 import '../../../../core/helpers/colors/light_colors.dart';
 import '../../../../core/helpers/fontSelection/font_selection.dart';
 import '../../../../main.dart';
-import 'feature_item.dart';
 
 class DescriptionTab extends StatelessWidget {
   final SimplifiedProductModel product;

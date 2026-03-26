@@ -2,6 +2,8 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:spex/core/helpers/colors/dark_colors.dart';
 import 'package:spex/core/helpers/colors/light_colors.dart';
+import 'package:spex/core/helpers/extentions/extentions.dart';
+import 'package:spex/core/routing/routing.dart';
 import 'package:spex/core/widgets/text_in_app_widget.dart';
 import 'package:spex/feature/home/presentation/widgets/my_appbar.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -49,7 +51,10 @@ class SearchScreen extends StatelessWidget {
                       return SearchProductItem(
                         product: item,
                         onTap: () {
-                          // Handle product details navigation when Search API provides needed data.
+                          context.pushNamed(
+                            Routes.productDetailsScreen,
+                            arguments: item.toSimplifiedProduct(),
+                          );
                         },
                       );
                     },

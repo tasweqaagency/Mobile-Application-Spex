@@ -10,8 +10,9 @@ import 'package:spex/feature/authentication/model/user_model.dart';
 import 'package:spex/feature/category/model/category_model.dart';
 import 'package:spex/feature/category/model/pagination_rresponse_model.dart';
 import 'package:spex/feature/home/model/product_model.dart';
+import 'package:spex/feature/home/model/slider_banner.dart';
+import 'package:spex/feature/home/model/top_banner.dart';
 import 'package:spex/feature/product_details/model/mini_product_model.dart';
-import 'package:spex/feature/search/model/search_item_model.dart';
 import '../../generated/locale_keys.g.dart';
 import 'network.dart';
 
@@ -124,24 +125,19 @@ class RemoteServices {
   //   // }
   // }
 
-  Future<Either<String,User> > login(String email, String password)async{
+  Future<Either<String, User>> login(String email, String password) async {
     try {
-      final body = {
-        'email': email,
-        'password': password
-      };
-       final response = await getIt<Network>().getDataWithBodyAndQuery(
+      final body = {'email': email, 'password': password};
+      final response = await getIt<Network>().getDataWithBodyAndQuery(
         body,
         null,
-        ServicesConstants.loginEndPoint
-        
+        ServicesConstants.loginEndPoint,
       );
       if (response.statusCode == 200) {
         final resp = response.data;
         User user = User.fromJson(resp);
         return right(user);
-      }
-      else if (response.statusCode == 401) {
+      } else if (response.statusCode == 401) {
         return left(LocaleKeys.api_replay_message_wrong_data.tr());
       }
       return left(await responseOfStatusCode(response.statusCode));
@@ -154,24 +150,22 @@ class RemoteServices {
       return left(e.toString());
     }
   }
-  
-  Future<Either<String,String> > register(String name, String email, String password, )async{
+
+  Future<Either<String, String>> register(
+    String name,
+    String email,
+    String password,
+  ) async {
     try {
-      final body = { 
-        'name': name,
-        'email': email,
-        'password': password
-      };
-       final response = await getIt<Network>().getDataWithBodyAndQuery(
+      final body = {'name': name, 'email': email, 'password': password};
+      final response = await getIt<Network>().getDataWithBodyAndQuery(
         body,
         null,
-        ServicesConstants.registerEndPoint
-        
+        ServicesConstants.registerEndPoint,
       );
       if (response.statusCode == 200) {
         return right(LocaleKeys.auth_register_success.tr());
-      }
-      else {
+      } else {
         return left(response.data["error"]);
       }
       // return left(await responseOfStatusCode(response.statusCode));
@@ -205,7 +199,7 @@ class RemoteServices {
     }
   }
 
-  Future<Either<String, List<SearchItemModel>>> search(String query) async {
+  Future<Either<String, List<MiniProductModel>>> search(String query) async {
     try {
       final response = await getIt<Network>().getData(
         ServicesConstants.searchEndPoint,
@@ -213,8 +207,8 @@ class RemoteServices {
       );
       if (response.statusCode == 200) {
         final resp = response.data;
-        List<SearchItemModel> searchItems = (resp as List)
-            .map((x) => SearchItemModel.fromJson(x))
+        List<MiniProductModel> searchItems = (resp as List)
+            .map((x) => MiniProductModel.fromJson(x))
             .toList();
         return right(searchItems);
       }
@@ -226,7 +220,8 @@ class RemoteServices {
     }
   }
 
-  Future<Either<String, PaginationResponseModel<MiniProductModel>>> getPromotions({int page = 1}) async {
+  Future<Either<String, PaginationResponseModel<MiniProductModel>>>
+  getPromotions({int page = 1}) async {
     try {
       Map<String, dynamic> queryParameters = {
         // 'on_sale': true,
@@ -287,8 +282,7 @@ class RemoteServices {
 
   Future<Either<String, SimplifiedProductModel>> getProductDetails(
     String sku,
-  )
-  async {
+  ) async {
     try {
       Map<String, dynamic> queryParameters = {'sku': sku};
       final response = await getIt<Network>().getData(
@@ -312,35 +306,62 @@ class RemoteServices {
     }
   }
 
-  Future<Either<String, PaginationResponseModel<MiniProductModel>>>
-  getCategoryProducts(int categoryId, {int page = 1, int perPage = 20})
-  async {
-    try {
-      final response = await getIt<Network>().postData(
-        ServicesConstants.categoryProductsEndPoint,
-        options: Options(
-          headers: {
-            'X-Category-Id': categoryId,
-            'X-Per-Page': perPage,
-            'X-Page': page,
-          },
-        ),
-      );
-      if (response.statusCode == 200) {
-        final resp = response.data;
-        PaginationResponseModel<MiniProductModel> products =
-            PaginationResponseModel<MiniProductModel>.fromJson(
-              resp,
-              (json) => MiniProductModel.fromJson(json),
-            );
-        return right(products);
-      }
-      return left(await responseOfStatusCode(response.statusCode));
-    } on DioException catch (e) {
-      return left(await responseOfStatusCode(e.response?.statusCode));
-    } catch (e) {
-      return left(e.toString());
+  // Future<Either<String, PaginationResponseModel<MiniProductModel>>>
+  // getCategoryProducts(int categoryId, {int page = 1, int perPage = 20}) async {
+  //   try {
+  //     final response = await getIt<Network>().postData(
+  //       ServicesConstants.categoryProductsEndPoint,
+  //       options: Options(
+  //         headers: {
+  //           'X-Category-Id': categoryId,
+  //           'X-Per-Page': perPage,
+  //           'X-Page': page,
+  //         },
+  //       ),
+  //     );
+  //     if (response.statusCode == 200) {
+  //       final resp = response.data;
+  //       PaginationResponseModel<MiniProductModel> products =
+  //           PaginationResponseModel<MiniProductModel>.fromJson(
+  //             resp,
+  //             (json) => MiniProductModel.fromJson(json),
+  //           );
+  //       return right(products);
+  //     }
+  //     return left(await responseOfStatusCode(response.statusCode));
+  //   } on DioException catch (e) {
+  //     return left(await responseOfStatusCode(e.response?.statusCode));
+  //   } catch (e) {
+  //     return left(e.toString());
+  //   }
+  // }
+
+  Future<Either<String, CategoryProduct>> getCategoryProducts(
+    int categoryId, {
+    int page = 1,
+  }) async {
+    // try {
+    final response = await getIt<Network>().postData(
+      ServicesConstants.categoryProductsEndPoint,
+      options: Options(
+        headers: {
+          'X-Category-Id': categoryId,
+          'X-Per-Page': AppConstants.perPage,
+          'X-Page': page,
+        },
+      ),
+    );
+    if (response.statusCode == 200) {
+      final resp = response.data;
+      CategoryProduct products = CategoryProduct.fromJson(resp);
+      return right(products);
     }
+    return left(await responseOfStatusCode(response.statusCode));
+    // } on DioException catch (e) {
+    //   return left(await responseOfStatusCode(e.response?.statusCode));
+    // } catch (e) {
+    //   return left(e.toString());
+    // }
   }
 
   Future<Either<String, List<SimplifiedProductModel>>> getListOfProducts(
@@ -362,6 +383,46 @@ class RemoteServices {
             .map((x) => x.toSimplifiedProduct())
             .toList();
         return right(simplifiedProducts);
+      }
+      return left(await responseOfStatusCode(response.statusCode));
+    } on DioException catch (e) {
+      return left(await responseOfStatusCode(e.response?.statusCode));
+    } catch (e) {
+      return left(e.toString());
+    }
+  }
+
+  Future<Either<String, List<TopBanner>>> getTopBanners() async {
+    try {
+      final response = await getIt<Network>().getData(
+        ServicesConstants.topBannersEndPoint,
+      );
+      if (response.statusCode == 200) {
+        final resp = response.data;
+        List<TopBanner> banners = (resp as List)
+            .map((x) => TopBanner.fromJson(x))
+            .toList();
+        return right(banners);
+      }
+      return left(await responseOfStatusCode(response.statusCode));
+    } on DioException catch (e) {
+      return left(await responseOfStatusCode(e.response?.statusCode));
+    } catch (e) {
+      return left(e.toString());
+    }
+  }
+
+  Future<Either<String, List<SliderBanner>>> getSliderBanners() async {
+    try {
+      final response = await getIt<Network>().getData(
+        ServicesConstants.sliderBannersEndPoint,
+      );
+      if (response.statusCode == 200) {
+        final resp = response.data;
+        List<SliderBanner> banners = (resp as List)
+            .map((x) => SliderBanner.fromJson(x))
+            .toList();
+        return right(banners);
       }
       return left(await responseOfStatusCode(response.statusCode));
     } on DioException catch (e) {

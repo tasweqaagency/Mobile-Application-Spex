@@ -4,6 +4,8 @@ import 'package:spex/core/helpers/colors/light_colors.dart';
 import 'package:spex/core/helpers/extentions/extentions.dart';
 import 'package:spex/core/routing/routing.dart';
 import 'package:spex/core/widgets/text_in_app_widget.dart';
+import 'package:easy_localization/easy_localization.dart';
+import 'package:spex/generated/locale_keys.g.dart';
 import 'package:spex/feature/orders/model/order_model.dart';
 import 'package:spex/feature/orders/presentation/widgets/order_card.dart';
 import 'package:spex/main.dart';
@@ -18,7 +20,7 @@ class OrdersListView extends StatelessWidget {
     if (orders.isEmpty) {
       return Center(
         child: TextInAppWidget(
-          text: "No orders found.",
+          text: LocaleKeys.orders_no_orders.tr(),
           textSize: 16,
           textColor: isDark
               ? AppColorsDark.appSecondTextColor

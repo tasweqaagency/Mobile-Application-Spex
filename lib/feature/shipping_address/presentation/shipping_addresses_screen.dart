@@ -24,7 +24,7 @@ class _ShippingAddressesScreenState extends State<ShippingAddressesScreen> {
   final List<AddressModel> _addresses = [
     AddressModel(
       id: "1",
-      title: "Home",
+      title: LocaleKeys.address_home.tr(),
       fullName: "Ahmed Mansour",
       streetAddress: "123 Tech Avenue, Silicon Heights",
       buildingApt: "Building 4, Apt 502",
@@ -34,7 +34,7 @@ class _ShippingAddressesScreenState extends State<ShippingAddressesScreen> {
     ),
     AddressModel(
       id: "2",
-      title: "Office",
+      title: LocaleKeys.address_office.tr(),
       fullName: "Ahmed Mansour",
       streetAddress: "Smart Village, Building B12",
       buildingApt: "SPEX Corporate Office, 2nd Floor",

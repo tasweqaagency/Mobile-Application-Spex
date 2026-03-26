@@ -21,10 +21,12 @@ import 'package:spex/feature/favorite/data/favorite_local_data_source.dart';
 import 'package:spex/feature/favorite/view_model/favorite_cubit.dart';
 import 'package:spex/feature/compare/view_model/compare_cubit.dart';
 import 'package:spex/feature/category/view_model/category_products_cubit/category_products_cubit.dart';
+import 'package:spex/feature/home/view_model/banner_cubit/banner_cubit.dart';
+import 'package:spex/feature/cart/view_model/cart_cubit.dart';
 
-import '../helpers/constants/constants.dart';
-import '../networking/local_cervices.dart';
-import '../routing/routing.dart';
+import 'package:spex/core/helpers/constants/constants.dart';
+import 'package:spex/core/networking/local_cervices.dart';
+import 'package:spex/core/routing/routing.dart';
 
 final getIt = GetIt.instance;
 
@@ -65,6 +67,7 @@ Future<void> setupGetIt() async {
   getIt.registerLazySingleton<CategoryCubit>(() => CategoryCubit());
   getIt.registerLazySingleton<BestSellerCubit>(() => BestSellerCubit());
   getIt.registerLazySingleton<PromotionsCubit>(() => PromotionsCubit());
+  getIt.registerLazySingleton<BannerCubit>(() => BannerCubit());
   getIt.registerFactory<ProductDetailsCubit>(() => ProductDetailsCubit());
   getIt.registerLazySingleton<FavoriteLocalDataSource>(
     () => FavoriteLocalDataSourceImpl(),
@@ -73,6 +76,7 @@ Future<void> setupGetIt() async {
     () => FavoriteCubit(getIt<FavoriteLocalDataSource>()),
   );
   getIt.registerLazySingleton<CompareCubit>(() => CompareCubit());
+  getIt.registerLazySingleton<CartCubit>(() => CartCubit());
   getIt.registerFactory<CategoryProductsCubit>(() => CategoryProductsCubit());
 
   getIt.registerFactory<LoginCubit>(() => LoginCubit());

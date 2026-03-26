@@ -1,4 +1,4 @@
-import '../model/user_model.dart';
+import 'package:spex/feature/authentication/model/user_model.dart';
 
 abstract class AuthState {}
 

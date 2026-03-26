@@ -7,26 +7,21 @@ import '../../../../core/helpers/constants/constants.dart';
 import '../../../../core/widgets/text_in_app_widget.dart';
 import '../../../../main.dart';
 
-class ProductColorWidget extends StatefulWidget {
+class ProductColorWidget extends StatelessWidget {
   final List<Color> colors;
+  final Color? selectedColor;
   final Function(Color) onColorSelected;
 
   const ProductColorWidget({
     super.key,
     required this.colors,
+    this.selectedColor,
     required this.onColorSelected,
   });
 
   @override
-  State<ProductColorWidget> createState() => _ProductColorWidgetState();
-}
-
-class _ProductColorWidgetState extends State<ProductColorWidget> {
-  Color? selectedColor;
-
-  @override
   Widget build(BuildContext context) {
-    if (widget.colors.isEmpty) return const SizedBox.shrink();
+    if (colors.isEmpty) return const SizedBox.shrink();
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -43,14 +38,11 @@ class _ProductColorWidgetState extends State<ProductColorWidget> {
         Wrap(
           spacing: 15,
           runSpacing: 15,
-          children: widget.colors.map((color) {
+          children: colors.map((color) {
             final isSelected = selectedColor == color;
             return GestureDetector(
               onTap: () {
-                setState(() {
-                  selectedColor = color;
-                });
-                widget.onColorSelected(color);
+                onColorSelected(color);
               },
               child: AnimatedContainer(
                 duration: const Duration(milliseconds: 200),
@@ -62,25 +54,24 @@ class _ProductColorWidgetState extends State<ProductColorWidget> {
                   border: Border.all(
                     color: isSelected
                         ? (isDark
-                              ? AppColorsDark.mainColor
-                              : AppColorsLight.mainColor)
+                            ? AppColorsDark.mainColor
+                            : AppColorsLight.mainColor)
                         : (isDark
-                              ? AppColorsDark.appSecondTextColor.withValues(
-                                  alpha: 0.3,
-                                )
-                              : AppColorsLight.appSecondTextColor.withValues(
-                                  alpha: 0.3,
-                                )),
+                            ? AppColorsDark.appSecondTextColor.withValues(
+                                alpha: 0.3,
+                              )
+                            : AppColorsLight.appSecondTextColor.withValues(
+                                alpha: 0.3,
+                              )),
                     width: isSelected ? 3 : 1,
                   ),
                   boxShadow: [
                     if (isSelected)
                       BoxShadow(
-                        color:
-                            (isDark
-                                    ? AppColorsDark.mainColor
-                                    : AppColorsLight.mainColor)
-                                .withValues(alpha: 0.5),
+                        color: (isDark
+                                ? AppColorsDark.mainColor
+                                : AppColorsLight.mainColor)
+                            .withValues(alpha: 0.5),
                         blurRadius: 10,
                         spreadRadius: 2,
                       )

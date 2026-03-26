@@ -1,6 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:shimmer/shimmer.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:spex/core/helpers/colors/light_colors.dart';
 
 class NetworkImageWidget extends StatelessWidget {
@@ -35,31 +36,55 @@ class NetworkImageWidget extends StatelessWidget {
         ),
       );
     }
-    return ClipRRect(
-      borderRadius: borderRadius ?? BorderRadius.zero,
-      child: CachedNetworkImage(
+
+    final bool isSvg = imageUrl.toLowerCase().contains('.svg');
+
+    Widget image;
+    if (isSvg) {
+      image = SvgPicture.network(
+        imageUrl,
+        width: width,
+        height: height,
+        fit: fit,
+        placeholderBuilder: (context) => _buildPlaceholder(),
+      );
+    } else {
+      image = CachedNetworkImage(
         imageUrl: imageUrl,
         width: width,
         height: height,
         fit: fit,
-        placeholder: (context, url) => Shimmer.fromColors(
-          baseColor: AppColorsLight.spexGrayColor,
-          highlightColor: AppColorsLight.whiteColor,
-          child: Container(
-            width: width ?? double.infinity,
-            height: height ?? double.infinity,
-            color: Colors.white,
-          ),
-        ),
-        errorWidget: (context, url, error) => Container(
-          width: width ?? double.infinity,
-          height: height ?? double.infinity,
-          color: AppColorsLight.spexGrayColor,
-          child: const Icon(
-            Icons.error_outline,
-            color: AppColorsLight.black50Color,
-          ),
-        ),
+        placeholder: (context, url) => _buildPlaceholder(),
+        errorWidget: (context, url, error) => _buildErrorWidget(),
+      );
+    }
+
+    return ClipRRect(
+      borderRadius: borderRadius ?? BorderRadius.zero,
+      child: image,
+    );
+  }
+
+  Widget _buildPlaceholder() {
+    return Shimmer.fromColors(
+      baseColor: AppColorsLight.spexGrayColor,
+      highlightColor: AppColorsLight.whiteColor,
+      child: Container(
+        width: width ?? double.infinity,
+        height: height ?? double.infinity,
+        color: Colors.white,
+      ),
+    );
+  }
+
+  Widget _buildErrorWidget() {
+    return Container(
+      width: width ?? double.infinity,
+      height: height ?? double.infinity,
+      color: AppColorsLight.spexGrayColor,
+      child: const Icon(
+        Icons.error_outline,
+        color: AppColorsLight.black50Color,
       ),
     );
   }

@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:spex/core/helpers/colors/dark_colors.dart';
 import 'package:spex/core/helpers/colors/light_colors.dart';
 import 'package:spex/core/helpers/constants/constants.dart';
+import 'package:spex/core/helpers/extentions/extentions.dart';
+import 'package:spex/core/widgets/snakbar.dart';
 import 'package:spex/core/widgets/text_in_app_widget.dart';
 import 'package:spex/feature/home/model/product_model.dart';
 import 'package:spex/feature/home/presentation/widgets/product_icon_botton_widget.dart';
@@ -16,6 +18,10 @@ import 'package:spex/feature/favorite/view_model/favorite_cubit.dart';
 import 'package:spex/feature/favorite/view_model/favorite_state.dart';
 import 'package:spex/feature/compare/view_model/compare_cubit.dart';
 import 'package:spex/feature/compare/view_model/compare_state.dart';
+import 'package:spex/feature/cart/view_model/cart_cubit.dart';
+import 'package:spex/feature/cart/model/cart_item.dart';
+import 'package:spex/feature/product_details/model/mini_product_model.dart';
+import 'package:spex/feature/product_details/presentation/widgets/variation_selection_dialog.dart';
 
 class ProductCard extends StatelessWidget {
   final SimplifiedProductModel product;
@@ -122,7 +128,7 @@ class ProductCard extends StatelessWidget {
                 bottom: 2,
                 right: 2,
                 child: InkWell(
-                  onTap: () {},
+                  onTap: () => _handleAddToCart(context, product),
                   child: CircleAvatar(
                     radius: 20,
                     backgroundColor: isDark
@@ -272,4 +278,63 @@ class ProductCard extends StatelessWidget {
       ),
     );
   }
+
+  void _handleAddToCart(BuildContext context, SimplifiedProductModel product) async {
+    bool hasVariations = product.variations != null && product.variations!.isNotEmpty;
+    bool hasColorOrSize = product.colors.isNotEmpty || product.availableSizes.isNotEmpty;
+
+    if (hasVariations || hasColorOrSize) {
+      // Show variation selection dialog
+      final result = await showDialog<Map<String, dynamic>>(
+        context: context,
+        builder: (context) => VariationSelectionDialog(product: product),
+      );
+
+      if (result != null) {
+        final selectedVariation = result['variation'] as Variations?;
+        final selectedColorObj = result['color'] as Color?;
+        final selectedSize = result['size'] as String?;
+
+        // 🚨 STOCK CHECK: Variations
+        if (selectedVariation != null && selectedVariation.stockStatus != StockStatus.instock.name) {
+          AppSnackBar.showError(LocaleKeys.home_out_of_stock.tr());
+          return;
+        }
+
+        String? colorLabel;
+        if (selectedColorObj != null) {
+          int index = product.colors.indexOf(selectedColorObj);
+          if (index != -1 && index < product.colorNames.length) {
+            colorLabel = product.colorNames[index];
+          }
+        }
+
+        final cartItem = product.toCartItem(
+          selectedVariation: selectedVariation,
+          forcedColor: colorLabel,
+          forcedSize: selectedSize,
+        );
+
+        if (context.mounted) {
+          context.read<CartCubit>().addToCart(cartItem);
+          AppSnackBar.showSuccess(LocaleKeys.cart_added_to_cart_success.tr());
+        }
+      }
+    } else {
+      // Simple product
+      // 🚨 STOCK CHECK: Simple Product
+      if (!product.inStock) {
+        AppSnackBar.showError(LocaleKeys.home_out_of_stock.tr());
+        return;
+      }
+
+      final cartItem = product.toCartItem();
+      if (context.mounted) {
+        context.read<CartCubit>().addToCart(cartItem);
+        AppSnackBar.showSuccess(LocaleKeys.cart_added_to_cart_success.tr());
+      }
+    }
+  }
+
+
 }

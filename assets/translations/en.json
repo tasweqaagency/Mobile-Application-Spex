@@ -45,7 +45,11 @@
     "related_products": "Related Products",
     "total_price": "total price",
     "select_color": "Select Color",
-    "select_size": "Select Size"
+    "select_size": "Select Size",
+    "select_variation": "Select Variation",
+    "price": "Price",
+    "color": "Color",
+    "size": "Size"
   },
   "cart": {
     "delivery_address": "Delivery Address",
@@ -65,13 +69,17 @@
     "enter_coupon_code": "Enter coupon code",
     "apply": "apply",
     "cancel": "cancel",
-    "sar": "SAR"
+    "sar": "SAR",
+    "add_to_cart": "Add to Cart",
+    "added_to_cart_success": "Added to cart successfully",
+    "empty_message": "Your cart is empty"
   },
   "orders": {
     "order_history": "Order History",
     "all_orders": "All Orders",
     "in_transit": "In Transit",
     "completed": "Completed",
+    "no_orders": "No orders found.",
     "order_details": "Order Details",
     "order_id": "Order ID",
     "placed_on": "Placed on",
@@ -87,6 +95,10 @@
     "shipping_fee": "Shipping Fee",
     "grand_total": "Grand Total",
     "quantity": "Quantity"
+  },
+  "notifications": {
+    "title": "Notifications",
+    "no_notifications": "No notifications yet"
   },
   "address": {
     "shipping_addresses": "Shipping Addresses",

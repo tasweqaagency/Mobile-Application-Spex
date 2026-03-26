@@ -25,16 +25,29 @@ class ServicesConstants {
   static String consumerKey = "ck_41f208124a533bae17da18ad55dd080a2387918e";
   static String consumerSecret = "cs_88435eac44ab81115d95850db10598a5028f2720";
 
+  /// Auth
   static String loginEndPoint = "${apiMobileVersion}login";
   static String registerEndPoint = "${apiMobileVersion}register";
+
+  /// Products
   static String getProductsEndPoint = "${apiVersion}products";
-  static String getBestSellersEndPoint = "${apiCustomVersion}best-selling-products";
+  static String getBestSellersEndPoint =
+      "${apiCustomVersion}best-selling-products";
   static String getPromotionsEndPoint = "${apiCustomVersion}discount-products";
   // static String getProductDetailsEndPoint ="${apiVersion}products";
-  static String getCategoriesEndPoint = "${apiVersion}products/categories";
-  static String searchEndPoint = "${apiMobileVersion}search";
-  static String categoryProductsEndPoint = "${apiCustomVersion}category-products";
   static String productsListEndPoint = "${apiMobileVersion}products-by-ids";
+
+  /// Search
+  static String searchEndPoint = "${apiMobileVersion}search";
+
+  /// Categories
+  static String getCategoriesEndPoint = "${apiVersion}products/categories";
+  // static String categoryProductsEndPoint ="${apiCustomVersion}category-products";
+  static String categoryProductsEndPoint ="${apiCustomVersion}category-products";
+
+  /// Banners
+  static String topBannersEndPoint = "${apiMobileVersion}top-banners";
+  static String sliderBannersEndPoint = "${apiMobileVersion}banners";
 
   static const String USER_TEXT = "spex_user";
   static const String PASSWORD_TEXT = "spex_password";

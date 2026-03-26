@@ -11,6 +11,7 @@ import 'package:spex/core/helpers/themes/theme_cubit.dart';
 import 'package:spex/feature/category/view_model/category_cubit/category_cubit.dart';
 import 'package:spex/feature/home/view_model/best_seller_cubit/best_seller_cubit.dart';
 import 'package:spex/feature/home/view_model/promotions_cubit/promotions_cubit.dart';
+import 'package:spex/feature/home/view_model/banner_cubit/banner_cubit.dart';
 import 'package:spex/feature/layout/view_model/layout_cubit/layout_cubit.dart';
 import 'bloc_observer.dart';
 import 'core/di/sl.dart';
@@ -21,6 +22,7 @@ import 'feature/authentication/model/user_model.dart';
 import 'feature/authentication/view_model/auth_cubit.dart';
 import 'package:spex/feature/favorite/view_model/favorite_cubit.dart';
 import 'package:spex/feature/compare/view_model/compare_cubit.dart';
+import 'package:spex/feature/cart/view_model/cart_cubit.dart';
 
 bool isOnBoarding = false;
 bool isDark = false;
@@ -101,6 +103,10 @@ class Spex extends StatelessWidget {
           lazy: false,
           create: (context) => getIt<PromotionsCubit>()..getPromotions(),
         ),
+        BlocProvider<BannerCubit>(
+          lazy: false,
+          create: (context) => getIt<BannerCubit>()..getBanners(),
+        ),
         BlocProvider<FavoriteCubit>(
           lazy: false,
           create: (context) => getIt<FavoriteCubit>()..getFavorites(),
@@ -108,6 +114,9 @@ class Spex extends StatelessWidget {
         BlocProvider<CompareCubit>(
           lazy: false,
           create: (context) => getIt<CompareCubit>()..getComparedProducts(),
+        ),
+        BlocProvider<CartCubit>(
+          create: (context) => getIt<CartCubit>(),
         ),
       ],
       child: ScreenUtilInit(

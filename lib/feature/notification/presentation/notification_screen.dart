@@ -5,7 +5,8 @@ import 'package:spex/feature/home/presentation/widgets/my_appbar.dart';
 import 'package:spex/feature/notification/data/model/notification_model.dart';
 import 'package:spex/feature/notification/presentation/widgets/notification_item.dart';
 import 'package:spex/main.dart';
-
+import 'package:easy_localization/easy_localization.dart';
+import 'package:spex/generated/locale_keys.g.dart';
 import 'package:spex/core/widgets/text_in_app_widget.dart';
 
 class NotificationScreen extends StatefulWidget {
@@ -54,14 +55,14 @@ class _NotificationScreenState extends State<NotificationScreen> {
       backgroundColor: isDark
           ? AppColorsDark.appBgColor
           : AppColorsLight.appBgColor,
-      appBar: const MyAppBarWithBackButton(
-        title: "Notification",
+      appBar: MyAppBarWithBackButton(
+        title: LocaleKeys.notifications_title.tr(),
         showSearch: false,
       ),
       body: notifications.isEmpty
           ? Center(
               child: TextInAppWidget(
-                text: "No notifications yet",
+                text: LocaleKeys.notifications_no_notifications.tr(),
                 textSize: 16,
                 textColor: isDark ? Colors.white : AppColorsLight.darkColor,
               ),

@@ -1,14 +1,15 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:spex/core/helpers/colors/dark_colors.dart';
 import 'package:spex/core/helpers/colors/light_colors.dart';
 import 'package:spex/core/helpers/constants/constants.dart';
 import 'package:spex/core/helpers/extentions/extentions.dart';
 import 'package:spex/core/routing/routing.dart';
 import 'package:spex/core/widgets/text_in_app_widget.dart';
-import 'package:spex/feature/home/model/home_mock_data.dart';
+import 'package:spex/feature/home/presentation/widgets/top_banners_widget.dart';
+import 'package:spex/feature/home/view_model/banner_cubit/banner_cubit.dart';
+import 'package:spex/feature/home/view_model/banner_cubit/banner_state.dart';
 import 'package:spex/feature/home/presentation/widgets/category_card.dart';
 import 'package:spex/feature/home/presentation/widgets/my_appbar.dart';
 import 'package:spex/feature/home/presentation/widgets/product_card.dart';
@@ -18,8 +19,6 @@ import 'package:spex/feature/category/view_model/category_cubit/category_cubit.d
 import 'package:spex/feature/category/view_model/category_cubit/category_state.dart';
 import 'package:spex/feature/home/view_model/best_seller_cubit/best_seller_cubit.dart';
 import 'package:spex/feature/home/view_model/best_seller_cubit/best_seller_state.dart';
-import 'package:spex/feature/home/view_model/promotions_cubit/promotions_cubit.dart';
-import 'package:spex/feature/home/view_model/promotions_cubit/promotions_state.dart';
 import 'package:spex/feature/layout/view_model/layout_cubit/layout_cubit.dart';
 import 'package:spex/generated/locale_keys.g.dart';
 import 'package:spex/main.dart';
@@ -36,18 +35,8 @@ class HomeScreen extends StatelessWidget {
       body: CustomScrollView(
         slivers: [
           MyHomeAppBar(),
-          SliverToBoxAdapter(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: [
-                SvgPicture.asset(
-                  "assets/images/final-mob.svg",
-                  height: 60,
-                  width: double.infinity,
-                  fit: BoxFit.fill,
-                ),
-              ],
-            ),
+          const SliverToBoxAdapter(
+            child: TopBannersWidget(),
           ),
           SliverToBoxAdapter(
             child: Padding(
@@ -55,7 +44,23 @@ class HomeScreen extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  PromoBanner(items: HomeMockData.banners),
+                  BlocBuilder<BannerCubit, BannerState>(
+                    builder: (context, state) {
+                      if (state is BannerLoadingState) {
+                        return SizedBox(
+                          height: MediaQuery.of(context).size.height * 0.18 + 20,
+                          child: const Center(
+                            child: CircularProgressIndicator(
+                              color: AppColorsLight.mainColor,
+                            ),
+                          ),
+                        );
+                      } else if (state is BannerLoadedState && state.sliderBanners.isNotEmpty) {
+                        return PromoBanner(items: state.sliderBanners);
+                      }
+                      return const SizedBox.shrink();
+                    },
+                  ),
                   SizedBox(height: 24),
                   SectionHeader(
                     title: LocaleKeys.home_categories.tr(),
@@ -105,7 +110,9 @@ class HomeScreen extends StatelessWidget {
                   SectionHeader(
                     title: LocaleKeys.home_best_seller.tr(),
                     actionText: LocaleKeys.home_more.tr(),
-                    onActionPressed: () {},
+                    onActionPressed: () {
+                      context.pushNamed(Routes.bestSellerProductsScreen);
+                    },
                   ),
                   SizedBox(height: 12),
                   SizedBox(

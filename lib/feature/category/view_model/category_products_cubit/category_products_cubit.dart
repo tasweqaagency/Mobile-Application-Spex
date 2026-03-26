@@ -9,14 +9,12 @@ class CategoryProductsCubit extends Cubit<CategoryProductsState> {
   Future<void> getCategoryProducts(
     int categoryId, {
     int page = 1,
-    int perPage = 10,
   }) async {
     emit(CategoryProductsLoadingState());
-    try {
+    // try {
       final result = await getIt<RemoteServices>().getCategoryProducts(
         categoryId,
         page: page,
-        perPage: perPage,
       );
       result.fold(
         (failure) {
@@ -26,8 +24,8 @@ class CategoryProductsCubit extends Cubit<CategoryProductsState> {
           emit(CategoryProductsLoadedState(products));
         },
       );
-    } catch (e) {
-      emit(CategoryProductsErrorState(e.toString()));
-    }
+    // } catch (e) {
+    //   emit(CategoryProductsErrorState(e.toString()));
+    // }
   }
 }

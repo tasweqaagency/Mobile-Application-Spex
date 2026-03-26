@@ -12,6 +12,8 @@ import 'package:spex/feature/authentication/view_model/login_cubit/login_cubit.d
 import 'package:spex/feature/authentication/view_model/otp_cubit/otp_cubit.dart';
 import 'package:spex/feature/authentication/view_model/register_cubit/register_cubit.dart';
 import 'package:spex/feature/favorite/presentation/favorite_screen.dart';
+import 'package:spex/feature/home/presentation/best_seller_products_screen.dart';
+import 'package:spex/feature/home/view_model/best_seller_cubit/best_seller_cubit.dart';
 import 'package:spex/feature/notification/presentation/notification_screen.dart';
 import 'package:spex/core/widgets/navigate_to_page_widget.dart';
 import 'package:spex/feature/category/presentation/category_screen.dart';
@@ -50,6 +52,7 @@ class Routes {
   static const privacyPolicyScreen = '/privacyPolicy';
   static const termsOfServiceScreen = '/termsOfService';
   static const categoryProductsScreen = '/categoryProducts';
+  static const bestSellerProductsScreen = '/bestSellerProducts';
 }
 
 class AppRouter {
@@ -93,6 +96,13 @@ class AppRouter {
             child: const ChangePasswordScreen(),
           ),
         );
+      case Routes.bestSellerProductsScreen:
+        return NavigateToPageWidget(
+          BlocProvider(
+            create: (_) => getIt<BestSellerCubit>(),
+            child: const BestSellerProductsScreen(),
+          ),
+        );
 
       // case Routes.productsScreen:
       //   if (getIt.isRegistered<CreateOrderCubit>()) {
@@ -117,9 +127,12 @@ class AppRouter {
         final product = arguments as SimplifiedProductModel;
         return NavigateToPageWidget(
           BlocProvider(
-            create: (context) =>
-                getIt<ProductDetailsCubit>()..getProductDetails(product.sku.isEmpty?product.id.toString():product.sku),
-            child: ProductDetailsScreen(product: product),
+            create: (context) => getIt<ProductDetailsCubit>()
+              // ..initializeProduct(product)
+              ..getProductDetails(product.sku.isEmpty
+                  ? product.id.toString()
+                  : product.sku),
+            child: const ProductDetailsScreen(),
           ),
         );
       case Routes.searchScreen:

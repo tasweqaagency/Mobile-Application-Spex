@@ -71,18 +71,18 @@ class CategoryCard extends StatelessWidget {
                 isEllipsisTextOverflow: true,
               ),
             ),
-            const SizedBox(height: 4),
-            Flexible(
-              child: TextInAppWidget(
-                text:
-                    '${category.productCount} ${LocaleKeys.home_products.tr()}',
-                textSize: 11,
-                textColor: isDark
-                    ? AppColorsDark.appSecondTextColor
-                    : AppColorsLight.appSecondTextColor,
-                isEllipsisTextOverflow: true,
-              ),
-            ),
+            // const SizedBox(height: 4),
+            // Flexible(
+            //   child: TextInAppWidget(
+            //     text:
+            //         '${category.productCount} ${LocaleKeys.home_products.tr()}',
+            //     textSize: 11,
+            //     textColor: isDark
+            //         ? AppColorsDark.appSecondTextColor
+            //         : AppColorsLight.appSecondTextColor,
+            //     isEllipsisTextOverflow: true,
+            //   ),
+            // ),
           ],
         ),
       ),

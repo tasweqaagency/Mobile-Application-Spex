@@ -1,7 +1,7 @@
 import 'dart:async';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:spex/core/networking/remote_services.dart';
-import 'package:spex/feature/search/model/search_item_model.dart';
+import 'package:spex/feature/product_details/model/mini_product_model.dart';
 
 part 'search_state.dart';
 

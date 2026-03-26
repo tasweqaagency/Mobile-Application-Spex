@@ -45,7 +45,11 @@
     "related_products": "المنتجات ذات الصلة",
     "total_price": "السعر الإجمالي",
     "select_color": "اختار اللون",
-    "select_size": "اختار المقاس"
+    "select_size": "اختار المقاس",
+    "select_variation": "اختر مقاس/لون",
+    "price": "السعر الاجمالي",
+    "color": "اللون",
+    "size": "المقاس"
   },
   "cart": {
     "delivery_address": "عنوان التوصيل",
@@ -65,13 +69,17 @@
     "enter_coupon_code": "أدخل رمز الكوبون",
     "apply": "تطبيق",
     "cancel": "إلغاء",
-    "sar": "ر.س"
+    "sar": "ر.س",
+    "add_to_cart": "أضف إلى السلة",
+    "added_to_cart_success": "تمت الإضافة إلى السلة بنجاح",
+    "empty_message": "عربة التسوق فارغة"
   },
   "orders": {
     "order_history": "سجل الطلبات",
     "all_orders": "كل الطلبات",
     "in_transit": "قيد التوصيل",
     "completed": "المكتملة",
+    "no_orders": "لا توجد طلبات.",
     "order_details": "تفاصيل الطلب",
     "order_id": "رقم الطلب",
     "placed_on": "تم الطلب في",
@@ -87,6 +95,10 @@
     "shipping_fee": "رسوم الشحن",
     "grand_total": "الإجمالي الكلي",
     "quantity": "الكمية"
+  },
+  "notifications": {
+    "title": "الإشعارات",
+    "no_notifications": "لا توجد إشعارات"
   },
   "address": {
     "shipping_addresses": "عناوين الشحن",
